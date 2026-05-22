@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Relatórios - Biblioteca Digital</title></head>
+<body>
+    <h1>Métricas do Sistema</h1>
+    <p>Total de Empréstimos: {{ total_emprestimos }}</p>
+    <h2>Top 5 Livros</h2>
+    <ul>
+        {% for livro in top_livros %}
+        <li>{{ livro.titulo }}: {{ livro.total }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

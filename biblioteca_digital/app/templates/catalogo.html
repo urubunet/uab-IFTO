@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Catálogo - Biblioteca Digital</title></head>
+<body>
+    <h1>Catálogo de Livros</h1>
+    <ul>
+        {% for livro in livros %}
+        <li>{{ livro.titulo }} - {{ livro.autor }} ({{ livro.status }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
