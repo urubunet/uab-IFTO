@@ -10,22 +10,26 @@ class UsuarioModel:
 
     def salvar(self):
         conn = conectar_db()
-        cursor = conn.cursor()
-        cursor.execute(
-            'INSERT INTO Usuarios (nome, email, senha_hash, papel) VALUES (?, ?, ?, ?)',
-            (self.nome, self.email, self.senha_hash, self.papel)
-        )
-        self.id = cursor.lastrowid
-        conn.commit()
-        conn.close()
+        try:
+            cursor = conn.cursor()
+            cursor.execute(
+                'INSERT INTO Usuarios (nome, email, senha_hash, papel) VALUES (?, ?, ?, ?)',
+                (self.nome, self.email, self.senha_hash, self.papel)
+            )
+            self.id = cursor.lastrowid
+            conn.commit()
+        finally:
+            conn.close()
 
     @staticmethod
     def buscar_por_email(email):
         conn = conectar_db()
-        cursor = conn.cursor()
-        cursor.execute('SELECT * FROM Usuarios WHERE email = ?', (email,))
-        row = cursor.fetchone()
-        conn.close()
-        if row:
-            return UsuarioModel(row['id'], row['nome'], row['email'], row['senha_hash'], row['papel'])
+        try:
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM Usuarios WHERE email = ?', (email,))
+            row = cursor.fetchone()
+            if row:
+                return UsuarioModel(row['id'], row['nome'], row['email'], row['senha_hash'], row['papel'])
+        finally:
+            conn.close()
         return None

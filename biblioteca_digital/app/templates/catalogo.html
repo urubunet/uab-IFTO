@@ -1,12 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head><title>Catálogo - Biblioteca Digital</title></head>
-<body>
-    <h1>Catálogo de Livros</h1>
-    <ul>
-        {% for livro in livros %}
-        <li>{{ livro.titulo }} - {{ livro.autor }} ({{ livro.status }})</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Catálogo - Biblioteca Digital{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card p-3">
+            <form action="{{ url_for('livro.listar_livros') }}" method="GET" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" name="titulo" class="form-control" placeholder="Título" value="{{ request.args.get('titulo', '') }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="autor" class="form-control" placeholder="Autor" value="{{ request.args.get('autor', '') }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="categoria" class="form-control" placeholder="Categoria" value="{{ request.args.get('categoria', '') }}">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for livro in livros %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ livro.titulo }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ livro.autor }}</h6>
+                <p class="card-text"><span class="badge bg-secondary">{{ livro.categoria }}</span></p>
+                <p class="card-text">
+                    Status: 
+                    {% if livro.status == 'DISPONIVEL' %}
+                        <span class="badge bg-success">Disponível</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Emprestado</span>
+                    {% endif %}
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                {% if session.get('papel') == 'LEITOR' and livro.status == 'DISPONIVEL' %}
+                    <form action="{{ url_for('emprestimo.solicitar_emprestimo') }}" method="POST">
+                        <input type="hidden" name="livro_id" value="{{ livro.id }}">
+                        <button type="submit" class="btn btn-outline-primary btn-sm w-100">Solicitar Empréstimo</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center py-5">
+        <p class="text-muted">Nenhum livro encontrado no catálogo.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if session.get('papel') in ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL'] %}
+<div class="fixed-bottom p-4 text-end">
+    <a href="{{ url_for('livro.admin_dashboard') }}" class="btn btn-dark shadow">Gerenciar Acervo</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -130,9 +130,24 @@ ROTA POST /cadastrar-leitor:
 RECEBER nome, email, senha
 CRIAR hash da senha
 SALVAR usuario_model com papel 'LEITOR'
-ROTA GET /logout:
-LIMPAR sessão
-REDIRECIONAR login
+
+## Interface Web (UI)
+
+---
+
+`biblioteca_digital/app/templates/`
+
+* **layout.html**: Estrutura base com Navbar dinâmica.
+* **login.html**: Interface de autenticação.
+* **cadastro_leitor.html**: Interface de autocadastro.
+* **catalogo.html**: Catálogo interativo com filtros e botões de ação.
+* **admin_dashboard.html**: Painel de gestão para administradores e bibliotecários.
+* **relatorios.html**: Dashboard de métricas do sistema.
+
+### Regras de UI por Papel:
+- **LEITOR**: Vê botão "Solicitar Empréstimo" no catálogo.
+- **BIBLIOTECARIO/ADMIN**: Vê botão "Gerenciar Acervo", pode aprovar empréstimos e cadastrar livros.
+- **DESLOGADO**: Vê apenas catálogo sem ações de empréstimo.
 
 `biblioteca_digital/app/controllers/admin_controller.py`
 

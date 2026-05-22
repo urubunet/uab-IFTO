@@ -1,14 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head><title>Relatórios - Biblioteca Digital</title></head>
-<body>
-    <h1>Métricas do Sistema</h1>
-    <p>Total de Empréstimos: {{ total_emprestimos }}</p>
-    <h2>Top 5 Livros</h2>
-    <ul>
-        {% for livro in top_livros %}
-        <li>{{ livro.titulo }}: {{ livro.total }}</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Relatórios - Biblioteca Digital{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2 class="mb-4">Dashboard de Relatórios</h2>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Total de Empréstimos</h5>
+                <p class="display-4">{{ total_emprestimos }}</p>
+                <p class="card-text">Registrados desde o início</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 p-3">
+            <h5>Top 5 Livros</h5>
+            <hr>
+            <ul class="list-group list-group-flush">
+                {% for livro in top_livros %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ livro.titulo }}
+                    <span class="badge bg-primary rounded-pill">{{ livro.total }}</span>
+                </li>
+                {% else %}
+                <li class="list-group-item text-muted text-center">Sem dados suficientes</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 p-3">
+            <h5>Distribuição por Categoria</h5>
+            <hr>
+            <ul class="list-group list-group-flush">
+                {% for cat in distribuicao_categorias %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ cat.categoria }}
+                    <span class="badge bg-secondary rounded-pill">{{ cat.total }}</span>
+                </li>
+                {% else %}
+                <li class="list-group-item text-muted text-center">Sem dados suficientes</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
