@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Meus Empréstimos - Biblioteca Digital{% endblock %}
+{% block content %}
+<h2 class="mb-4">Meu Histórico de Empréstimos</h2>
+<div class="card p-4 shadow-sm">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Livro</th>
+                <th>Status</th>
+                <th>Data Pedido</th>
+                <th>Data Devolução</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in emprestimos %}
+            <tr>
+                <td>{{ emp.titulo }}</td>
+                <td>{{ emp.status }}</td>
+                <td>{{ emp.data_solicitacao }}</td>
+                <td>{{ emp.data_devolucao or '-' }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="text-center text-muted">Nenhum empréstimo registrado.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -41,19 +41,19 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 ## 4. Controladores (Controllers)
 
 ### Gerenciamento Administrativo (AdminController)
-- **Cadastro de Bibliotecário**:
-    - **Endpoint**: `POST /admin/cadastrar-bibliotecario`
-    - **Regra**: O sistema deve permitir o cadastro de novos bibliotecários apenas por usuários com papel `ADMIN_INICIAL` ou `ADMIN`.
-    - **Acesso ao Menu**: A opção "Cadastrar Bibliotecário" deve estar visível no menu superior apenas para usuários com papel `ADMIN_INICIAL` ou `ADMIN`.
+## Gerenciamento de Usuários
+- **Cadastro de Administrador**: Permitir cadastro de novos administradores apenas por usuários com papel `ADMIN_INICIAL` ou `ADMIN`.
+- **Listagem de Usuários**: Exibir nome, data de cadastro e papel, com opções para editar e excluir.
+- **Acesso ao Menu**: 
+    - "Cadastrar Admins" e "Usuários": Visível apenas para `ADMIN` ou `ADMIN_INICIAL`.
+    - "Usuários": Visível também para `BIBLIOTECARIO`.
 
-ROTA GET /admin/cadastrar-bibliotecario:
-VERIFICAR permissao ('ADMIN_INICIAL', 'ADMIN')
-RENDERIZAR template 'cadastrar_bibliotecario.html'
+## Gerenciamento de Acervo
+- **Exclusão de Livros**: Permitir exclusão de livros, desde que o livro não esteja com status 'EMPRESTADO'.
 
-ROTA POST /admin/cadastrar-bibliotecario:
-VERIFICAR permissao ('ADMIN_INICIAL', 'ADMIN')
-RECEBER dados, SALVAR usuario_model com papel 'BIBLIOTECARIO'
-REDIREICIONAR para dashboard
+## Funcionalidades para Leitores
+- **Meus Empréstimos**: Listar todos os empréstimos realizados pelo leitor logado.
+
 
 ## 5. Variáveis de Ambiente (.env)
 - `SECRET_KEY`: Chave mestre para criptografia de sessão.

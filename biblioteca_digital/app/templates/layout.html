@@ -33,15 +33,26 @@
                         <a class="nav-link" href="{{ url_for('emprestimo.buscar_devolucoes_view') }}">Buscar Devoluções</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.listar_usuarios') }}">Usuários</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('livro.cadastrar_view') }}">Cadastrar Livro</a>
                     </li>
                     {% if session.get('papel') in ['ADMIN', 'ADMIN_INICIAL'] %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('admin.cadastrar_biblio_view') }}">Cadastrar Bibliotecário</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.cadastrar_admin') }}">Cadastrar Admins</a>
+                    </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('relatorio.gerar_relatorios') }}">Relatórios</a>
+                    </li>
+                    {% endif %}
+                    {% if session.get('papel') == 'LEITOR' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('emprestimo.meus_emprestimos') }}">Meus Empréstimos</a>
                     </li>
                     {% endif %}
                 </ul>

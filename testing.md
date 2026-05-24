@@ -70,6 +70,10 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | T-ADM-04 | Cadastrar Livro UI | Validar se o formulário dedicado de cadastro de livro salva no banco. | Integração |
 | T-ADM-05 | Excluir Solicitação | Validar se admin/biblio pode excluir uma solicitação pendente e liberar o livro. | Integração |
 | T-ADM-06 | Cadastrar Bibliotecário (Permissão)| Garantir que 'Cadastrar Bibliotecário' aparece e funciona apenas para ADMIN/ADMIN_INICIAL. | Integração |
+| T-USR-01 | Cadastro Admin | Validar criação de ADMIN por ADMIN existente. | Integração |
+| T-USR-02 | Listar Usuários | Verificar se a tabela de usuários lista corretamente nomes e papéis. | Integração |
+| T-BOOK-03 | Excluir Livro | Validar exclusão de livro disponível, impedir exclusão de emprestado. | Integração |
+| T-READ-01 | Meus Empréstimos | Validar se o leitor vê apenas seus próprios empréstimos. | Integração |
 | T-DB-01 | Seeding Automático | Verificar se o sistema carrega 30 livros automaticamente ao iniciar. | Integração |
 
 ### 2.9 Segurança Moderada (Prioridade: ALTA)

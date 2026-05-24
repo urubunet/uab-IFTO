@@ -82,6 +82,28 @@ def excluir_solicitacao():
     
     return redirect(url_for('emprestimo.gerenciar_view'))
 
+@emprestimo_bp.route('/emprestimo/meus', methods=['GET'])
+def meus_emprestimos():
+    if not LibraryService.verificar_permissao(['LEITOR']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    usuario_id = session.get('usuario_id')
+    conn = conectar_db()
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        SELECT L.titulo, E.status, E.data_solicitacao, E.data_devolucao
+        FROM Emprestimos E
+        JOIN Livros L ON E.livro_id = L.id
+        WHERE E.usuario_id = ?
+        ORDER BY E.data_solicitacao DESC
+    ''', (usuario_id,))
+    emprestimos = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    return render_template('meus_emprestimos.html', emprestimos=emprestimos)
+
 @emprestimo_bp.route('/emprestimo/solicitar', methods=['POST'])
 def solicitar_emprestimo():
     if not LibraryService.verificar_permissao(['LEITOR']):
