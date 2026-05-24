@@ -42,6 +42,7 @@
             <div class="card-footer bg-transparent border-top-0">
                 {% if session.get('papel') == 'LEITOR' and livro.status == 'DISPONIVEL' %}
                     <form action="{{ url_for('emprestimo.solicitar_emprestimo') }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="livro_id" value="{{ livro.id }}">
                         <button type="submit" class="btn btn-outline-primary btn-sm w-100">Solicitar Empréstimo</button>
                     </form>

@@ -45,10 +45,13 @@ def cadastrar_leitor():
     senha = data.get('senha')
     
     if UsuarioModel.buscar_por_email(email):
-        flash('Email já cadastrado', 'warning')
-        return redirect(url_for('auth.cadastro_view'))
+        # Evitar enumeração: mesma mensagem de sucesso, mas sem criar conta
+        # Ou manter mensagem de aviso mas ciente do risco. 
+        # O requisito vulnProf.md pediu para evitar enumeração.
+        flash('Se os dados estiverem corretos, você receberá uma confirmação.', 'success')
+        return redirect(url_for('auth.login_view'))
         
-    senha_hash = hashlib.sha256(senha.encode()).hexdigest()
+    senha_hash = generate_password_hash(senha)
     novo_usuario = UsuarioModel(nome=nome, email=email, senha_hash=senha_hash, papel='LEITOR')
     novo_usuario.salvar()
     

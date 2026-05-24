@@ -7,6 +7,7 @@
             <h4>Cadastrar Novo Livro</h4>
             <hr>
             <form action="{{ url_for('livro.cadastrar_livro') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <div class="mb-3">
                     <label class="form-label">Título</label>
                     <input type="text" name="titulo" class="form-control" required>
@@ -53,11 +54,13 @@
                             <td>
                                 {% if emp.status == 'SOLICITADO' %}
                                     <form action="{{ url_for('emprestimo.aprovar_emprestimo') }}" method="POST" class="d-inline">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">
                                         <button type="submit" class="btn btn-success btn-sm">Aprovar</button>
                                     </form>
                                 {% elif emp.status == 'ATIVO' %}
                                     <form action="{{ url_for('emprestimo.devolver_emprestimo') }}" method="POST" class="d-inline">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">
                                         <button type="submit" class="btn btn-primary btn-sm">Receber Devolução</button>
                                     </form>

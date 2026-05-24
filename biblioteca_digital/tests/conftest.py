@@ -27,6 +27,7 @@ def app(db_path):
         TESTING = True
         DEBUG_MODE = False
         SECRET_KEY = 'test_secret'
+        WTF_CSRF_ENABLED = False
 
     app = criar_app()
     app.config.from_object(TestConfig)

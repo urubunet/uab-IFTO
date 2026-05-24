@@ -1,6 +1,6 @@
 import sqlite3
 from config import Config
-import hashlib
+from werkzeug.security import generate_password_hash
 
 def conectar_db(db_path=None):
     if db_path is None:
@@ -56,7 +56,7 @@ def inicializar_db():
         # Verificar se tabela Usuarios está vazia
         cursor.execute('SELECT COUNT(*) FROM Usuarios')
         if cursor.fetchone()[0] == 0:
-            senha_hash = hashlib.sha256(Config.PROPRIETARIO_PASSWORD.encode()).hexdigest()
+            senha_hash = generate_password_hash(Config.PROPRIETARIO_PASSWORD)
             cursor.execute(
                 'INSERT INTO Usuarios (nome, email, senha_hash, papel) VALUES (?, ?, ?, ?)',
                 ('Admin Inicial', Config.PROPRIETARIO_EMAIL, senha_hash, 'ADMIN_INICIAL')
