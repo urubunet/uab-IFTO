@@ -75,7 +75,7 @@ def solicitar_emprestimo():
     
     data = request.form if not request.is_json else request.get_json()
     livro_id = data.get('livro_id')
-    usuario_id = session.get('user_id')
+    usuario_id = session.get('usuario_id')
     
     sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id)
     flash(mensagem, 'success' if sucesso else 'warning')

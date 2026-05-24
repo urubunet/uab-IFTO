@@ -46,9 +46,9 @@
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav">
-                    {% if session.get('user_id') %}
+                    {% if session.get('usuario_id') %}
                         <li class="nav-item">
-                            <span class="nav-link text-light">Olá, {{ session.get('papel') }}</span>
+                            <span class="nav-link text-light">Olá, <strong>{{ session.get('nome') }}</strong> ({{ session.get('papel') }})</span>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{{ url_for('auth.logout') }}">Sair</a>

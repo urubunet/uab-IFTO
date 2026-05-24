@@ -1,40 +1,21 @@
-# Relatório de Refatoração e Otimização
+# Relatório de Refatoração e Hardening de Segurança
 
-Este documento detalha as melhorias arquiteturais e de desempenho implementadas no Sistema de Biblioteca Digital.
+Este documento resume as melhorias técnicas realizadas para atingir a versão final estável.
 
-## 1. Refatoração Arquitetural
+## 1. Refatoração e Limpeza
+- **Service Layer**: Extração de toda a lógica de negócio dos controladores para `LibraryService`.
+- **DRY (Don't Repeat Yourself)**: Centralização de validações e verificações de permissão.
+- **Data Seeding**: O sistema agora inicia automaticamente com 30 livros clássicos se o banco estiver vazio.
+- **Sessões Padronizadas**: Uso consistente de `usuario_id`, `nome` e `papel`.
 
-### Camada de Serviços (Services)
-- **Mudança**: Introdução da classe `LibraryService` em `app/services/library_service.py`.
-- **Impacto**: Toda a lógica de negócio (validação de empréstimos, permissões, processamento de devoluções) foi movida para esta camada.
-- **Benefício**: Controladores mais limpos e focados apenas em HTTP. Facilita a reutilização de lógica e testes de unidade.
+## 2. Hardening de Segurança
+- **Hashing de Senha**: Substituição de SHA256 simples por `generate_password_hash` (Scrypt).
+- **Proteção CSRF**: Implementação de tokens em 100% dos formulários POST.
+- **Headers de Segurança**: Injeção de CSP, HSTS e X-Frame-Options via Talisman.
+- **Brute-force Prevention**: Rate limit de 5 tentativas por minuto no login.
+- **Privacidade**: Proteção contra enumeração de usuários no cadastro.
 
-### Modularização de Permissões
-- **Mudança**: Centralização da verificação de papéis no `LibraryService`.
-- **Benefício**: Consistência em todo o sistema. Se a regra de permissão mudar, altera-se em apenas um lugar.
-
-## 2. Otimizações de Desempenho
-
-### Banco de Dados (SQLite)
-- **Mudança**: Criação de índices em colunas críticas:
-  - `idx_usuarios_email`
-  - `idx_livros_titulo`, `idx_livros_autor`, `idx_livros_categoria`
-  - `idx_emprestimos_status`
-- **Impacto**: Redução drástica no tempo de busca em catálogos grandes.
-
-### Caching (Flask-Caching)
-- **Mudança**: Implementação de `FileSystemCache`.
-- **Rotas Otimizadas**: 
-  - `/catalogo`: Cache de 60 segundos (limpo automaticamente ao cadastrar novo livro).
-  - `/relatorios`: Cache de 5 minutos (300s) para métricas pesadas.
-- **Benefício**: Menor carga no banco de dados e respostas mais rápidas para o usuário final.
-
-### Processamento Assíncrono (Jobs/Filas)
-- **Mudança**: Integração com `Huey` (SQLite backend).
-- **Funcionalidade**: Ações de empréstimo (solicitação, aprovação, devolução) disparam logs em segundo plano sem bloquear a resposta do usuário.
-- **Benefício**: Interface mais responsiva e melhor escalabilidade para processos pesados.
-
-## 4. Novas Funcionalidades de Gestão
-- **Módulos Dedicados**: Criação de interfaces isoladas para Gerenciar Empréstimos, Buscar Devoluções, Cadastrar Bibliotecário e Cadastrar Livro.
-- **Filtros Avançados**: Implementação de busca textual no histórico de devoluções.
-- **Navegação Aprimorada**: Menu superior dinâmico que centraliza todas as ações administrativas.
+## 3. Performance
+- **Database Indexes**: Otimização de consultas por texto e status.
+- **Jobs Assíncronos**: Desacoplamento de logs críticos do tempo de resposta do usuário.
+- **Cache de Nível 1**: Redução de IO no disco para visualizações frequentes.

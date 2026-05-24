@@ -62,6 +62,43 @@ def inicializar_db():
                 ('Admin Inicial', Config.PROPRIETARIO_EMAIL, senha_hash, 'ADMIN_INICIAL')
             )
         
+        # Verificar se tabela Livros está vazia (Seeding)
+        cursor.execute('SELECT COUNT(*) FROM Livros')
+        if cursor.fetchone()[0] == 0:
+            livros_seed = [
+                ('O Guarani', 'José de Alencar', 'Clássico'),
+                ('Dom Casmurro', 'Machado de Assis', 'Clássico'),
+                ('1984', 'George Orwell', 'Ficção'),
+                ('O Pequeno Príncipe', 'Antoine de Saint-Exupéry', 'Infantil'),
+                ('A Metamorfose', 'Franz Kafka', 'Ficção'),
+                ('O Alquimista', 'Paulo Coelho', 'Fantasia'),
+                ('Ensaio sobre a Cegueira', 'José Saramago', 'Ficção'),
+                ('Capitães da Areia', 'Jorge Amado', 'Clássico'),
+                ('Memórias Póstumas de Brás Cubas', 'Machado de Assis', 'Clássico'),
+                ('Fahrenheit 451', 'Ray Bradbury', 'Sci-Fi'),
+                ('O Hobbit', 'J.R.R. Tolkien', 'Fantasia'),
+                ('Crime e Castigo', 'Fiodor Dostoiévski', 'Filosofia'),
+                ('O Grande Gatsby', 'F. Scott Fitzgerald', 'Drama'),
+                ('Cem Anos de Solidão', 'Gabriel García Márquez', 'Realismo Mágico'),
+                ('Moby Dick', 'Herman Melville', 'Aventura'),
+                ('Orgulho e Preconceito', 'Jane Austen', 'Romance'),
+                ('Ulisses', 'James Joyce', 'Modernismo'),
+                ('A Divina Comédia', 'Dante Alighieri', 'Poesia'),
+                ('Hamlet', 'William Shakespeare', 'Teatro'),
+                ('A Odisséia', 'Homero', 'Épico'),
+                ('Don Quixote', 'Miguel de Cervantes', 'Sátira'),
+                ('O Retrato de Dorian Gray', 'Oscar Wilde', 'Gótico'),
+                ('Anna Karenina', 'Liev Tolstói', 'Romance'),
+                ('Madame Bovary', 'Gustave Flaubert', 'Realismo'),
+                ('O Processo', 'Franz Kafka', 'Surrealismo'),
+                ('Admirável Mundo Novo', 'Aldous Huxley', 'Distopia'),
+                ('O Sol é Para Todos', 'Harper Lee', 'Drama'),
+                ('Grande Sertão: Veredas', 'Guimarães Rosa', 'Regionalismo'),
+                ('A Hora da Estrela', 'Clarice Lispector', 'Existencialismo'),
+                ('Frankenstein', 'Mary Shelley', 'Terror')
+            ]
+            cursor.executemany('INSERT INTO Livros (titulo, autor, categoria) VALUES (?, ?, ?)', livros_seed)
+        
         conn.commit()
     finally:
         conn.close()

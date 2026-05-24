@@ -1,58 +1,47 @@
-# Sistema de Biblioteca Digital
+# Sistema de Biblioteca Digital 📚
 
-Este é um sistema de gerenciamento de biblioteca digital desenvolvido com Flask e SQLite, seguindo uma arquitetura modular e práticas de TDD.
+Gerenciamento completo de biblioteca com foco em segurança, performance e facilidade de uso.
 
-## Funcionalidades
+## 🛠️ Tecnologias
+- **Backend**: Python 3.12, Flask 3.0.0
+- **Banco de Dados**: SQLite
+- **Segurança**: Flask-WTF, Flask-Talisman, Flask-Limiter, Werkzeug Security
+- **Performance**: Flask-Caching, Huey (Jobs)
+- **Frontend**: Bootstrap 5
 
-- **Autenticação e Autorização**: Controle de acesso baseado em papéis (Admin Inicial, Admin, Bibliotecário e Leitor).
-- **Gestão de Livros**: Formulário dedicado de cadastro e catálogo completo com busca.
-- **Fluxo de Empréstimos**: Gestão centralizada de solicitações e empréstimos ativos.
-- **Histórico de Devoluções**: Busca detalhada em registros de livros devolvidos.
-- **Gestão de Equipe**: Registro de bibliotecários por administradores.
-- **Relatórios**: Dashboard de métricas de uso para administradores.
+## 🚀 Como Executar
 
-## Requisitos Técnicos
-
-- Python 3.10+
-- Flask 3.0.0
-- SQLite
-
-## Instalação
-
-1. Clone o repositório.
-2. Crie um ambiente virtual:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-3. Instale as dependências:
-   ```bash
-   pip install -r biblioteca_digital/requirements.txt
-   ```
-4. Configure o arquivo `.env` (use `.env.example` como base).
-
-## Execução
-
-Para iniciar o servidor de desenvolvimento:
+### 1. Preparação
 ```bash
 cd biblioteca_digital
-python run.py
+python3 -m venv venv
+source venv/bin/activate  # Linux
+pip install -r requirements.txt
 ```
 
-## Testes
-
-Para executar a suíte de testes automatizados:
+### 2. Configuração
+Crie um arquivo `.env` baseado no `.env.example`:
 ```bash
-cd biblioteca_digital
-PYTHONPATH=. pytest
+cp .env.example .env
 ```
 
-## Estrutura do Projeto
+### 3. Iniciar o Servidor
+```bash
+python3 run.py
+```
 
-- `app/`: Código fonte da aplicação.
-  - `controllers/`: Gerenciamento de rotas e lógica de negócio.
-  - `models/`: Definições de dados e persistência.
-  - `templates/`: Interface do usuário (HTML/Jinja2).
-- `tests/`: Testes automatizados (TDD).
-- `config.py`: Configurações centralizadas.
-- `run.py`: Ponto de entrada.
+### 4. Iniciar o Processador de Jobs (Opcional, para logs assíncronos)
+```bash
+huey_consumer app.jobs.huey
+```
+
+## 🧪 Testes
+Para rodar a suíte completa de testes automatizados:
+```bash
+pip install -r requirements-dev.txt
+PYTHONPATH=. pytest tests/
+```
+
+## 🔒 Acesso Padrão
+- **URL**: `http://localhost:5000`
+- **Admin Inicial**: `admin@empresa.com` / `senha_segura` (configurável no `.env`)

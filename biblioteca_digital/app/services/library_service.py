@@ -34,7 +34,7 @@ class LibraryService:
                 cursor.execute('UPDATE Emprestimos SET status = "ATIVO" WHERE id = ?', (emprestimo_id,))
                 cursor.execute('UPDATE Livros SET status = "EMPRESTADO" WHERE id = ?', (emprestimo.livro_id,))
                 conn.commit()
-                security_logger.info(f"APROVACAO: Emprestimo {emprestimo_id} aprovado por {session.get('user_id')}")
+                security_logger.info(f"APROVACAO: Emprestimo {emprestimo_id} aprovado por {session.get('usuario_id')}")
                 return True, "Empréstimo aprovado!"
             finally:
                 conn.close()
@@ -50,7 +50,7 @@ class LibraryService:
                 cursor = conn.cursor()
                 cursor.execute('UPDATE Livros SET status = "DISPONIVEL" WHERE id = ?', (emprestimo.livro_id,))
                 conn.commit()
-                security_logger.info(f"DEVOLUCAO: Livro {emprestimo.livro_id} devolvido (Emprestimo {emprestimo_id}) processado por {session.get('user_id')}")
+                security_logger.info(f"DEVOLUCAO: Livro {emprestimo.livro_id} devolvido (Emprestimo {emprestimo_id}) processado por {session.get('usuario_id')}")
                 return True, "Livro devolvido com sucesso!"
             finally:
                 conn.close()
@@ -60,6 +60,6 @@ class LibraryService:
     def verificar_permissao(papeis_permitidos):
         papel_usuario = session.get('papel')
         autorizado = papel_usuario in papeis_permitidos
-        if not autorizado and session.get('user_id'):
-            security_logger.warning(f"ACESSO_NEGADO: Usuario {session.get('user_id')} tentou acessar recurso restrito a {papeis_permitidos}")
+        if not autorizado and session.get('usuario_id'):
+            security_logger.warning(f"ACESSO_NEGADO: Usuario {session.get('usuario_id')} tentou acessar recurso restrito a {papeis_permitidos}")
         return autorizado

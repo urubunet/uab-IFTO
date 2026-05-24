@@ -31,7 +31,8 @@ def login():
     
     usuario = UsuarioModel.buscar_por_email(email)
     if usuario and check_password_hash(usuario.senha_hash, senha):
-        session['user_id'] = usuario.id
+        session['usuario_id'] = usuario.id
+        session['nome'] = usuario.nome
         session['papel'] = usuario.papel
         session.permanent = True
         flash('Login realizado com sucesso!', 'success')
