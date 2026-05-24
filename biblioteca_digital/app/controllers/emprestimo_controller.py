@@ -78,6 +78,10 @@ def solicitar_emprestimo():
     livro_id = data.get('livro_id')
     usuario_id = session.get('usuario_id')
     
+    if not usuario_id:
+        flash('Sua sessão expirou. Por favor, faça login novamente.', 'danger')
+        return redirect(url_for('auth.login_view'))
+    
     sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id)
     flash(mensagem, 'success' if sucesso else 'warning')
     

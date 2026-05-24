@@ -1,5 +1,7 @@
 Aqui está a especificação técnica detalhada do Sistema de Biblioteca Digital, baseada na arquitetura e nos requisitos fornecidos.
 
+# Sistema de Biblioteca Digital - Especificação Técnica Final
+
 ## Sessões e Variáveis de Ambiente
 
 ---
@@ -11,6 +13,10 @@ Para garantir a consistência no acesso aos dados do usuário, as seguintes chav
 - `usuario_id`: ID do usuário logado.
 - `nome`: Nome do usuário logado.
 - `papel`: Papel do usuário logado ('ADMIN_INICIAL', 'ADMIN', 'BIBLIOTECARIO', 'LEITOR').
+
+### Requisitos de Interface (Menu):
+- **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
+- **Acesso ao Cadastro**: A opção "Cadastrar Livro" no menu superior deve ser exibida apenas se `session['papel']` for 'ADMIN' ou 'BIBLIOTECARIO'.
 
 NUNCA utilize outras chaves para estas informações (ex: `user_papel` está incorreto).
 
