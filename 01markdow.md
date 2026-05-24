@@ -38,6 +38,23 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 
 
+## 4. Controladores (Controllers)
+
+### Gerenciamento Administrativo (AdminController)
+- **Cadastro de Bibliotecário**:
+    - **Endpoint**: `POST /admin/cadastrar-bibliotecario`
+    - **Regra**: O sistema deve permitir o cadastro de novos bibliotecários apenas por usuários com papel `ADMIN_INICIAL` ou `ADMIN`.
+    - **Acesso ao Menu**: A opção "Cadastrar Bibliotecário" deve estar visível no menu superior apenas para usuários com papel `ADMIN_INICIAL` ou `ADMIN`.
+
+ROTA GET /admin/cadastrar-bibliotecario:
+VERIFICAR permissao ('ADMIN_INICIAL', 'ADMIN')
+RENDERIZAR template 'cadastrar_bibliotecario.html'
+
+ROTA POST /admin/cadastrar-bibliotecario:
+VERIFICAR permissao ('ADMIN_INICIAL', 'ADMIN')
+RECEBER dados, SALVAR usuario_model com papel 'BIBLIOTECARIO'
+REDIREICIONAR para dashboard
+
 ## 5. Variáveis de Ambiente (.env)
 - `SECRET_KEY`: Chave mestre para criptografia de sessão.
 - `DATABASE_PATH`: Caminho do arquivo SQLite.
