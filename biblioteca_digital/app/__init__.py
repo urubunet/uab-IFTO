@@ -4,6 +4,7 @@ from app.database import inicializar_db
 from flask_caching import Cache
 from flask_wtf.csrf import CSRFProtect
 from flask_talisman import Talisman
+from datetime import timedelta
 
 cache = Cache()
 csrf = CSRFProtect()
@@ -11,6 +12,9 @@ csrf = CSRFProtect()
 def criar_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    
+    # Configuração de Sessão
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
     
     # IMPORTANTE: Forçar CSRF desabilitado se TESTING for True
     if app.config.get('TESTING'):
