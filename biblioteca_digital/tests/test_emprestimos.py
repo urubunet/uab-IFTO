@@ -11,7 +11,7 @@ def test_fluxo_emprestimo_completo(client, app):
     
     # 1. Solicitação (LEITOR)
     with client.session_transaction() as sess:
-        sess['user_id'] = 2 # Supondo ID 2 para o leitor
+        sess['usuario_id'] = 2 # Supondo ID 2 para o leitor
         sess['papel'] = 'LEITOR'
     
     # T-LOAN-01: Solicitação de Empréstimo
@@ -35,19 +35,21 @@ def test_fluxo_emprestimo_completo(client, app):
 
     # Agora testar T-LOAN-02 com livro EMPRESTADO
     with client.session_transaction() as sess:
-        sess['user_id'] = 3
+        sess['usuario_id'] = 3
         sess['papel'] = 'LEITOR'
     
-    response = client.post('/emprestimo/solicitar', json={'livro_id': livro_id})
-    assert response.status_code == 400
-    assert response.get_json()['message'] == 'Livro não disponível'
+    response = client.post('/emprestimo/solicitar', data={'livro_id': livro_id}, follow_redirects=True)
+    assert response.status_code == 200
+    assert 'não disponível' in response.get_data(as_text=True).lower()
 
     # 3. Devolução
     with client.session_transaction() as sess:
+        sess['usuario_id'] = 1
         sess['papel'] = 'BIBLIOTECARIO'
     
-    response = client.post('/emprestimo/devolver', json={'emprestimo_id': 1})
+    response = client.post('/emprestimo/devolver', data={'emprestimo_id': 1}, follow_redirects=True)
     assert response.status_code == 200
+    assert 'devolvido com sucesso' in response.get_data(as_text=True).lower()
     
     with app.app_context():
         livro_final = LivroModel.buscar_todos({'titulo': 'Livro Teste'})[0]

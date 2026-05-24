@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Biblioteca Digital</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar-brand { font-weight: bold; color: #0d6efd; }
+        .card { border: none; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
+        .btn-primary { background-color: #0d6efd; border: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/catalogo">📚 Biblioteca Digital</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/catalogo">Catálogo</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/emprestimo/gerenciar">Gerenciar Empréstimos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/emprestimo/devolucoes">Buscar Devoluções</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/livro/cadastrar">Cadastrar Livro</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/cadastrar-bibliotecario">Cadastrar Bibliotecário</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/relatorios">Relatórios</a>
+                    </li>
+                    
+                </ul>
+                <ul class="navbar-nav">
+                    
+                        <li class="nav-item">
+                            <span class="nav-link text-light">Olá, <strong>Admin Inicial</strong> (ADMIN_INICIAL)</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="/logout">Sair</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+            
+                
+                    <div class="alert alert-success alert-dismissible fade show">
+                        Login realizado com sucesso!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                
+            
+        
+
+        
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card p-3">
+            <form action="/catalogo" method="GET" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" name="titulo" class="form-control" placeholder="Título" value="">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="autor" class="form-control" placeholder="Autor" value="">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="categoria" class="form-control" placeholder="Categoria" value="">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Guarani</h5>
+                <h6 class="card-subtitle mb-2 text-muted">José de Alencar</h6>
+                <p class="card-text"><span class="badge bg-secondary">Clássico</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Dom Casmurro</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Machado de Assis</h6>
+                <p class="card-text"><span class="badge bg-secondary">Clássico</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">1984</h5>
+                <h6 class="card-subtitle mb-2 text-muted">George Orwell</h6>
+                <p class="card-text"><span class="badge bg-secondary">Ficção</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Pequeno Príncipe</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Antoine de Saint-Exupéry</h6>
+                <p class="card-text"><span class="badge bg-secondary">Infantil</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">A Metamorfose</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Franz Kafka</h6>
+                <p class="card-text"><span class="badge bg-secondary">Ficção</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Alquimista</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Paulo Coelho</h6>
+                <p class="card-text"><span class="badge bg-secondary">Fantasia</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Ensaio sobre a Cegueira</h5>
+                <h6 class="card-subtitle mb-2 text-muted">José Saramago</h6>
+                <p class="card-text"><span class="badge bg-secondary">Ficção</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Capitães da Areia</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Jorge Amado</h6>
+                <p class="card-text"><span class="badge bg-secondary">Clássico</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Memórias Póstumas de Brás Cubas</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Machado de Assis</h6>
+                <p class="card-text"><span class="badge bg-secondary">Clássico</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Fahrenheit 451</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Ray Bradbury</h6>
+                <p class="card-text"><span class="badge bg-secondary">Sci-Fi</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Hobbit</h5>
+                <h6 class="card-subtitle mb-2 text-muted">J.R.R. Tolkien</h6>
+                <p class="card-text"><span class="badge bg-secondary">Fantasia</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Crime e Castigo</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Fiodor Dostoiévski</h6>
+                <p class="card-text"><span class="badge bg-secondary">Filosofia</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Grande Gatsby</h5>
+                <h6 class="card-subtitle mb-2 text-muted">F. Scott Fitzgerald</h6>
+                <p class="card-text"><span class="badge bg-secondary">Drama</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Cem Anos de Solidão</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Gabriel García Márquez</h6>
+                <p class="card-text"><span class="badge bg-secondary">Realismo Mágico</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Moby Dick</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Herman Melville</h6>
+                <p class="card-text"><span class="badge bg-secondary">Aventura</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Orgulho e Preconceito</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Jane Austen</h6>
+                <p class="card-text"><span class="badge bg-secondary">Romance</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Ulisses</h5>
+                <h6 class="card-subtitle mb-2 text-muted">James Joyce</h6>
+                <p class="card-text"><span class="badge bg-secondary">Modernismo</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">A Divina Comédia</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Dante Alighieri</h6>
+                <p class="card-text"><span class="badge bg-secondary">Poesia</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Hamlet</h5>
+                <h6 class="card-subtitle mb-2 text-muted">William Shakespeare</h6>
+                <p class="card-text"><span class="badge bg-secondary">Teatro</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">A Odisséia</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Homero</h6>
+                <p class="card-text"><span class="badge bg-secondary">Épico</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Don Quixote</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Miguel de Cervantes</h6>
+                <p class="card-text"><span class="badge bg-secondary">Sátira</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Retrato de Dorian Gray</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Oscar Wilde</h6>
+                <p class="card-text"><span class="badge bg-secondary">Gótico</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Anna Karenina</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Liev Tolstói</h6>
+                <p class="card-text"><span class="badge bg-secondary">Romance</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Madame Bovary</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Gustave Flaubert</h6>
+                <p class="card-text"><span class="badge bg-secondary">Realismo</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Processo</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Franz Kafka</h6>
+                <p class="card-text"><span class="badge bg-secondary">Surrealismo</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Admirável Mundo Novo</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Aldous Huxley</h6>
+                <p class="card-text"><span class="badge bg-secondary">Distopia</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">O Sol é Para Todos</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Harper Lee</h6>
+                <p class="card-text"><span class="badge bg-secondary">Drama</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Grande Sertão: Veredas</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Guimarães Rosa</h6>
+                <p class="card-text"><span class="badge bg-secondary">Regionalismo</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">A Hora da Estrela</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Clarice Lispector</h6>
+                <p class="card-text"><span class="badge bg-secondary">Existencialismo</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Frankenstein</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Mary Shelley</h6>
+                <p class="card-text"><span class="badge bg-secondary">Terror</span></p>
+                <p class="card-text">
+                    Status: 
+                    
+                        <span class="badge bg-success">Disponível</span>
+                    
+                </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<div class="fixed-bottom p-4 text-end">
+    <a href="/admin/dashboard" class="btn btn-dark shadow">Gerenciar Acervo</a>
+</div>
+
+
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

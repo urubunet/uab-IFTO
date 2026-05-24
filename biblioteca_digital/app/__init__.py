@@ -18,15 +18,24 @@ def criar_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    is_testing = app.config.get('TESTING')
+    # Detectar ambiente de teste de múltiplas formas
+    is_testing = app.config.get('TESTING') or os.getenv('FLASK_ENV') == 'testing' or os.getenv('PYTEST_CURRENT_TEST')
+    
+    if is_testing:
+        app.config['TESTING'] = True
+        app.config['WTF_CSRF_ENABLED'] = False
+        app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
+
+    # Configuração de Log de Segurança
+    logging.basicConfig(
+        filename='security.log',
+        level=logging.INFO,
+        format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
+    )
     
     # Sessão e Segurança
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
     app.secret_key = Config.SECRET_KEY or 'dev_secret'
-    
-    if is_testing:
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
     
     # Inicialização de extensões
     csrf.init_app(app)

@@ -29,11 +29,23 @@ def app(db_path):
         SECRET_KEY = 'test_secret'
         WTF_CSRF_ENABLED = False
 
+    import os
+    os.environ['FLASK_ENV'] = 'testing'
+    
+    # Criar o app passando a config de teste
+    from app import criar_app
     app = criar_app()
     app.config.from_object(TestConfig)
     
     # IMPORTANTE: Forçar o Config global a usar o caminho de teste
     Config.DATABASE_PATH = test_db_path
+
+    # Limpar cache e sessões para isolamento real
+    import shutil
+    for d in ['app/cache', 'flask_session']:
+        if os.path.exists(d):
+            shutil.rmtree(d)
+        os.makedirs(d, exist_ok=True)
 
     with app.app_context():
         inicializar_db()

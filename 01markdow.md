@@ -25,11 +25,16 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Banco de Dados**: Índices nas colunas de busca (`titulo`, `autor`, `categoria`, `email`).
 - **Asincronismo**: Logs e tarefas secundárias processadas em background pelo Huey.
 
-## 4. Interfaces e Papéis
+## Interfaces e Papéis
 - **ADMIN_INICIAL**: Controle total, criação de outros Admins.
 - **ADMIN**: Gestão de acervo, usuários (Bibliotecários) e empréstimos.
 - **BIBLIOTECARIO**: Gestão de acervo e fluxo de empréstimos.
 - **LEITOR**: Consulta de catálogo e solicitação de livros.
+
+### Requisitos de Interface (Menu):
+- **Exibição de Usuário**: Ao realizar login, o nome do usuário autenticado deve ser exibido de forma visível na barra de menu superior.
+- **Acesso ao Cadastro**: Opções para "Cadastrar Livro" e "Gerenciar Acervo" devem estar disponíveis no menu superior exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
+
 
 ## 5. Variáveis de Ambiente (.env)
 - `SECRET_KEY`: Chave mestre para criptografia de sessão.

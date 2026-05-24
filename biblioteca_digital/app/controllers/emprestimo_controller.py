@@ -2,6 +2,7 @@ from flask import Blueprint, request, session, flash, redirect, url_for, render_
 from app.services.library_service import LibraryService
 from app.jobs import log_evento_emprestimo
 from app.database import conectar_db
+from app import cache
 
 emprestimo_bp = Blueprint('emprestimo', __name__)
 
@@ -82,6 +83,7 @@ def solicitar_emprestimo():
     
     if sucesso:
         log_evento_emprestimo(livro_id, "SOLICITACAO")
+        cache.clear()
         
     return redirect(url_for('livro.listar_livros'))
 
@@ -99,8 +101,9 @@ def aprovar_emprestimo():
     
     if sucesso:
         log_evento_emprestimo(emprestimo_id, "APROVACAO")
+        cache.clear()
         
-    return redirect(url_for('livro.admin_dashboard'))
+    return redirect(url_for('emprestimo.gerenciar_view'))
 
 @emprestimo_bp.route('/emprestimo/devolver', methods=['POST'])
 def devolver_emprestimo():
@@ -116,5 +119,6 @@ def devolver_emprestimo():
     
     if sucesso:
         log_evento_emprestimo(emprestimo_id, "DEVOLUCAO")
+        cache.clear()
         
-    return redirect(url_for('livro.admin_dashboard'))
+    return redirect(url_for('emprestimo.gerenciar_view'))
