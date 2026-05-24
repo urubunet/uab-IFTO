@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Buscar Devoluções - Biblioteca Digital{% endblock %}
+{% block content %}
+<h2 class="mb-4">Histórico de Devoluções</h2>
+
+<div class="card p-3 mb-4 bg-light">
+    <form action="{{ url_for('emprestimo.buscar_devolucoes_view') }}" method="GET" class="row g-3">
+        <div class="col-md-8">
+            <input type="text" name="busca" class="form-control" placeholder="Buscar por título do livro ou nome do leitor..." value="{{ request.args.get('busca', '') }}">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-dark w-100">Filtrar Histórico</button>
+        </div>
+    </form>
+</div>
+
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th>Livro</th>
+                    <th>Leitor</th>
+                    <th>Data Solicitação</th>
+                    <th>Data Devolução</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dev in devolucoes %}
+                <tr>
+                    <td>{{ dev.titulo }}</td>
+                    <td>{{ dev.usuario }}</td>
+                    <td>{{ dev.data_solicitacao }}</td>
+                    <td><span class="text-success">{{ dev.data_devolucao }}</span></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4" class="text-center py-4 text-muted">Nenhum registro de devolução encontrado.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

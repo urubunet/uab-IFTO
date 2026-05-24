@@ -34,7 +34,7 @@ Este documento detalha as melhorias arquiteturais e de desempenho implementadas 
 - **Funcionalidade**: Ações de empréstimo (solicitação, aprovação, devolução) disparam logs em segundo plano sem bloquear a resposta do usuário.
 - **Benefício**: Interface mais responsiva e melhor escalabilidade para processos pesados.
 
-## 3. Estabilidade e Manutenção
-- Implementação de `try/finally` em todas as operações de banco de dados para garantir o fechamento de conexões.
-- Uso de `SECRET_KEY` configurável para sessões seguras.
-- Padronização de feedback ao usuário via `Flash Messages` e redirecionamentos.
+## 4. Novas Funcionalidades de Gestão
+- **Módulos Dedicados**: Criação de interfaces isoladas para Gerenciar Empréstimos, Buscar Devoluções, Cadastrar Bibliotecário e Cadastrar Livro.
+- **Filtros Avançados**: Implementação de busca textual no histórico de devoluções.
+- **Navegação Aprimorada**: Menu superior dinâmico que centraliza todas as ações administrativas.

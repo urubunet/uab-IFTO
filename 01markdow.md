@@ -137,11 +137,15 @@ SALVAR usuario_model com papel 'LEITOR'
 
 `biblioteca_digital/app/templates/`
 
-* **layout.html**: Estrutura base com Navbar dinâmica.
+* **layout.html**: Estrutura base com Navbar dinâmica. Inclui links para: Catálogo, Gerenciar Empréstimos, Buscar Devoluções, Cadastrar Bibliotecário, Cadastrar Livro (conforme permissão).
 * **login.html**: Interface de autenticação.
 * **cadastro_leitor.html**: Interface de autocadastro.
 * **catalogo.html**: Catálogo interativo com filtros e botões de ação.
-* **admin_dashboard.html**: Painel de gestão para administradores e bibliotecários.
+* **gerenciar_emprestimos.html**: Interface dedicada para aprovação e devolução de livros.
+* **buscar_devolucoes.html**: Interface de busca no histórico de empréstimos finalizados.
+* **cadastrar_bibliotecario.html**: Formulário para registro de novos bibliotecários (acesso restrito).
+* **cadastrar_livro.html**: Formulário dedicado para adição de novos títulos ao acervo.
+* **admin_dashboard.html**: Painel central de gestão.
 * **relatorios.html**: Dashboard de métricas do sistema.
 
 ## Arquitetura de Otimização e Refatoração

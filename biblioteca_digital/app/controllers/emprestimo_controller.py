@@ -1,8 +1,71 @@
-from flask import Blueprint, request, session, flash, redirect, url_for
+from flask import Blueprint, request, session, flash, redirect, url_for, render_template
 from app.services.library_service import LibraryService
 from app.jobs import log_evento_emprestimo
+from app.database import conectar_db
 
 emprestimo_bp = Blueprint('emprestimo', __name__)
+
+@emprestimo_bp.route('/emprestimo/gerenciar', methods=['GET'])
+def gerenciar_view():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    conn = conectar_db()
+    cursor = conn.cursor()
+    
+    # Solicitações pendentes
+    cursor.execute('''
+        SELECT E.id, L.titulo, U.nome as usuario, E.data_solicitacao 
+        FROM Emprestimos E
+        JOIN Livros L ON E.livro_id = L.id
+        JOIN Usuarios U ON E.usuario_id = U.id
+        WHERE E.status = 'SOLICITADO'
+    ''')
+    solicitacoes = [dict(row) for row in cursor.fetchall()]
+    
+    # Empréstimos ativos
+    cursor.execute('''
+        SELECT E.id, L.titulo, U.nome as usuario 
+        FROM Emprestimos E
+        JOIN Livros L ON E.livro_id = L.id
+        JOIN Usuarios U ON E.usuario_id = U.id
+        WHERE E.status = 'ATIVO'
+    ''')
+    ativos = [dict(row) for row in cursor.fetchall()]
+    
+    conn.close()
+    return render_template('gerenciar_emprestimos.html', solicitacoes=solicitacoes, ativos=ativos)
+
+@emprestimo_bp.route('/emprestimo/devolucoes', methods=['GET'])
+def buscar_devolucoes_view():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    busca = request.args.get('busca', '')
+    conn = conectar_db()
+    cursor = conn.cursor()
+    
+    query = '''
+        SELECT L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao 
+        FROM Emprestimos E
+        JOIN Livros L ON E.livro_id = L.id
+        JOIN Usuarios U ON E.usuario_id = U.id
+        WHERE E.status = 'DEVOLVIDO'
+    '''
+    params = []
+    if busca:
+        query += " AND (L.titulo LIKE ? OR U.nome LIKE ?)"
+        params = [f"%{busca}%", f"%{busca}%"]
+        
+    query += " ORDER BY E.data_devolucao DESC"
+    
+    cursor.execute(query, params)
+    devolucoes = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    return render_template('buscar_devolucoes.html', devolucoes=devolucoes)
 
 @emprestimo_bp.route('/emprestimo/solicitar', methods=['POST'])
 def solicitar_emprestimo():

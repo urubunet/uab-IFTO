@@ -36,6 +36,13 @@ def admin_dashboard():
     
     return render_template('admin_dashboard.html', livros=livros, emprestimos=emprestimos)
 
+@livro_bp.route('/livro/cadastrar', methods=['GET'])
+def cadastrar_view():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    return render_template('cadastrar_livro.html')
+
 @livro_bp.route('/livro/cadastrar', methods=['POST'])
 def cadastrar_livro():
     if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):

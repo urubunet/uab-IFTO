@@ -5,9 +5,11 @@ Este é um sistema de gerenciamento de biblioteca digital desenvolvido com Flask
 ## Funcionalidades
 
 - **Autenticação e Autorização**: Controle de acesso baseado em papéis (Admin Inicial, Admin, Bibliotecário e Leitor).
-- **Gestão de Livros**: Catálogo completo com busca por título, autor e categoria.
-- **Fluxo de Empréstimos**: Ciclo completo de solicitação, aprovação e devolução de livros.
-- **Relatórios**: Métricas de uso do sistema para administradores.
+- **Gestão de Livros**: Formulário dedicado de cadastro e catálogo completo com busca.
+- **Fluxo de Empréstimos**: Gestão centralizada de solicitações e empréstimos ativos.
+- **Histórico de Devoluções**: Busca detalhada em registros de livros devolvidos.
+- **Gestão de Equipe**: Registro de bibliotecários por administradores.
+- **Relatórios**: Dashboard de métricas de uso para administradores.
 
 ## Requisitos Técnicos
 
