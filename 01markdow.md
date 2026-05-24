@@ -25,12 +25,9 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Banco de Dados**: Índices nas colunas de busca (`titulo`, `autor`, `categoria`, `email`).
 - **Asincronismo**: Logs e tarefas secundárias processadas em background pelo Huey.
 
-## Fluxos de Negócio
-
-### Fluxo de Empréstimo
-1. **Solicitação**: Leitor solicita um livro. Sistema verifica se status é 'DISPONIVEL', cria empréstimo ('SOLICITADO') e atualiza livro para 'REQUISITADO'.
-2. **Aprovação**: Admin/Biblio aprova solicitação. Atualiza empréstimo para 'ATIVO' e livro para 'EMPRESTADO'.
-3. **Devolução**: Admin/Biblio registra devolução. Atualiza empréstimo para 'DEVOLVIDO' e livro para 'DISPONIVEL'.
+## Banco de Dados
+- **Inicialização**: Ao iniciar o sistema, o banco de dados é criado automaticamente.
+- **Seeding**: Caso a tabela de livros esteja vazia, o sistema deve inserir automaticamente 30 registros fictícios de livros (título, autor, categoria) para facilitar testes e demonstração.
 
 ### Gerenciamento de Empréstimos
 - **Filtros**: Na tela de gerenciamento, deve haver separação visual entre solicitações (status 'SOLICITADO') e empréstimos ativos (status 'ATIVO').
