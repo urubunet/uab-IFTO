@@ -64,8 +64,8 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 
 | ID | Cenário | Descrição do Teste | Técnica |
 |:---|:---|:---|:---|
-| T-ADM-01 | Gerenciar Empréstimos | Validar se a lista de solicitações e ativos carrega corretamente. | Integração |
-| T-ADM-02 | Buscar Devoluções | Verificar se o filtro de busca no histórico de devoluções funciona. | Integração |
+| T-ADM-01 | Gerenciar Empréstimos | Validar separação de solicitações (SOLICITADO) e ativos (ATIVO). | Integração |
+| T-ADM-02 | Buscar Devoluções | Verificar se a busca por data de devolução funciona no histórico. | Integração |
 | T-ADM-03 | Cadastrar Bibliotecário | Garantir que apenas ADMIN pode acessar o form de registro de Biblio. | Integração/RBAC |
 | T-ADM-04 | Cadastrar Livro UI | Validar se o formulário dedicado de cadastro de livro salva no banco. | Integração |
 

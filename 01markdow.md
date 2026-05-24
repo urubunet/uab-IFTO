@@ -32,6 +32,11 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 2. **Aprovação**: Admin/Biblio aprova solicitação. Atualiza empréstimo para 'ATIVO' e livro para 'EMPRESTADO'.
 3. **Devolução**: Admin/Biblio registra devolução. Atualiza empréstimo para 'DEVOLVIDO' e livro para 'DISPONIVEL'.
 
+### Gerenciamento de Empréstimos
+- **Filtros**: Na tela de gerenciamento, deve haver separação visual entre solicitações (status 'SOLICITADO') e empréstimos ativos (status 'ATIVO').
+- **Pesquisa de Devoluções**: Deve haver um formulário específico para busca no histórico de empréstimos finalizados (status 'DEVOLVIDO') filtrando por data de devolução.
+- **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
+
 
 ## 5. Variáveis de Ambiente (.env)
 - `SECRET_KEY`: Chave mestre para criptografia de sessão.

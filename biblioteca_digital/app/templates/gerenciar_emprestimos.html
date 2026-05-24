@@ -4,7 +4,7 @@
 <h2 class="mb-4">Gestão de Empréstimos e Solicitações</h2>
 
 <div class="card p-4 shadow-sm mb-5">
-    <h5>📦 Solicitações Aguardando Aprovação</h5>
+    <h5>📦 Solicitações Aguardando Aprovação (SOLICITADO)</h5>
     <hr>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -39,7 +39,7 @@
 </div>
 
 <div class="card p-4 shadow-sm">
-    <h5>📖 Empréstimos Ativos (Em posse do leitor)</h5>
+    <h5>📖 Empréstimos Ativos (ATIVO)</h5>
     <hr>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -47,7 +47,6 @@
                 <tr>
                     <th>Livro</th>
                     <th>Leitor</th>
-                    <th>Status</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -56,16 +55,16 @@
                 <tr>
                     <td><strong>{{ emp.titulo }}</strong></td>
                     <td>{{ emp.usuario }}</td>
-                    <td><span class="badge bg-info">Ativo</span></td>
                     <td>
                         <form action="{{ url_for('emprestimo.devolver_emprestimo') }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">
                             <button type="submit" class="btn btn-primary btn-sm">Confirmar Devolução</button>
                         </form>
                     </td>
                 </tr>
                 {% else %}
-                <tr><td colspan="4" class="text-center text-muted">Nenhum empréstimo ativo no momento.</td></tr>
+                <tr><td colspan="3" class="text-center text-muted">Nenhum empréstimo ativo no momento.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
