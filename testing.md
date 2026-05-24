@@ -64,6 +64,15 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | T-ADM-03 | Cadastrar Bibliotecário | Garantir que apenas ADMIN pode acessar o form de registro de Biblio. | Integração/RBAC |
 | T-ADM-04 | Cadastrar Livro UI | Validar se o formulário dedicado de cadastro de livro salva no banco. | Integração |
 
+### 2.9 Segurança Moderada (Prioridade: ALTA)
+
+| ID | Cenário | Descrição do Teste | Técnica |
+|:---|:---|:---|:---|
+| T-SEC-01 | Rate Limiting Login| Verificar se o sistema bloqueia após múltiplas tentativas de login. | Integração |
+| T-SEC-02 | Complexidade Senha| Garantir que senhas simples (ex: '123') sejam rejeitadas no cadastro. | Unidade |
+| T-SEC-03 | Log de Auditoria | Validar se ações críticas geram entradas no arquivo `security.log`. | Integração |
+| T-SEC-04 | CSP Headers | Verificar se os cabeçalhos CSP estão sendo enviados nas respostas. | Integração |
+
 ### 2.7 Otimização e Refatoração (Prioridade: ALTA)
 
 | ID | Cenário | Descrição do Teste | Técnica |

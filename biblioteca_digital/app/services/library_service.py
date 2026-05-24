@@ -2,6 +2,9 @@ from app.models.livro_model import LivroModel
 from app.models.emprestimo_model import EmprestimoModel
 from app.database import conectar_db
 from flask import session, flash
+import logging
+
+security_logger = logging.getLogger('security')
 
 class LibraryService:
     @staticmethod
@@ -15,6 +18,7 @@ class LibraryService:
             if livro and livro['status'] == 'DISPONIVEL':
                 novo_emprestimo = EmprestimoModel(livro_id=livro_id, usuario_id=usuario_id)
                 novo_emprestimo.registrar_emprestimo()
+                security_logger.info(f"SOLICITACAO: Usuario {usuario_id} solicitou livro {livro_id}")
                 return True, "Solicitação enviada com sucesso!"
             return False, "Livro não disponível"
         finally:
@@ -30,7 +34,7 @@ class LibraryService:
                 cursor.execute('UPDATE Emprestimos SET status = "ATIVO" WHERE id = ?', (emprestimo_id,))
                 cursor.execute('UPDATE Livros SET status = "EMPRESTADO" WHERE id = ?', (emprestimo.livro_id,))
                 conn.commit()
-                # Aqui poderíamos disparar um Job de notificação
+                security_logger.info(f"APROVACAO: Emprestimo {emprestimo_id} aprovado por {session.get('user_id')}")
                 return True, "Empréstimo aprovado!"
             finally:
                 conn.close()
@@ -46,6 +50,7 @@ class LibraryService:
                 cursor = conn.cursor()
                 cursor.execute('UPDATE Livros SET status = "DISPONIVEL" WHERE id = ?', (emprestimo.livro_id,))
                 conn.commit()
+                security_logger.info(f"DEVOLUCAO: Livro {emprestimo.livro_id} devolvido (Emprestimo {emprestimo_id}) processado por {session.get('user_id')}")
                 return True, "Livro devolvido com sucesso!"
             finally:
                 conn.close()
@@ -54,4 +59,7 @@ class LibraryService:
     @staticmethod
     def verificar_permissao(papeis_permitidos):
         papel_usuario = session.get('papel')
-        return papel_usuario in papeis_permitidos
+        autorizado = papel_usuario in papeis_permitidos
+        if not autorizado and session.get('user_id'):
+            security_logger.warning(f"ACESSO_NEGADO: Usuario {session.get('user_id')} tentou acessar recurso restrito a {papeis_permitidos}")
+        return autorizado

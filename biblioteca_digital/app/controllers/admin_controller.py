@@ -2,6 +2,7 @@ from flask import Blueprint, request, session, jsonify, flash, redirect, url_for
 from app.models.usuario_model import UsuarioModel
 from app.services.library_service import LibraryService
 from werkzeug.security import generate_password_hash
+from app.controllers.auth_controller import validar_senha
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -19,7 +20,13 @@ def cadastrar_admin():
         return redirect(url_for('livro.listar_livros'))
     
     data = request.form if not request.is_json else request.get_json()
-    senha_hash = generate_password_hash(data.get('senha'))
+    senha = data.get('senha')
+    valida, msg = validar_senha(senha)
+    if not valida:
+        flash(msg, 'warning')
+        return redirect(url_for('livro.admin_dashboard'))
+
+    senha_hash = generate_password_hash(senha)
     novo_admin = UsuarioModel(nome=data.get('nome'), email=data.get('email'), senha_hash=senha_hash, papel='ADMIN')
     novo_admin.salvar()
     
@@ -33,7 +40,13 @@ def cadastrar_bibliotecario():
         return redirect(url_for('livro.listar_livros'))
     
     data = request.form if not request.is_json else request.get_json()
-    senha_hash = generate_password_hash(data.get('senha'))
+    senha = data.get('senha')
+    valida, msg = validar_senha(senha)
+    if not valida:
+        flash(msg, 'warning')
+        return redirect(url_for('livro.admin_dashboard'))
+
+    senha_hash = generate_password_hash(senha)
     novo_biblio = UsuarioModel(nome=data.get('nome'), email=data.get('email'), senha_hash=senha_hash, papel='BIBLIOTECARIO')
     novo_biblio.salvar()
     
