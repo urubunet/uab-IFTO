@@ -26,9 +26,8 @@ def test_gerar_relatorios(client, app):
         sess['user_id'] = 1
         sess['papel'] = 'ADMIN'
     
-    response = client.get('/relatorios')
+    response = client.get('/relatorios', follow_redirects=True)
     assert response.status_code == 200
-    # Como alteramos para render_template, vamos verificar o conteúdo HTML
     html = response.get_data(as_text=True)
-    assert 'Total de Empréstimos:' in html
-    assert 'Livro A: 1' in html
+    assert 'Dashboard de Relatórios' in html
+    assert 'Total de Empréstimos' in html

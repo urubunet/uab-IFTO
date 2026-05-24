@@ -1,13 +1,12 @@
-from flask import Blueprint, request, session, jsonify, render_template, redirect, url_for, flash
+from flask import Blueprint, request, session, render_template, redirect, url_for, flash
 from app.models.livro_model import LivroModel
+from app.services.library_service import LibraryService
+from app import cache
 
 livro_bp = Blueprint('livro', __name__)
 
-def verificar_permissao(papeis_permitidos):
-    papel_usuario = session.get('papel')
-    return papel_usuario in papeis_permitidos
-
 @livro_bp.route('/catalogo', methods=['GET'])
+@cache.cached(timeout=60, query_string=True)
 def listar_livros():
     filtros = request.args.to_dict()
     livros = LivroModel.buscar_todos(filtros)
@@ -15,13 +14,12 @@ def listar_livros():
 
 @livro_bp.route('/admin/dashboard', methods=['GET'])
 def admin_dashboard():
-    if not verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
         flash('Acesso negado', 'danger')
         return redirect(url_for('livro.listar_livros'))
     
     livros = LivroModel.buscar_todos()
     
-    # Buscar empréstimos pendentes e ativos para o painel
     from app.database import conectar_db
     conn = conectar_db()
     cursor = conn.cursor()
@@ -40,17 +38,14 @@ def admin_dashboard():
 
 @livro_bp.route('/livro/cadastrar', methods=['POST'])
 def cadastrar_livro():
-    if not verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
         flash('Acesso negado', 'danger')
         return redirect(url_for('livro.listar_livros'))
     
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = request.form
-        
+    data = request.form if not request.is_json else request.get_json()
     novo_livro = LivroModel(titulo=data.get('titulo'), autor=data.get('autor'), categoria=data.get('categoria'))
     novo_livro.salvar()
     
+    cache.clear() # Limpar cache ao adicionar novo livro
     flash('Livro cadastrado com sucesso!', 'success')
     return redirect(url_for('livro.admin_dashboard'))

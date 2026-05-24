@@ -24,6 +24,7 @@ def inicializar_db():
             papel TEXT NOT NULL
         )
         ''')
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_usuarios_email ON Usuarios(email)')
         
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS Livros (
@@ -34,6 +35,9 @@ def inicializar_db():
             status TEXT NOT NULL DEFAULT 'DISPONIVEL'
         )
         ''')
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_livros_titulo ON Livros(titulo)')
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_livros_autor ON Livros(autor)')
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_livros_categoria ON Livros(categoria)')
         
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS Emprestimos (
@@ -47,6 +51,7 @@ def inicializar_db():
             FOREIGN KEY (usuario_id) REFERENCES Usuarios (id)
         )
         ''')
+        cursor.execute('CREATE INDEX IF NOT EXISTS idx_emprestimos_status ON Emprestimos(status)')
         
         # Verificar se tabela Usuarios está vazia
         cursor.execute('SELECT COUNT(*) FROM Usuarios')

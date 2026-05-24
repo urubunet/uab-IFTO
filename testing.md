@@ -55,6 +55,15 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | T-UI-02 | Mensagens Flash | Garantir que alertas de erro/sucesso aparecem após ações. | Manual |
 | T-UI-03 | Visibilidade Contextual| Verificar se o botão de aprovação aparece apenas para ADM. | Manual |
 
+### 2.7 Otimização e Refatoração (Prioridade: ALTA)
+
+| ID | Cenário | Descrição do Teste | Técnica |
+|:---|:---|:---|:---|
+| T-OPT-01 | Cache de Catálogo | Validar se a segunda chamada ao catálogo não executa query no DB. | Integração/Mock |
+| T-OPT-02 | Fila de Jobs | Verificar se o log de aprovação é processado de forma assíncrona. | Unidade |
+| T-OPT-03 | Índices de DB | Garantir que as colunas críticas possuem índices para performance. | Integração |
+| T-OPT-04 | Camada de Serviço | Validar que a lógica de negócio foi movida dos controllers para services. | Refatoração |
+
 ## 3. Configuração do Ambiente de Teste
 
 Os testes devem ser executados a partir da raiz do projeto:

@@ -1,16 +1,16 @@
-from flask import Blueprint, session, jsonify, render_template
+from flask import Blueprint, session, jsonify, render_template, redirect, url_for, flash
 from app.database import conectar_db
+from app.services.library_service import LibraryService
+from app import cache
 
 relatorio_bp = Blueprint('relatorio', __name__)
 
-def verificar_permissao(papeis_permitidos):
-    papel_usuario = session.get('papel')
-    return papel_usuario in papeis_permitidos
-
 @relatorio_bp.route('/relatorios', methods=['GET'])
+@cache.cached(timeout=300)
 def gerar_relatorios():
-    if not verificar_permissao(['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL']):
-        return jsonify({'message': 'Acesso negado'}), 403
+    if not LibraryService.verificar_permissao(['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
     
     conn = conectar_db()
     cursor = conn.cursor()
@@ -19,7 +19,7 @@ def gerar_relatorios():
     cursor.execute('SELECT COUNT(*) FROM Emprestimos')
     total_emprestimos = cursor.fetchone()[0]
     
-    # Top livros (simplificado)
+    # Top livros
     cursor.execute('''
         SELECT L.titulo, COUNT(E.id) as total 
         FROM Livros L 

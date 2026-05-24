@@ -33,19 +33,19 @@ def test_cadastrar_livro_permissao(client, app):
         sess['user_id'] = 1
         sess['papel'] = 'LEITOR'
     
-    response = client.post('/livro/cadastrar', json={
+    response = client.post('/livro/cadastrar', data={
         'titulo': 'Novo Livro',
         'autor': 'Autor',
         'categoria': 'Cat'
-    })
-    assert response.status_code == 403
+    }, follow_redirects=True)
+    assert 'acesso negado' in response.get_data(as_text=True).lower()
     
     with client.session_transaction() as sess:
         sess['papel'] = 'ADMIN'
     
-    response = client.post('/livro/cadastrar', json={
+    response = client.post('/livro/cadastrar', data={
         'titulo': 'Novo Livro 2',
         'autor': 'Autor 2',
         'categoria': 'Cat 2'
-    })
-    assert response.status_code == 201
+    }, follow_redirects=True)
+    assert 'cadastrado com sucesso' in response.get_data(as_text=True).lower()

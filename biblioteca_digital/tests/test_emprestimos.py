@@ -15,13 +15,9 @@ def test_fluxo_emprestimo_completo(client, app):
         sess['papel'] = 'LEITOR'
     
     # T-LOAN-01: Solicitação de Empréstimo
-    response = client.post('/emprestimo/solicitar', json={'livro_id': livro_id})
-    assert response.status_code == 201
-    
-    # T-LOAN-02: Regra de Indisponibilidade
-    # Tentativa de solicitar o mesmo livro (ainda não aprovado, mas solicitado - o requisito diz verificar se status == DISPONIVEL)
-    # Atualmente a implementação de aprovar muda para EMPRESTADO. 
-    # Vamos aprovar primeiro para testar T-LOAN-02 corretamente.
+    response = client.post('/emprestimo/solicitar', data={'livro_id': livro_id}, follow_redirects=True)
+    assert response.status_code == 200
+    assert 'enviada com sucesso' in response.get_data(as_text=True).lower()
     
     # 2. Aprovação (BIBLIOTECARIO)
     with client.session_transaction() as sess:
@@ -29,8 +25,9 @@ def test_fluxo_emprestimo_completo(client, app):
         sess['papel'] = 'BIBLIOTECARIO'
     
     # T-LOAN-03: Aprovação de Empréstimo
-    response = client.post('/emprestimo/aprovar', json={'emprestimo_id': 1})
+    response = client.post('/emprestimo/aprovar', data={'emprestimo_id': 1}, follow_redirects=True)
     assert response.status_code == 200
+    assert 'aprovado' in response.get_data(as_text=True).lower()
     
     with app.app_context():
         livro_atualizado = LivroModel.buscar_todos({'titulo': 'Livro Teste'})[0]

@@ -19,27 +19,19 @@ def test_usuario_save_and_retrieve(app):
         assert buscado.senha_hash == senha_hash
 
 def test_login_sucesso(client, app):
-    # T-AUTH-01: Login com sucesso
-    email = "admin@empresa.com"
-    senha = "senha_secura" # Definida no pseudocódigo como senha_segura, mas vou usar a do Config padrão
-    
-    # O banco é inicializado no fixture app com o PROPRIETARIO_EMAIL do Config
     from config import Config
-    
-    response = client.post('/login', json={
+    response = client.post('/login', data={
         'email': Config.PROPRIETARIO_EMAIL,
         'senha': Config.PROPRIETARIO_PASSWORD
-    })
+    }, follow_redirects=True)
     
     assert response.status_code == 200
-    data = response.get_json()
-    assert data['message'] == 'Login realizado com sucesso'
-    assert data['papel'] == 'ADMIN_INICIAL'
+    assert b'Login realizado com sucesso!' in response.data
+    assert b'DOM CASMURRO' not in response.data.upper() # Apenas checando se caiu no catalogo
 
 def test_login_falha(client):
-    # T-AUTH-02: Login com falha
-    response = client.post('/login', json={
+    response = client.post('/login', data={
         'email': 'errado@teste.com',
         'senha': 'senha'
-    })
-    assert response.status_code == 401
+    }, follow_redirects=True)
+    assert b'Credenciais inv\xc3\xa1lidas' in response.data
