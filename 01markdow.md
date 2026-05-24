@@ -34,6 +34,9 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ### Gerenciamento de Empréstimos
 - **Filtros**: Na tela de gerenciamento, deve haver separação visual entre solicitações (status 'SOLICITADO') e empréstimos ativos (status 'ATIVO').
+- **Ações**:
+    - **Aprovar**: Atualiza empréstimo para 'ATIVO' e livro para 'EMPRESTADO'.
+    - **Excluir**: Exclui empréstimo com status 'SOLICITADO' e reverte livro para 'DISPONIVEL'.
 - **Pesquisa de Devoluções**: Deve haver um formulário específico para busca no histórico de empréstimos finalizados (status 'DEVOLVIDO') filtrando por data de devolução.
 - **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 

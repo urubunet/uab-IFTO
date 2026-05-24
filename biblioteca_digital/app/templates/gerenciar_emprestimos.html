@@ -23,10 +23,15 @@
                     <td>{{ emp.usuario }}</td>
                     <td>{{ emp.data_solicitacao }}</td>
                     <td>
-                        <form action="{{ url_for('emprestimo.aprovar_emprestimo') }}" method="POST">
+                        <form action="{{ url_for('emprestimo.aprovar_emprestimo') }}" method="POST" class="d-inline">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">
                             <button type="submit" class="btn btn-success btn-sm">Aprovar Saída</button>
+                        </form>
+                        <form action="{{ url_for('emprestimo.excluir_solicitacao') }}" method="POST" class="d-inline">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta solicitação?')">Excluir</button>
                         </form>
                     </td>
                 </tr>

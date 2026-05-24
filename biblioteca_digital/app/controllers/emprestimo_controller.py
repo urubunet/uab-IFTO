@@ -68,6 +68,20 @@ def buscar_devolucoes_view():
     
     return render_template('buscar_devolucoes.html', devolucoes=devolucoes)
 
+@emprestimo_bp.route('/emprestimo/excluir', methods=['POST'])
+def excluir_solicitacao():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    data = request.form if not request.is_json else request.get_json()
+    emprestimo_id = data.get('emprestimo_id')
+    
+    sucesso, mensagem = LibraryService.excluir_solicitacao(emprestimo_id)
+    flash(mensagem, 'success' if sucesso else 'warning')
+    
+    return redirect(url_for('emprestimo.gerenciar_view'))
+
 @emprestimo_bp.route('/emprestimo/solicitar', methods=['POST'])
 def solicitar_emprestimo():
     if not LibraryService.verificar_permissao(['LEITOR']):

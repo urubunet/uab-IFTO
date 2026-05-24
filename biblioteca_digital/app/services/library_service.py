@@ -59,6 +59,22 @@ class LibraryService:
         return False, "Empréstimo não encontrado ou já devolvido"
 
     @staticmethod
+    def excluir_solicitacao(emprestimo_id):
+        emprestimo = EmprestimoModel.buscar_por_id(emprestimo_id)
+        if emprestimo and emprestimo.status == 'SOLICITADO':
+            conn = conectar_db()
+            try:
+                cursor = conn.cursor()
+                cursor.execute('DELETE FROM Emprestimos WHERE id = ?', (emprestimo_id,))
+                cursor.execute('UPDATE Livros SET status = "DISPONIVEL" WHERE id = ?', (emprestimo.livro_id,))
+                conn.commit()
+                security_logger.info(f"EXCLUSAO: Solicitação {emprestimo_id} excluída por {session.get('usuario_id')}")
+                return True, "Solicitação excluída com sucesso!"
+            finally:
+                conn.close()
+        return False, "Solicitação não encontrada ou não pode ser excluída"
+
+    @staticmethod
     def verificar_permissao(papeis_permitidos):
         papel_usuario = session.get('papel')
         autorizado = papel_usuario in papeis_permitidos
