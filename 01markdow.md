@@ -20,10 +20,18 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Gestão de Sessão**: Cookies seguros (`HttpOnly`, `SameSite=Lax`) e expiração automática de 30 minutos.
 - **Auditoria**: Logs de eventos críticos em `security.log`.
 
-## 3. Performance e Otimização
-- **Caching**: Cache de catálogo (60s) e relatórios (300s) utilizando `Flask-Caching`.
-- **Banco de Dados**: Índices nas colunas de busca (`titulo`, `autor`, `categoria`, `email`).
-- **Asincronismo**: Logs e tarefas secundárias processadas em background pelo Huey.
+## Arquitetura de Otimização e Refatoração
+
+### 1. Camada de Serviços (Services)
+- **Objetivo**: Desacoplar a lógica de negócio dos controladores.
+- **Implementação**: Toda a lógica deve residir em `app/services/`. Controladores devem apenas gerenciar requisições e respostas.
+
+### 2. Desempenho e Cache
+- **Caching**: Utilizar `Flask-Caching` para o catálogo de livros e relatórios para reduzir acessos ao banco de dados.
+- **Banco de Dados**: Índices em colunas de busca (`titulo`, `autor`, `categoria`, `email`).
+
+### 3. Jobs e Filas (Asincronismo)
+- **Implementação**: Utilizar `Huey` (SQLite backend) para processar tarefas secundárias (logs de empréstimos) de forma assíncrona, evitando bloqueios na interface do usuário.
 
 ## Banco de Dados
 - **Inicialização**: Ao iniciar o sistema, o banco de dados é criado automaticamente.
