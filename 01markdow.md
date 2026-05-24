@@ -25,15 +25,12 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Banco de Dados**: Índices nas colunas de busca (`titulo`, `autor`, `categoria`, `email`).
 - **Asincronismo**: Logs e tarefas secundárias processadas em background pelo Huey.
 
-## Interfaces e Papéis
-- **ADMIN_INICIAL**: Controle total, criação de outros Admins.
-- **ADMIN**: Gestão de acervo, usuários (Bibliotecários) e empréstimos.
-- **BIBLIOTECARIO**: Gestão de acervo e fluxo de empréstimos.
-- **LEITOR**: Consulta de catálogo e solicitação de livros.
+## Fluxos de Negócio
 
-### Requisitos de Interface (Menu):
-- **Exibição de Usuário**: Ao realizar login, o nome do usuário autenticado deve ser exibido de forma visível na barra de menu superior.
-- **Acesso ao Cadastro**: Opções para "Cadastrar Livro" e "Gerenciar Acervo" devem estar disponíveis no menu superior exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
+### Fluxo de Empréstimo
+1. **Solicitação**: Leitor solicita um livro. Sistema verifica se status é 'DISPONIVEL', cria empréstimo ('SOLICITADO') e atualiza livro para 'REQUISITADO'.
+2. **Aprovação**: Admin/Biblio aprova solicitação. Atualiza empréstimo para 'ATIVO' e livro para 'EMPRESTADO'.
+3. **Devolução**: Admin/Biblio registra devolução. Atualiza empréstimo para 'DEVOLVIDO' e livro para 'DISPONIVEL'.
 
 
 ## 5. Variáveis de Ambiente (.env)

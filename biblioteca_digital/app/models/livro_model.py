@@ -22,6 +22,19 @@ class LivroModel:
             conn.close()
 
     @staticmethod
+    def buscar_por_id(id):
+        conn = conectar_db()
+        try:
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM Livros WHERE id = ?', (id,))
+            row = cursor.fetchone()
+            if row:
+                return LivroModel(row['id'], row['titulo'], row['autor'], row['categoria'], row['status'])
+        finally:
+            conn.close()
+        return None
+
+    @staticmethod
     def buscar_todos(filtros=None):
         conn = conectar_db()
         try:

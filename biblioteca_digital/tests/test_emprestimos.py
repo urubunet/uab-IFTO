@@ -19,6 +19,11 @@ def test_fluxo_emprestimo_completo(client, app):
     assert response.status_code == 200
     assert 'enviada com sucesso' in response.get_data(as_text=True).lower()
     
+    # T-LOAN-04: Verificar status REQUISITADO
+    with app.app_context():
+        livro_requisitado = LivroModel.buscar_por_id(livro_id)
+        assert livro_requisitado.status == 'REQUISITADO'
+    
     # 2. Aprovação (BIBLIOTECARIO)
     with client.session_transaction() as sess:
         sess['user_id'] = 1

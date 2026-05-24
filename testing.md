@@ -38,8 +38,10 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | ID | Cenário | Descrição do Teste | Técnica |
 |:---|:---|:---|:---|
 | T-LOAN-01 | Solicitação de Empréstimo | Validar se leitor pode solicitar livro DISPONÍVEL. | Integração |
-| T-LOAN-02 | Regra de Indisponibilidade| Impedir solicitação de livro com status 'EMPRESTADO'. | Integração |
+| T-LOAN-02 | Regra de Indisponibilidade| Impedir solicitação de livro com status 'EMPRESTADO' ou 'REQUISITADO'. | Integração |
 | T-LOAN-03 | Aprovação de Empréstimo | Validar se status do livro muda para 'EMPRESTADO' após aprovação. | Integração |
+| T-LOAN-04 | Status REQUISITADO | Validar se status do livro muda para 'REQUISITADO' após solicitação. | Integração |
+| T-LOAN-05 | Aprovação UI | Verificar disponibilidade da ação de aprovar para Bibliotecário. | Integração |
 
 ### 2.5 Relatórios (Prioridade: BAIXA)
 
