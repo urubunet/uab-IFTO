@@ -26,7 +26,6 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('livro.listar_livros') }}">Catálogo</a></li>
                     {% if session.get('papel') in ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL'] %}
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('emprestimo.gerenciar_view') }}">Empréstimos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('emprestimo.buscar_devolucoes_view') }}">Devoluções</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('livro.cadastrar_view') }}">Novo Livro</a></li>
                     
                     <li class="nav-item dropdown">
