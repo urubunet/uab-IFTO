@@ -41,11 +41,10 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Página de Devoluções**: Acessível apenas para papéis `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
 - **Interface**:
     - Tabela contendo: Livro, Leitor, Data Solicitação, Data Devolução, Status.
-    - Área de busca com: Input de busca (Nome Leitor/Livro), Input de Data e Botões de Status.
+    - Área de busca com: Input de busca (Nome Leitor/Livro) e Input de Data.
 - **Filtros**:
     - **Busca por Nome**: Autocomplete funcional após 3 caracteres. Exibir 5 opções. Ao clicar na opção, a tabela atualiza instantaneamente para o resultado selecionado.
     - **Filtro por Data**: Seleção de data atualiza a tabela instantaneamente.
-    - **Filtro por Status**: Botões clicáveis (Todos, Devolvido, Ativo, Solicitado) atualizam a tabela instantaneamente.
     - **Regras**: Filtros podem ser isolados ou combinados. A atualização é via AJAX (transparente ao usuário).
 - **Menu**: Opção "Devoluções" visível apenas para `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
 
@@ -61,6 +60,9 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ### Requisitos de Interface (Menu):
 - **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
+- **Gestão de Usuários (Menu Aninhado)**:
+    - "Gestão de Usuários": Novo Admin, Novo Bibliotecário, Listar Usuários.
+    - Acesso restrito conforme papel (ADMIN/ADMIN_INICIAL/BIBLIOTECARIO).
 - **Renomeação de Menu**:
     - "Empréstimos"
     - "Novo Livro"
