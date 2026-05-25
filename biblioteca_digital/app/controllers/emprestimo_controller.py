@@ -60,7 +60,21 @@ def buscar_devolucoes_view():
     if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
         flash('Acesso negado', 'danger')
         return redirect(url_for('livro.listar_livros'))
-    return render_template('buscar_devolucoes.html')
+    
+    conn = conectar_db()
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao, E.status
+        FROM Emprestimos E
+        JOIN Livros L ON E.livro_id = L.id
+        JOIN Usuarios U ON E.usuario_id = U.id
+        WHERE E.status = 'DEVOLVIDO'
+        ORDER BY E.data_devolucao DESC
+    ''')
+    devolucoes = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    return render_template('buscar_devolucoes.html', devolucoes=devolucoes)
 
 @emprestimo_bp.route('/emprestimo/solicitar', methods=['POST'])
 def solicitar_emprestimo():
