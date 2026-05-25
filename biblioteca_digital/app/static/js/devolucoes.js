@@ -1,20 +1,3 @@
-let currentStatus = 'Todos';
-
-function formatarData(dateString) {
-    if (!dateString || dateString === 'None' || dateString === '-') return '-';
-    
-    // Tenta capturar YYYY, MM, DD, HH, MM de strings como '2026-05-24 17:03:03.030899'
-    const match = dateString.match(/(\d{4})-(\d{2})-(\d{2})[\sT](\d{2}):(\d{2})/);
-    
-    if (match) {
-        // match[1]: YYYY, [2]: MM, [3]: DD, [4]: HH, [5]: MM
-        // Formato solicitado: DD/MM/AA HH:MM
-        return `${match[3]}/${match[2]}/${match[1].slice(2)} ${match[4]}:${match[5]}`;
-    }
-    
-    return dateString;
-}
-
 function carregarDevolucoes(termo = '', data = '') {
     let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(termo)}&data=${encodeURIComponent(data)}`;
     
@@ -35,13 +18,14 @@ function carregarDevolucoes(termo = '', data = '') {
                 if (dev.status === 'ATIVO') badgeClass = 'bg-success';
                 if (dev.status === 'SOLICITADO') badgeClass = 'bg-primary text-white';
                 
+                // Os dados já chegam formatados do backend (DD/MM/AA HH:MM)
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${dev.titulo}</td>
                     <td>${dev.usuario}</td>
                     <td><span class="badge ${badgeClass}">${dev.status}</span></td>
-                    <td>${formatarData(dev.data_solicitacao)}</td>
-                    <td><span class="text-success">${formatarData(dev.data_devolucao)}</span></td>
+                    <td>${dev.data_solicitacao || '-'}</td>
+                    <td><span class="text-success">${dev.data_devolucao || '-'}</span></td>
                 `;
                 tbody.appendChild(row);
             });

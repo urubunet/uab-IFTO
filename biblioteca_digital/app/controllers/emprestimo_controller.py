@@ -3,8 +3,18 @@ from app.services.library_service import LibraryService
 from app.jobs import log_evento_emprestimo
 from app.database import conectar_db
 from app import cache
+from datetime import datetime
 
 emprestimo_bp = Blueprint('emprestimo', __name__)
+
+def format_date_for_api(val):
+    if not val: return '-'
+    try:
+        # Tenta parsear formato do SQLite: 'YYYY-MM-DD HH:MM:SS.ffffff'
+        dt = datetime.fromisoformat(val.replace(' ', 'T'))
+        return dt.strftime('%d/%m/%y %H:%M')
+    except:
+        return val
 
 @emprestimo_bp.route('/emprestimo/gerenciar', methods=['GET'])
 def gerenciar_view():
@@ -91,6 +101,11 @@ def api_listar_devolucoes():
     cursor.execute(query, params)
     devolucoes = [dict(row) for row in cursor.fetchall()]
     conn.close()
+
+    # Formatar datas para o formato solicitado
+    for dev in devolucoes:
+        dev['data_solicitacao'] = format_date_for_api(dev['data_solicitacao'])
+        dev['data_devolucao'] = format_date_for_api(dev['data_devolucao'])
 
     return jsonify(devolucoes)
 
