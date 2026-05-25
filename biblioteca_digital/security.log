@@ -203,3 +203,13 @@
 2026-05-25 08:51:49,720 INFO werkzeug MainThread :  * Restarting with stat
 2026-05-25 08:51:49,908 WARNING werkzeug MainThread :  * Debugger is active!
 2026-05-25 08:51:49,910 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
+2026-05-25 08:54:07,135 WARNING security Thread-30 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 08:54:09,182 WARNING security Thread-37 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 08:54:10,884 WARNING security Thread-41 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL']
+2026-05-25 08:54:11,700 WARNING security Thread-45 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['ADMIN_INICIAL']
+2026-05-25 08:54:12,725 WARNING security Thread-49 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['ADMIN_INICIAL', 'ADMIN']
+2026-05-25 08:54:13,150 WARNING security Thread-53 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 08:54:14,212 WARNING security Thread-57 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['ADMIN', 'ADMIN_INICIAL', 'BIBLIOTECARIO']
+2026-05-25 08:54:15,303 WARNING security Thread-61 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 08:54:16,134 WARNING security Thread-65 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 08:54:20,930 WARNING security Thread-79 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']

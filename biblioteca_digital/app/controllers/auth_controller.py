@@ -74,6 +74,5 @@ def cadastrar_leitor():
 @auth_bp.route('/logout', methods=['GET'])
 def logout():
     session.clear()
-    session.modified = True
     flash('Você saiu do sistema.', 'info')
     return redirect(url_for('auth.login_view'))
