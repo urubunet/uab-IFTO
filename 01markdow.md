@@ -59,14 +59,19 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 ### Requisitos de Interface (Menu):
 - **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
 - **Renomeação de Menu**:
-    - "Cadastrar Bibliotecário" -> "Novo Bibliotecário"
-    - "Gerenciar Empréstimos" -> "Empréstimos"
-    - "Cadastrar Livro" -> "Novo Livro"
-    - "Buscar Devoluções" -> "Devoluções"
+    - "Novo Bibliotecário" (acesso restrito)
+    - "Empréstimos"
+    - "Novo Livro"
+    - "Devoluções"
+    - "Novo Admin" (acesso restrito)
 - **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
 
-## Gerenciamento de Acervo
-- **Exclusão de Livros**: Permitir exclusão de livros, desde que o livro não esteja com status 'EMPRESTADO'.
+### Pesquisa de Devoluções
+- **Filtros**: 
+    - Busca em tempo real (sem botão filtrar) por título do livro ou nome do leitor.
+    - Filtro por data de devolução (componente de seleção de data).
+    - Botões clicáveis para filtrar por status.
+- **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 
 ## Funcionalidades para Leitores
 - **Meus Empréstimos**: Listar todos os empréstimos realizados pelo leitor logado.
