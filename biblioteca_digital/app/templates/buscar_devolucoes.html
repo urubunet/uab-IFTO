@@ -5,10 +5,9 @@
 
 <div class="card p-3 mb-4 bg-light shadow-sm border-0">
     <div class="row g-3 align-items-end">
-        <div class="col-md-9 position-relative">
+        <div class="col-md-6">
             <label class="form-label small text-muted">Buscar Livro ou Leitor</label>
-            <input type="text" id="buscaDevolucao" class="form-control" placeholder="Digite para filtrar..." autocomplete="off">
-            <div id="autocompleteList" class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000;"></div>
+            <input type="text" id="buscaDevolucao" class="form-control" placeholder="Digite para filtrar...">
         </div>
         <div class="col-md-3">
             <label class="form-label small text-muted">Data Devolução</label>
@@ -32,10 +31,12 @@
             <tbody id="tabelaDevolucoesBody">
                 {% for dev in devolucoes %}
                 <tr class="linha-devolucao" 
+                    data-titulo="{{ dev.titulo | lower }}" 
+                    data-leitor="{{ dev.usuario | lower }}" 
                     data-data="{{ dev.data_devolucao.split(' ')[0] if dev.data_devolucao else '' }}">
                     <td>{{ dev.titulo }}</td>
                     <td>{{ dev.usuario }}</td>
-                    <td><span class="badge bg-danger text-white">{{ dev.status }}</span></td>
+                    <td><span class="badge {% if dev.status == 'DEVOLVIDO' %}bg-danger text-white{% elif dev.status == 'ATIVO' %}bg-success{% else %}bg-primary text-white{% endif %}">{{ dev.status }}</span></td>
                     <td>{{ dev.data_solicitacao | format_datetime }}</td>
                     <td><span class="text-success">{{ dev.data_devolucao | format_datetime }}</span></td>
                 </tr>
@@ -50,15 +51,18 @@
 <script>
     function filtrar() {
         const busca = document.getElementById('buscaDevolucao').value.toLowerCase();
-        const data = document.getElementById('dataDevolucao').value; // YYYY-MM-DD
+        const dataFiltro = document.getElementById('dataDevolucao').value; // YYYY-MM-DD
         const linhas = document.querySelectorAll('.linha-devolucao');
         
+        console.log(`Debug - Filtro: busca='${busca}', data='${dataFiltro}'`);
+        
         linhas.forEach(linha => {
-            const texto = linha.innerText.toLowerCase();
+            const titulo = linha.getAttribute('data-titulo');
+            const leitor = linha.getAttribute('data-leitor');
             const dataLinha = linha.getAttribute('data-data'); // YYYY-MM-DD
             
-            const matchBusca = texto.includes(busca);
-            const matchData = (data === "" || dataLinha === data);
+            const matchBusca = titulo.includes(busca) || leitor.includes(busca);
+            const matchData = (dataFiltro === "" || dataLinha === dataFiltro);
             
             if (matchBusca && matchData) {
                 linha.style.display = "";
@@ -70,27 +74,5 @@
 
     document.getElementById('buscaDevolucao').addEventListener('input', filtrar);
     document.getElementById('dataDevolucao').addEventListener('change', filtrar);
-
-    // Autocomplete
-    document.getElementById('buscaDevolucao').addEventListener('input', function() {
-        const termo = this.value;
-        if (termo.length >= 3) {
-            fetch(`/emprestimo/api/autocomplete?q=${encodeURIComponent(termo)}`)
-                .then(r => r.json())
-                .then(data => {
-                    const list = document.getElementById('autocompleteList');
-                    list.innerHTML = '';
-                    data.forEach(item => {
-                        list.innerHTML += `<button class="list-group-item list-group-item-action" onclick="selecionar('${item}')">${item}</button>`;
-                    });
-                });
-        }
-    });
-
-    function selecionar(item) {
-        document.getElementById('buscaDevolucao').value = item;
-        document.getElementById('autocompleteList').innerHTML = '';
-        filtrar();
-    }
 </script>
 {% endblock %}
