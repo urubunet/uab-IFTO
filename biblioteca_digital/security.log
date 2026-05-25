@@ -260,3 +260,39 @@
 2026-05-25 09:20:11,430 INFO security Thread-62 (process_request_thread) : DEVOLUCAO: Livro 6 devolvido (Emprestimo 5) processado por 1
 2026-05-25 09:20:12,910 INFO security Thread-66 (process_request_thread) : DEVOLUCAO: Livro 2 devolvido (Emprestimo 6) processado por 1
 2026-05-25 09:34:30,196 INFO security Thread-80 (process_request_thread) : SOLICITACAO: Usuario 2 solicitou livro 8
+2026-05-25 10:01:59,357 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,357 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,357 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,357 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,753 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,753 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,753 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,753 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,753 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:01:59,759 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:01:59,759 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:01:59,759 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:01:59,759 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:01:59,759 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:02:47,611 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,611 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,611 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,611 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,629 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 10:02:47,629 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 10:02:47,629 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 10:02:47,629 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 10:02:47,645 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 10:02:47,645 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 10:02:47,645 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 10:02:47,645 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 10:02:47,895 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,895 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,895 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,895 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,895 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 10:02:47,901 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:02:47,901 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:02:47,901 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:02:47,901 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:02:47,901 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1

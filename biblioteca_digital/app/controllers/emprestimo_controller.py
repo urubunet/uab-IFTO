@@ -80,4 +80,98 @@ def buscar_devolucoes_view():
         flash('Acesso negado', 'danger')
         return redirect(url_for('livro.listar_livros'))
     return render_template('buscar_devolucoes.html')
-...
+
+@emprestimo_bp.route('/emprestimo/solicitar', methods=['POST'])
+def solicitar_emprestimo():
+    if not LibraryService.verificar_permissao(['LEITOR']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    data = request.form if not request.is_json else request.get_json()
+    livro_id = data.get('livro_id')
+    usuario_id = session.get('usuario_id')
+    
+    if not usuario_id:
+        flash('Sua sessão expirou. Por favor, faça login novamente.', 'danger')
+        return redirect(url_for('auth.login_view'))
+    
+    sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id)
+    flash(mensagem, 'success' if sucesso else 'warning')
+    
+    if sucesso:
+        log_evento_emprestimo(livro_id, "SOLICITACAO")
+        cache.clear()
+        
+    return redirect(url_for('livro.listar_livros'))
+
+@emprestimo_bp.route('/emprestimo/aprovar', methods=['POST'])
+def aprovar_emprestimo():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    data = request.form if not request.is_json else request.get_json()
+    emprestimo_id = data.get('emprestimo_id')
+    
+    sucesso, mensagem = LibraryService.aprovar_emprestimo(emprestimo_id)
+    flash(mensagem, 'success' if sucesso else 'warning')
+    
+    if sucesso:
+        log_evento_emprestimo(emprestimo_id, "APROVACAO")
+        cache.clear()
+        
+    return redirect(url_for('emprestimo.gerenciar_view'))
+
+@emprestimo_bp.route('/emprestimo/devolver', methods=['POST'])
+def devolver_emprestimo():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    data = request.form if not request.is_json else request.get_json()
+    emprestimo_id = data.get('emprestimo_id')
+    
+    sucesso, mensagem = LibraryService.devolver_livro(emprestimo_id)
+    flash(mensagem, 'success' if sucesso else 'warning')
+    
+    if sucesso:
+        log_evento_emprestimo(emprestimo_id, "DEVOLUCAO")
+        cache.clear()
+        
+    return redirect(url_for('emprestimo.gerenciar_view'))
+
+@emprestimo_bp.route('/emprestimo/excluir', methods=['POST'])
+def excluir_solicitacao():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    data = request.form if not request.is_json else request.get_json()
+    emprestimo_id = data.get('emprestimo_id')
+    
+    sucesso, mensagem = LibraryService.excluir_solicitacao(emprestimo_id)
+    flash(mensagem, 'success' if sucesso else 'warning')
+    
+    return redirect(url_for('emprestimo.gerenciar_view'))
+
+@emprestimo_bp.route('/emprestimo/meus', methods=['GET'])
+def meus_emprestimos():
+    if not LibraryService.verificar_permissao(['LEITOR']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    usuario_id = session.get('usuario_id')
+    conn = conectar_db()
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        SELECT L.titulo, E.status, E.data_solicitacao, E.data_devolucao
+        FROM Emprestimos E
+        JOIN Livros L ON E.livro_id = L.id
+        WHERE E.usuario_id = ?
+        ORDER BY E.data_solicitacao DESC
+    ''', (usuario_id,))
+    emprestimos = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    return render_template('meus_emprestimos.html', emprestimos=emprestimos)
