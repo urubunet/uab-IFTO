@@ -78,7 +78,7 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Meus Empréstimos**: Listar todos os empréstimos realizados pelo leitor logado.
     - **Status Badge Visual**:
         - 'ATIVO': `badge bg-success`
-        - 'SOLICITADO': `badge bg-danger text-white`
+        - 'SOLICITADO': `badge bg-primary text-white`
         - 'DEVOLVIDO': `badge bg-warning text-dark`
 
 
