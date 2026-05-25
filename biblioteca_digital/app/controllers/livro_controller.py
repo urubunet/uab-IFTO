@@ -14,7 +14,7 @@ def listar_livros():
 
 @livro_bp.route('/livro/api/catalogo', methods=['GET'])
 def api_listar_livros():
-    filtros = request.args.to_dict()
+    filtros = {k: v for k, v in request.args.to_dict().items() if v}
     livros = LivroModel.buscar_todos(filtros)
     return jsonify([{'id': l.id, 'titulo': l.titulo, 'autor': l.autor, 'categoria': l.categoria, 'status': l.status} for l in livros])
 
