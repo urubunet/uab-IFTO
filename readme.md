@@ -7,7 +7,7 @@ Gerenciamento completo de biblioteca com foco em segurança, performance e facil
 - **Banco de Dados**: SQLite
 - **Segurança**: Flask-WTF, Flask-Talisman, Flask-Limiter, Werkzeug Security
 - **Performance**: Flask-Caching, Huey (Jobs)
-- **Frontend**: Bootstrap 5
+- **Frontend**: Bootstrap 5, AJAX (Fetch API)
 
 ## 🚀 Como Executar
 
@@ -27,17 +27,19 @@ cp .env.example .env
 
 ### 3. Iniciar o Servidor
 ```bash
+cd biblioteca_digital
 python3 run.py
 ```
 
-### 4. Iniciar o Processador de Jobs (Opcional, para logs assíncronos)
+### 4. Iniciar o Processador de Jobs (Opcional)
 ```bash
 huey_consumer app.jobs.huey
 ```
 
 ## 🧪 Testes
-Para rodar a suíte completa de testes automatizados:
+Para rodar a suíte completa de testes:
 ```bash
+cd biblioteca_digital
 pip install -r requirements-dev.txt
 PYTHONPATH=. pytest tests/
 ```

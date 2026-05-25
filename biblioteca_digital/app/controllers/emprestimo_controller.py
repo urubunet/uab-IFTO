@@ -36,6 +36,70 @@ def gerenciar_view():
     conn.close()
     return render_template('gerenciar_emprestimos.html', solicitacoes=solicitacoes, ativos=ativos)
 
+@emprestimo_bp.route('/emprestimo/devolucoes', methods=['GET'])
+def buscar_devolucoes_view():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    return render_template('buscar_devolucoes.html')
+
+@emprestimo_bp.route('/emprestimo/api/devolucoes', methods=['GET'])
+def api_listar_devolucoes():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        return jsonify({'error': 'Acesso negado'}), 403
+    
+    busca = request.args.get('busca', '')
+    data = request.args.get('data', '')
+    status = request.args.get('status', 'Todos')
+    
+    conn = conectar_db()
+    cursor = conn.cursor()
+    
+    query = '''
+        SELECT L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao, E.status
+        FROM Emprestimos E
+        JOIN Livros L ON E.livro_id = L.id
+        JOIN Usuarios U ON E.usuario_id = U.id
+        WHERE E.status IN ('DEVOLVIDO', 'ATIVO', 'SOLICITADO')
+    '''
+    params = []
+    
+    if busca:
+        query += " AND (L.titulo LIKE ? OR U.nome LIKE ?)"
+        params.extend([f"%{busca}%", f"%{busca}%"])
+    if data:
+        query += " AND DATE(E.data_devolucao) = ?"
+        params.append(data)
+    if status != 'Todos':
+        query += " AND E.status = ?"
+        params.append(status)
+        
+    query += " ORDER BY E.data_devolucao DESC"
+    
+    cursor.execute(query, params)
+    devolucoes = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    return jsonify(devolucoes)
+
+@emprestimo_bp.route('/emprestimo/api/autocomplete', methods=['GET'])
+def buscar_autocomplete_api():
+    query = request.args.get('q', '')
+    if len(query) < 3:
+        return jsonify([])
+    
+    conn = conectar_db()
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT DISTINCT L.titulo as nome FROM Livros L WHERE L.titulo LIKE ?
+        UNION
+        SELECT DISTINCT U.nome as nome FROM Usuarios U WHERE U.nome LIKE ?
+        LIMIT 5
+    ''', (f"%{query}%", f"%{query}%"))
+    resultados = [row['nome'] for row in cursor.fetchall()]
+    conn.close()
+    return jsonify(resultados)
+
 @emprestimo_bp.route('/emprestimo/solicitar', methods=['POST'])
 def solicitar_emprestimo():
     if not LibraryService.verificar_permissao(['LEITOR']):

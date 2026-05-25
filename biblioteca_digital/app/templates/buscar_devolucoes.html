@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block title %}Devoluções - Biblioteca Digital{% endblock %}
+{% block content %}
+<h2 class="mb-4">Histórico de Devoluções</h2>
+
+<div class="card p-3 mb-4 bg-light shadow-sm border-0">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-5 position-relative">
+            <label class="form-label small text-muted">Buscar Livro ou Leitor</label>
+            <input type="text" id="buscaDevolucao" class="form-control" placeholder="Digite 3+ letras..." autocomplete="off">
+            <div id="autocompleteList" class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000;"></div>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small text-muted">Data Devolução</label>
+            <input type="date" id="dataDevolucao" class="form-control">
+        </div>
+        <div class="col-md-5">
+            <label class="form-label small text-muted d-block">Status</label>
+            <button class="btn btn-outline-secondary btn-sm" onclick="filtrarStatus('Todos')">Todos</button>
+            <button class="btn btn-outline-danger btn-sm" onclick="filtrarStatus('DEVOLVIDO')">Devolvido</button>
+            <button class="btn btn-outline-success btn-sm" onclick="filtrarStatus('ATIVO')">Ativo</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filtrarStatus('SOLICITADO')">Solicitado</button>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Livro</th>
+                    <th>Leitor</th>
+                    <th>Status</th>
+                    <th>Data Solicitação</th>
+                    <th>Data Devolução</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaDevolucoesBody">
+                <!-- Conteúdo carregado via AJAX -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let currentStatus = 'Todos';
+
+    function carregarDevolucoes() {
+        const busca = document.getElementById('buscaDevolucao').value;
+        const data = document.getElementById('dataDevolucao').value;
+        
+        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(busca)}&data=${encodeURIComponent(data)}&status=${encodeURIComponent(currentStatus)}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('tabelaDevolucoesBody');
+                tbody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>';
+                    return;
+                }
+                
+                data.forEach(dev => {
+                    let badgeClass = 'bg-info';
+                    if (dev.status === 'DEVOLVIDO') badgeClass = 'bg-danger text-white';
+                    if (dev.status === 'ATIVO') badgeClass = 'bg-success';
+                    if (dev.status === 'SOLICITADO') badgeClass = 'bg-primary text-white';
+                    
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${dev.titulo}</td>
+                            <td>${dev.usuario}</td>
+                            <td><span class="badge ${badgeClass}">${dev.status}</span></td>
+                            <td>${dev.data_solicitacao || '-'}</td>
+                            <td><span class="text-success">${dev.data_devolucao || '-'}</span></td>
+                        </tr>
+                    `;
+                });
+            });
+    }
+
+    // Autocomplete
+    document.getElementById('buscaDevolucao').addEventListener('input', function() {
+        const termo = this.value;
+        if (termo.length >= 3) {
+            fetch(`/emprestimo/api/autocomplete?q=${encodeURIComponent(termo)}`)
+                .then(r => r.json())
+                .then(data => {
+                    const list = document.getElementById('autocompleteList');
+                    list.innerHTML = '';
+                    data.forEach(item => {
+                        list.innerHTML += `<button class="list-group-item list-group-item-action" onclick="selecionar('${item}')">${item}</button>`;
+                    });
+                });
+            carregarDevolucoes(termo, document.getElementById('dataDevolucao').value, currentStatus);
+        } else {
+            carregarDevolucoes('', document.getElementById('dataDevolucao').value, currentStatus);
+        }
+    });
+
+    function selecionar(item) {
+        document.getElementById('buscaDevolucao').value = item;
+        document.getElementById('autocompleteList').innerHTML = '';
+        carregarDevolucoes(item, document.getElementById('dataDevolucao').value, currentStatus);
+    }
+
+    document.getElementById('dataDevolucao').addEventListener('change', carregarDevolucoes);
+    
+    function filtrarStatus(status) {
+        currentStatus = status;
+        carregarDevolucoes(document.getElementById('buscaDevolucao').value, document.getElementById('dataDevolucao').value, currentStatus);
+    }
+    
+    carregarDevolucoes();
+</script>
+{% endblock %}
