@@ -9,7 +9,7 @@
     <style>
         body { background-color: #f8f9fa; }
         .navbar-brand { font-weight: bold; color: #0d6efd; }
-        .navbar-nav .nav-link { font-size: 0.85rem; }
+        .navbar-nav .nav-link { font-size: 0.80rem; }
         .card { border: none; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
         .btn-primary { background-color: #0d6efd; border: none; }
     </style>
@@ -19,42 +19,29 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('livro.listar_livros') }}">📚 Biblioteca Digital</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('livro.listar_livros') }}">Catálogo</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('livro.listar_livros') }}">Catálogo</a></li>
                     {% if session.get('papel') in ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL'] %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('emprestimo.gerenciar_view') }}">Empréstimos</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('emprestimo.gerenciar_view') }}">Empréstimos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('emprestimo.buscar_devolucoes_view') }}">Devoluções</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('livro.cadastrar_view') }}">Novo Livro</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Gestão de Usuários
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('admin.listar_usuarios') }}">Listar Usuários</a></li>
+                            {% if session.get('papel') in ['ADMIN', 'ADMIN_INICIAL'] %}
+                            <li><a class="dropdown-item" href="{{ url_for('admin.cadastrar_biblio_view') }}">Novo Bibliotecário</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('admin.cadastrar_admin_view') }}">Novo Admin</a></li>
+                            {% endif %}
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('emprestimo.buscar_devolucoes_view') }}">Devoluções</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin.listar_usuarios') }}">Usuários</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('livro.cadastrar_view') }}">Novo Livro</a>
-                    </li>
-                    {% if session.get('papel') in ['ADMIN', 'ADMIN_INICIAL'] %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin.cadastrar_biblio_view') }}">Novo Bibliotecário</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin.cadastrar_admin_view') }}">Novo Admin</a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('relatorio.gerar_relatorios') }}">Relatórios</a>
-                    </li>
-                    {% endif %}
-                    {% if session.get('papel') == 'LEITOR' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('emprestimo.meus_emprestimos') }}">Meus Empréstimos</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('relatorio.gerar_relatorios') }}">Relatórios</a></li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav">
@@ -66,12 +53,8 @@
                             <a class="nav-link btn btn-outline-danger btn-sm ms-2" href="{{ url_for('auth.logout') }}">Sair</a>
                         </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.login_view') }}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.cadastro_view') }}">Cadastrar-se</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login_view') }}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.cadastro_view') }}">Cadastrar-se</a></li>
                     {% endif %}
                 </ul>
             </div>

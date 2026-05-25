@@ -256,3 +256,6 @@
 2026-05-25 09:09:08,618 WARNING security Thread-31 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
 2026-05-25 09:11:16,591 WARNING security Thread-45 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
 2026-05-25 09:11:18,076 WARNING security Thread-49 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 09:20:09,341 INFO security Thread-58 (process_request_thread) : DEVOLUCAO: Livro 1 devolvido (Emprestimo 4) processado por 1
+2026-05-25 09:20:11,430 INFO security Thread-62 (process_request_thread) : DEVOLUCAO: Livro 6 devolvido (Emprestimo 5) processado por 1
+2026-05-25 09:20:12,910 INFO security Thread-66 (process_request_thread) : DEVOLUCAO: Livro 2 devolvido (Emprestimo 6) processado por 1

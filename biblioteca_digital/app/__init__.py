@@ -99,4 +99,18 @@ def criar_app():
     app.register_blueprint(emprestimo_bp)
     app.register_blueprint(relatorio_bp)
     
+    # Filtro para formatar datas
+    @app.template_filter('format_datetime')
+    def format_datetime(value):
+        if not value: return '-'
+        # Tenta converter string para datetime se necessário
+        from datetime import datetime
+        if isinstance(value, str):
+            try:
+                # Assume formato ISO ou parecido
+                value = datetime.fromisoformat(value)
+            except:
+                return value
+        return value.strftime('%d/%m/%Y %H:%M')
+    
     return app

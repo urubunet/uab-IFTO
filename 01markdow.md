@@ -58,18 +58,19 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ### Requisitos de Interface (Menu):
 - **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
+- **Gestão de Usuários (Menu Aninhado)**:
+    - "Gestão de Usuários": Novo Admin, Novo Bibliotecário, Listar Usuários.
+    - Acesso restrito conforme papel (ADMIN/ADMIN_INICIAL/BIBLIOTECARIO).
 - **Renomeação de Menu**:
-    - "Novo Bibliotecário" (acesso restrito)
     - "Empréstimos"
     - "Novo Livro"
     - "Devoluções"
-    - "Novo Admin" (acesso restrito)
 - **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
 
 ### Pesquisa de Devoluções
-- **Filtros**: 
-    - Busca em tempo real (sem botão filtrar) por título do livro ou nome do leitor.
-    - Filtro por data de devolução (componente de seleção de data).
+- **Filtros (Real-time)**: 
+    - Busca automática (sem botão filtrar) por título ou leitor na lista de resultados.
+    - Filtro por data de devolução (seleção automática).
     - Botões clicáveis para filtrar por status.
 - **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 

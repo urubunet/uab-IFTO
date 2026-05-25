@@ -16,9 +16,17 @@
             {% for emp in emprestimos %}
             <tr>
                 <td>{{ emp.titulo }}</td>
-                <td>{{ emp.status }}</td>
-                <td>{{ emp.data_solicitacao }}</td>
-                <td>{{ emp.data_devolucao or '-' }}</td>
+                <td>
+                    {% if emp.status == 'DISPONIVEL' %}
+                        <span class="badge bg-success">Disponível</span>
+                    {% elif emp.status in ['ATIVO', 'EMPRESTADO'] %}
+                        <span class="badge bg-warning text-dark">Ativo</span>
+                    {% else %}
+                        <span class="badge bg-info">{{ emp.status }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ emp.data_solicitacao | format_datetime }}</td>
+                <td>{{ emp.data_devolucao | format_datetime }}</td>
             </tr>
             {% else %}
             <tr><td colspan="4" class="text-center text-muted">Nenhum empréstimo registrado.</td></tr>

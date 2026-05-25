@@ -14,7 +14,9 @@
     </div>
     <div class="mt-3">
         <button class="btn btn-outline-secondary btn-sm" onclick="filtrarStatus('')">Todos</button>
-        <button class="btn btn-outline-success btn-sm" onclick="filtrarStatus('DEVOLVIDO')">Devolvido</button>
+        <button class="btn btn-outline-info btn-sm" onclick="filtrarStatus('DEVOLVIDO')">Devolvido</button>
+        <button class="btn btn-outline-warning btn-sm" onclick="filtrarStatus('SOLICITADO')">Solicitado</button>
+        <button class="btn btn-outline-primary btn-sm" onclick="filtrarStatus('ATIVO')">Ativo</button>
     </div>
 </div>
 
@@ -25,6 +27,7 @@
                 <tr>
                     <th>Livro</th>
                     <th>Leitor</th>
+                    <th>Status</th>
                     <th>Data Solicitação</th>
                     <th>Data Devolução</th>
                 </tr>
@@ -34,11 +37,12 @@
                 <tr class="linha-devolucao" data-status="{{ dev.status }}">
                     <td>{{ dev.titulo }}</td>
                     <td>{{ dev.usuario }}</td>
-                    <td>{{ dev.data_solicitacao }}</td>
-                    <td><span class="text-success">{{ dev.data_devolucao }}</span></td>
+                    <td><span class="badge bg-info">{{ dev.status }}</span></td>
+                    <td>{{ dev.data_solicitacao | format_datetime }}</td>
+                    <td><span class="text-success">{{ dev.data_devolucao | format_datetime }}</span></td>
                 </tr>
                 {% else %}
-                <tr><td colspan="4" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>
+                <tr><td colspan="5" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -53,9 +57,20 @@
         
         linhas.forEach(linha => {
             const texto = linha.innerText.toLowerCase();
-            const dataLinha = linha.querySelector('td:nth-child(4)').innerText; // Simples para exemplo
+            const dataLinha = linha.querySelector('td:nth-child(5)').innerText.split(' ')[0].split('/').reverse().join('-');
             
-            if (texto.includes(busca) && (data === "" || dataLinha.includes(data))) {
+            if (texto.includes(busca) && (data === "" || dataLinha === data)) {
+                linha.style.display = "";
+            } else {
+                linha.style.display = "none";
+            }
+        });
+    }
+
+    function filtrarStatus(status) {
+        const linhas = document.querySelectorAll('.linha-devolucao');
+        linhas.forEach(linha => {
+            if (status === "" || linha.dataset.status === status) {
                 linha.style.display = "";
             } else {
                 linha.style.display = "none";
@@ -65,10 +80,5 @@
 
     document.getElementById('buscaDevolucao').addEventListener('keyup', filtrar);
     document.getElementById('dataDevolucao').addEventListener('change', filtrar);
-    
-    function filtrarStatus(status) {
-        // Implementação simplificada de filtragem por status visual
-        console.log("Filtrar por:", status);
-    }
 </script>
 {% endblock %}
