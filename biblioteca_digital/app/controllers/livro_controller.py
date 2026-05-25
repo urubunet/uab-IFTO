@@ -6,7 +6,6 @@ from app import cache
 livro_bp = Blueprint('livro', __name__)
 
 @livro_bp.route('/catalogo', methods=['GET'])
-@cache.cached(timeout=60, query_string=True, key_prefix=lambda: f"catalogo_{session.get('papel', 'anon')}")
 def listar_livros():
     filtros = request.args.to_dict()
     livros = LivroModel.buscar_todos(filtros)
