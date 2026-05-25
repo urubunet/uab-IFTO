@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, render_template, redirect, url_for, flash
+from flask import Blueprint, request, session, render_template, redirect, url_for, flash, jsonify
 from app.models.livro_model import LivroModel
 from app.services.library_service import LibraryService
 from app import cache

@@ -61,13 +61,20 @@
         const autor = document.getElementById('buscaAutor').value;
         const categoria = document.getElementById('buscaCategoria').value;
         
+        console.log(`Filtrando: t='${titulo}', a='${autor}', c='${categoria}'`);
+        
         let url = `/livro/api/catalogo?titulo=${encodeURIComponent(titulo)}&autor=${encodeURIComponent(autor)}&categoria=${encodeURIComponent(categoria)}`;
         
         fetch(url)
             .then(r => r.json())
             .then(data => {
+                console.log("Dados recebidos:", data);
                 const grid = document.getElementById('catalogoGrid');
                 grid.innerHTML = '';
+                if (data.length === 0) {
+                    grid.innerHTML = '<div class="col-12 text-center">Nenhum livro encontrado.</div>';
+                    return;
+                }
                 data.forEach(l => {
                     grid.innerHTML += `
                         <div class="col livro-card">
@@ -75,14 +82,17 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${l.titulo}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">${l.autor}</h6>
-                                    <p class="card-text"><span class="badge bg-secondary">${l.categoria}</span></p>
+                                    <p class="card-text">
+                                        <span class="badge bg-secondary">${l.categoria}</span>
+                                    </p>
                                     <p class="card-text">Status: <span class="badge ${l.status === 'DISPONIVEL' ? 'bg-success' : 'bg-warning text-dark'}">${l.status}</span></p>
                                 </div>
                             </div>
                         </div>
                     `;
                 });
-            });
+            })
+            .catch(err => console.error("Erro AJAX:", err));
     }
 
     document.getElementById('buscaTitulo').addEventListener('input', filtrar);
