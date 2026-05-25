@@ -39,12 +39,14 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ## Gerenciamento de Devoluções
 - **Página de Devoluções**: Acessível apenas para papéis `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
-- **Exibição**: Tabela contendo: Livro, Leitor, Data Solicitação, Data Devolução, Status (com badges de cor padronizadas).
-- **Filtros**: 
-    - Busca por Nome do Livro ou Nome do Leitor.
-    - Filtro por Data de Devolução.
-    - Filtro por Status.
-- **Regras**: Filtros podem ser usados de forma isolada ou combinada. A listagem deve atualizar conforme os filtros aplicados.
+- **Interface**:
+    - Tabela contendo: Livro, Leitor, Data Solicitação, Data Devolução, Status.
+    - Área de busca com: Input de busca (Nome Leitor/Livro), Input de Data e Botões de Status.
+- **Filtros**:
+    - **Busca por Nome**: Autocomplete funcional após 3 caracteres. Exibir 5 opções. Ao clicar na opção, a tabela atualiza instantaneamente para o resultado selecionado.
+    - **Filtro por Data**: Seleção de data atualiza a tabela instantaneamente.
+    - **Filtro por Status**: Botões clicáveis (Todos, Devolvido, Ativo, Solicitado) atualizam a tabela instantaneamente.
+    - **Regras**: Filtros podem ser isolados ou combinados. A atualização é via AJAX (transparente ao usuário).
 - **Menu**: Opção "Devoluções" visível apenas para `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
 
 
@@ -55,27 +57,16 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Cadastro de Administrador**: Permitir cadastro de novos administradores apenas por usuários com papel `ADMIN_INICIAL` ou `ADMIN`.
 - **Listagem de Usuários**: Exibir nome, data de cadastro e papel, com opções para editar e excluir.
 - **Acesso ao Menu**: 
-    - "Cadastrar Admins" e "Usuários": Visível apenas para `ADMIN` ou `ADMIN_INICIAL`.
-    - "Usuários": Visível também para `BIBLIOTECARIO`.
+    - "Gestão de Usuários": Novo Admin, Novo Bibliotecário, Listar Usuários (Acesso apenas para `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`).
 
 ### Requisitos de Interface (Menu):
 - **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
-- **Gestão de Usuários (Menu Aninhado)**:
-    - "Gestão de Usuários": Novo Admin, Novo Bibliotecário, Listar Usuários.
-    - Acesso restrito conforme papel (ADMIN/ADMIN_INICIAL/BIBLIOTECARIO).
 - **Renomeação de Menu**:
     - "Empréstimos"
     - "Novo Livro"
     - "Devoluções"
+    - "Gestão de Usuários" (contendo "Novo Admin", "Novo Bibliotecário", "Listar Usuários")
 - **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
-
-### Pesquisa de Devoluções
-- **Filtros**: 
-    - Busca por Nome do Livro ou Nome do Leitor (atualização automática na listagem).
-    - Filtro por Data de Devolução (atualização automática na listagem).
-    - Filtro por Status (atualização automática na listagem).
-- **Regras**: Filtros podem ser usados de forma isolada ou combinada. A listagem deve atualizar mostrando apenas os resultados correspondentes de forma transparente ao usuário.
-- **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 
 ## Funcionalidades para Leitores
 - **Meus Empréstimos**: Listar todos os empréstimos realizados pelo leitor logado.

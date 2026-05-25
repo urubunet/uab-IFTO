@@ -319,3 +319,25 @@
 2026-05-25 10:18:02,101 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 10:18:02,101 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 10:59:23,975 INFO security Thread-11 (process_request_thread) : DEVOLUCAO: Livro 3 devolvido (Emprestimo 7) processado por 1
+2026-05-25 15:16:18,837 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:18,837 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:18,837 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:18,837 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:18,855 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 15:16:18,855 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 15:16:18,855 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 15:16:18,855 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 15:16:18,871 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 15:16:18,871 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 15:16:18,871 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 15:16:18,871 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 15:16:19,109 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:19,109 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:19,109 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:19,109 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:19,109 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
