@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, redirect, url_for, render_template, flash
+from flask import Blueprint, request, session, redirect, url_for, render_template, flash, make_response
 from app.models.usuario_model import UsuarioModel
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
@@ -74,5 +74,7 @@ def cadastrar_leitor():
 @auth_bp.route('/logout', methods=['GET'])
 def logout():
     session.clear()
+    resp = make_response(redirect(url_for('auth.login_view')))
+    resp.set_cookie('session', '', expires=0)
     flash('Você saiu do sistema.', 'info')
-    return redirect(url_for('auth.login_view'))
+    return resp
