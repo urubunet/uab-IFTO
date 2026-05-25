@@ -51,9 +51,11 @@ def criar_app():
     # Talisman desativado em testes
     if not is_testing:
         csp = {
-            'default-src': '\'self\'',
-            'script-src': ['\'self\'', 'https://cdn.jsdelivr.net'],
-            'style-src': ['\'self\'', 'https://cdn.jsdelivr.net']
+            'default-src': ['\'self\''],
+            'script-src': ['\'self\'', 'https://cdn.jsdelivr.net', '\'unsafe-inline\''],
+            'style-src': ['\'self\'', 'https://cdn.jsdelivr.net', '\'unsafe-inline\''],
+            'img-src': ['\'self\'', 'data:'],
+            'connect-src': ['\'self\'', 'https://cdn.jsdelivr.net']
         }
         Talisman(app, content_security_policy=csp)
     

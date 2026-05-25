@@ -5,12 +5,12 @@
 
 <div class="card p-3 mb-4 bg-light shadow-sm border-0">
     <div class="row g-3 align-items-end">
-        <div class="col-md-5 position-relative">
+        <div class="col-md-9 position-relative">
             <label class="form-label small text-muted">Buscar Livro ou Leitor</label>
             <input type="text" id="buscaDevolucao" class="form-control" placeholder="Digite 3+ letras..." autocomplete="off">
             <div id="autocompleteList" class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000;"></div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label class="form-label small text-muted">Data Devolução</label>
             <input type="date" id="dataDevolucao" class="form-control">
         </div>
@@ -30,11 +30,87 @@
                 </tr>
             </thead>
             <tbody id="tabelaDevolucoesBody">
-                <!-- Conteúdo carregado via AJAX -->
+                {% for dev in devolucoes %}
+                <tr class="linha-devolucao" 
+                    data-titulo="{{ dev.titulo | lower }}" 
+                    data-leitor="{{ dev.usuario | lower }}" 
+                    data-data="{{ dev.data_devolucao.split(' ')[0] if dev.data_devolucao else '' }}">
+                    <td>{{ dev.titulo }}</td>
+                    <td>{{ dev.usuario }}</td>
+                    <td><span class="badge {% if dev.status == 'DEVOLVIDO' %}bg-danger text-white{% elif dev.status == 'ATIVO' %}bg-success{% else %}bg-primary text-white{% endif %}">{{ dev.status }}</span></td>
+                    <td>{{ dev.data_solicitacao | format_datetime }}</td>
+                    <td><span class="text-success">{{ dev.data_devolucao | format_datetime }}</span></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
 
-<script src="{{ url_for('static', filename='js/devolucoes.js') }}"></script>
+<script>
+    function carregarDevolucoesViaAJAX() {
+        const busca = document.getElementById('buscaDevolucao').value;
+        const data = document.getElementById('dataDevolucao').value;
+        
+        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(busca)}&data=${encodeURIComponent(data)}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('tabelaDevolucoesBody');
+                tbody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>';
+                    return;
+                }
+                
+                data.forEach(dev => {
+                    let badgeClass = 'bg-info';
+                    if (dev.status === 'DEVOLVIDO') badgeClass = 'bg-danger text-white';
+                    if (dev.status === 'ATIVO') badgeClass = 'bg-success';
+                    if (dev.status === 'SOLICITADO') badgeClass = 'bg-primary text-white';
+                    
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${dev.titulo}</td>
+                            <td>${dev.usuario}</td>
+                            <td><span class="badge ${badgeClass}">${dev.status}</span></td>
+                            <td>${dev.data_solicitacao || '-'}</td>
+                            <td><span class="text-success">${dev.data_devolucao || '-'}</span></td>
+                        </tr>
+                    `;
+                });
+            });
+    }
+
+    // Autocomplete
+    document.getElementById('buscaDevolucao').addEventListener('input', function() {
+        const termo = this.value;
+        if (termo.length >= 3) {
+            fetch(`/emprestimo/api/autocomplete?q=${encodeURIComponent(termo)}`)
+                .then(r => r.json())
+                .then(data => {
+                    const list = document.getElementById('autocompleteList');
+                    list.innerHTML = '';
+                    data.forEach(item => {
+                        list.innerHTML += `<button class="list-group-item list-group-item-action" onclick="selecionar('${item}')">${item}</button>`;
+                    });
+                });
+            carregarDevolucoesViaAJAX();
+        } else if (termo.length === 0) {
+            carregarDevolucoesViaAJAX();
+        }
+    });
+
+    function selecionar(item) {
+        document.getElementById('buscaDevolucao').value = item;
+        document.getElementById('autocompleteList').innerHTML = '';
+        carregarDevolucoesViaAJAX();
+    }
+
+    document.getElementById('dataDevolucao').addEventListener('change', carregarDevolucoesViaAJAX);
+</script>
 {% endblock %}
