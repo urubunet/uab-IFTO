@@ -75,6 +75,10 @@ def criar_app():
     with app.app_context():
         inicializar_db()
     
+    @app.before_request
+    def make_session_permanent():
+        session.permanent = True
+    
     # Registro de Blueprints
     from app.controllers.auth_controller import auth_bp
     from app.controllers.admin_controller import admin_bp

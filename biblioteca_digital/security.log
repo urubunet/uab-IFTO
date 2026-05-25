@@ -213,3 +213,8 @@
 2026-05-25 08:54:15,303 WARNING security Thread-61 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
 2026-05-25 08:54:16,134 WARNING security Thread-65 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
 2026-05-25 08:54:20,930 WARNING security Thread-79 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 08:57:28,596 INFO security Thread-23 (process_request_thread) : SOLICITACAO: Usuario 2 solicitou livro 2
+2026-05-25 08:57:40,013 WARNING security Thread-37 (process_request_thread) : ACESSO_NEGADO: Usuario 1 tentou acessar recurso restrito a ['LEITOR']
+2026-05-25 08:57:40,871 WARNING security Thread-40 (process_request_thread) : ACESSO_NEGADO: Usuario 1 tentou acessar recurso restrito a ['LEITOR']
+2026-05-25 08:57:41,193 WARNING security Thread-44 (process_request_thread) : ACESSO_NEGADO: Usuario 1 tentou acessar recurso restrito a ['LEITOR']
+2026-05-25 08:57:42,008 WARNING security Thread-48 (process_request_thread) : ACESSO_NEGADO: Usuario 1 tentou acessar recurso restrito a ['LEITOR']
