@@ -16,4 +16,4 @@ Este relatório detalha as otimizações arquiteturais e de desempenho aplicadas
 - **Proteção CSRF**: Tokens obrigatórios em todas as rotas de alteração de estado.
 - **Headers**: Talisman configurado para proteção contra XSS e outros ataques via cabeçalhos HTTP.
 - **Sessões**: Tempo de expiração definido (30 min) e cookies seguros (`HttpOnly`, `SameSite=Lax`).
-- **Limiter**: Proteção contra força bruta no endpoint de login, agora configurado para persistir limites no banco de dados SQLite para maior confiabilidade.
+- **Limiter**: Proteção contra força bruta no endpoint de login, configurado para limitar requisições para maior confiabilidade.

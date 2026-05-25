@@ -68,3 +68,11 @@
 2026-05-25 08:25:12,415 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
 2026-05-25 08:26:26,394 INFO werkzeug MainThread :  * Detected change in '/home/uab/sistema/biblioteca_digital/app/__init__.py', reloading
 2026-05-25 08:26:26,425 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-25 08:29:28,221 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.26.71.42:5000
+2026-05-25 08:29:28,222 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2026-05-25 08:29:28,222 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-25 08:29:28,439 WARNING werkzeug MainThread :  * Debugger is active!
+2026-05-25 08:29:28,449 INFO werkzeug MainThread :  * Debugger PIN: 378-871-102

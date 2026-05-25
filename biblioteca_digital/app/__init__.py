@@ -14,7 +14,7 @@ cache = Cache()
 csrf = CSRFProtect()
 limiter = Limiter(
     key_func=get_remote_address, 
-    storage_uri=f"sqlite:///{os.path.join(os.getcwd(), 'app/db/biblioteca.db')}",
+    storage_uri="memory://",
     default_limits=["2000 per day", "500 per hour"]
 )
 

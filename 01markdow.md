@@ -16,7 +16,7 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Autenticação**: Hashing de senhas utilizando Scrypt com sal (via `werkzeug.security`).
 - **Proteção CSRF**: Tokens obrigatórios em todos os formulários (`Flask-WTF`).
 - **Cabeçalhos HTTP**: Proteção contra Clickjacking e XSS via `Flask-Talisman` (CSP configurado).
-- **Rate Limiting**: Proteção contra força bruta na rota de login (`Flask-Limiter` com persistência em SQLite).
+- **Rate Limiting**: Proteção contra força bruta na rota de login (`Flask-Limiter` com persistência em memória).
 - **Gestão de Sessão**: Cookies seguros (`HttpOnly`, `SameSite=Lax`) e expiração automática de 30 minutos.
 - **Auditoria**: Logs de eventos críticos em `security.log`.
 
