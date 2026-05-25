@@ -17,10 +17,12 @@
             <tr>
                 <td>{{ emp.titulo }}</td>
                 <td>
-                    {% if emp.status == 'DISPONIVEL' %}
-                        <span class="badge bg-success">Disponível</span>
-                    {% elif emp.status in ['ATIVO', 'EMPRESTADO'] %}
-                        <span class="badge bg-warning text-dark">Ativo</span>
+                    {% if emp.status == 'ATIVO' %}
+                        <span class="badge bg-success">Ativo</span>
+                    {% elif emp.status == 'SOLICITADO' %}
+                        <span class="badge bg-warning text-danger">Solicitado</span>
+                    {% elif emp.status == 'DEVOLVIDO' %}
+                        <span class="badge bg-warning text-dark">Devolvido</span>
                     {% else %}
                         <span class="badge bg-info">{{ emp.status }}</span>
                     {% endif %}

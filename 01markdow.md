@@ -76,6 +76,10 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ## Funcionalidades para Leitores
 - **Meus Empréstimos**: Listar todos os empréstimos realizados pelo leitor logado.
+    - **Status Badge Visual**:
+        - 'ATIVO': `badge bg-success`
+        - 'SOLICITADO': `badge bg-warning text-danger`
+        - 'DEVOLVIDO': `badge bg-warning text-dark`
 
 
 ## 5. Variáveis de Ambiente (.env)

@@ -259,3 +259,4 @@
 2026-05-25 09:20:09,341 INFO security Thread-58 (process_request_thread) : DEVOLUCAO: Livro 1 devolvido (Emprestimo 4) processado por 1
 2026-05-25 09:20:11,430 INFO security Thread-62 (process_request_thread) : DEVOLUCAO: Livro 6 devolvido (Emprestimo 5) processado por 1
 2026-05-25 09:20:12,910 INFO security Thread-66 (process_request_thread) : DEVOLUCAO: Livro 2 devolvido (Emprestimo 6) processado por 1
+2026-05-25 09:34:30,196 INFO security Thread-80 (process_request_thread) : SOLICITACAO: Usuario 2 solicitou livro 8
