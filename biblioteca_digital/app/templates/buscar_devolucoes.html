@@ -5,8 +5,9 @@
 
 <div class="card p-3 mb-4 bg-light shadow-sm">
     <div class="row g-3">
-        <div class="col-md-6">
-            <input type="text" id="buscaDevolucao" class="form-control" placeholder="Buscar por título ou leitor...">
+        <div class="col-md-6 position-relative">
+            <input type="text" id="buscaDevolucao" class="form-control" placeholder="Buscar por título ou leitor..." autocomplete="off">
+            <div id="autocompleteList" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
         </div>
         <div class="col-md-3">
             <input type="date" id="dataDevolucao" class="form-control">
@@ -14,7 +15,9 @@
     </div>
     <div class="mt-3">
         <button class="btn btn-outline-secondary btn-sm" onclick="filtrarStatus('')">Todos</button>
-        <button class="btn btn-outline-info btn-sm" onclick="filtrarStatus('DEVOLVIDO')">Devolvido</button>
+        <button class="btn btn-outline-danger btn-sm" onclick="filtrarStatus('DEVOLVIDO')">Devolvido</button>
+        <button class="btn btn-outline-success btn-sm" onclick="filtrarStatus('ATIVO')">Ativo</button>
+        <button class="btn btn-outline-primary btn-sm" onclick="filtrarStatus('SOLICITADO')">Solicitado</button>
     </div>
 </div>
 
@@ -25,23 +28,23 @@
                 <tr>
                     <th>Livro</th>
                     <th>Leitor</th>
+                    <th>Status</th>
                     <th>Data Solicitação</th>
                     <th>Data Devolução</th>
                 </tr>
             </thead>
             <tbody id="tabelaDevolucoesBody">
-                <!-- Os dados serão carregados via AJAX -->
+                <!-- Conteúdo dinâmico via AJAX -->
             </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    function carregarDevolucoes() {
-        const busca = document.getElementById('buscaDevolucao').value;
-        const data = document.getElementById('dataDevolucao').value;
-        
-        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(busca)}&data_devolucao=${encodeURIComponent(data)}`;
+    let currentStatus = '';
+
+    function carregarDevolucoes(termo = '', data = '', status = '') {
+        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(termo)}&data_devolucao=${encodeURIComponent(data)}&status=${encodeURIComponent(status)}`;
         
         fetch(url)
             .then(response => response.json())
@@ -50,27 +53,57 @@
                 tbody.innerHTML = '';
                 
                 data.forEach(dev => {
+                    let badgeClass = 'bg-info';
+                    if (dev.status === 'DEVOLVIDO') badgeClass = 'bg-danger text-white';
+                    if (dev.status === 'ATIVO') badgeClass = 'bg-success';
+                    if (dev.status === 'SOLICITADO') badgeClass = 'bg-primary text-white';
+                    
                     tbody.innerHTML += `
                         <tr>
                             <td>${dev.titulo}</td>
                             <td>${dev.usuario}</td>
+                            <td><span class="badge ${badgeClass}">${dev.status}</span></td>
                             <td>${dev.data_solicitacao}</td>
-                            <td><span class="text-success">${dev.data_devolucao}</span></td>
+                            <td>${dev.data_devolucao || '-'}</td>
                         </tr>
                     `;
                 });
             });
     }
 
-    document.getElementById('buscaDevolucao').addEventListener('input', carregarDevolucoes);
-    document.getElementById('dataDevolucao').addEventListener('change', carregarDevolucoes);
-    
-    // Carregar ao abrir a página
-    carregarDevolucoes();
-    
-    function filtrarStatus(status) {
-        // Implementação adicional para status (exige ajuste na API se necessário)
-        console.log("Filtrar por status:", status);
+    // Autocomplete
+    document.getElementById('buscaDevolucao').addEventListener('input', function() {
+        const termo = this.value;
+        if (termo.length >= 3) {
+            fetch(`/emprestimo/api/autocomplete?q=${encodeURIComponent(termo)}`)
+                .then(r => r.json())
+                .then(data => {
+                    const list = document.getElementById('autocompleteList');
+                    list.innerHTML = '';
+                    data.forEach(item => {
+                        list.innerHTML += `<button class="list-group-item list-group-item-action" onclick="selecionar('${item}')">${item}</button>`;
+                    });
+                });
+        }
+        carregarDevolucoes(termo, document.getElementById('dataDevolucao').value, currentStatus);
+    });
+
+    function selecionar(item) {
+        document.getElementById('buscaDevolucao').value = item;
+        document.getElementById('autocompleteList').innerHTML = '';
+        carregarDevolucoes(item, document.getElementById('dataDevolucao').value, currentStatus);
     }
+
+    document.getElementById('dataDevolucao').addEventListener('change', () => {
+        carregarDevolucoes(document.getElementById('buscaDevolucao').value, document.getElementById('dataDevolucao').value, currentStatus);
+    });
+
+    function filtrarStatus(status) {
+        currentStatus = status;
+        carregarDevolucoes(document.getElementById('buscaDevolucao').value, document.getElementById('dataDevolucao').value, currentStatus);
+    }
+    
+    // Carregar inicial
+    carregarDevolucoes();
 </script>
 {% endblock %}
