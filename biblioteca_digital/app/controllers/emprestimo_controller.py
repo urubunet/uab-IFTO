@@ -60,14 +60,13 @@ def buscar_devolucoes_view():
 def api_listar_devolucoes():
     if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
         return jsonify({'error': 'Acesso negado'}), 403
-    
+
     busca = request.args.get('busca', '')
     data = request.args.get('data', '')
-    status = request.args.get('status', 'Todos')
-    
+
     conn = conectar_db()
     cursor = conn.cursor()
-    
+
     query = '''
         SELECT L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao, E.status
         FROM Emprestimos E
@@ -76,24 +75,22 @@ def api_listar_devolucoes():
         WHERE 1=1
     '''
     params = []
-    
+
     if busca:
         query += " AND (L.titulo LIKE ? OR U.nome LIKE ?)"
         params.extend([f"%{busca}%", f"%{busca}%"])
     if data:
         query += " AND DATE(E.data_devolucao) = ?"
         params.append(data)
-    if status:
-        query += " AND E.status = ?"
-        params.append(status)
-        
+
     query += " ORDER BY E.data_devolucao DESC"
-    
+
     cursor.execute(query, params)
     devolucoes = [dict(row) for row in cursor.fetchall()]
     conn.close()
-    
+
     return jsonify(devolucoes)
+
 
 @emprestimo_bp.route('/emprestimo/api/autocomplete', methods=['GET'])
 def buscar_autocomplete_api():
