@@ -21,7 +21,7 @@
                 <tr>
                     <td><strong>{{ emp.titulo }}</strong></td>
                     <td>{{ emp.usuario }}</td>
-                    <td>{{ emp.data_solicitacao }}</td>
+                    <td>{{ emp.data_solicitacao | format_datetime }}</td>
                     <td>
                         <form action="{{ url_for('emprestimo.aprovar_emprestimo') }}" method="POST" class="d-inline">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
