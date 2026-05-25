@@ -67,6 +67,7 @@ def api_listar_devolucoes():
     conn = conectar_db()
     cursor = conn.cursor()
 
+    # Query base
     query = '''
         SELECT L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao, E.status
         FROM Emprestimos E
@@ -76,10 +77,12 @@ def api_listar_devolucoes():
     '''
     params = []
 
+    # Aplica filtros se existirem
     if busca:
         query += " AND (L.titulo LIKE ? OR U.nome LIKE ?)"
         params.extend([f"%{busca}%", f"%{busca}%"])
     if data:
+        # Corrige formato YYYY-MM-DD para garantir compatibilidade
         query += " AND DATE(E.data_devolucao) = ?"
         params.append(data)
 
@@ -90,7 +93,6 @@ def api_listar_devolucoes():
     conn.close()
 
     return jsonify(devolucoes)
-
 
 @emprestimo_bp.route('/emprestimo/api/autocomplete', methods=['GET'])
 def buscar_autocomplete_api():
