@@ -5,12 +5,12 @@
 
 <div class="card p-3 mb-4 bg-light shadow-sm border-0">
     <div class="row g-3 align-items-end">
-        <div class="col-md-9 position-relative">
+        <div class="col-md-5 position-relative">
             <label class="form-label small text-muted">Buscar Livro ou Leitor</label>
             <input type="text" id="buscaDevolucao" class="form-control" placeholder="Digite 3+ letras..." autocomplete="off">
             <div id="autocompleteList" class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000;"></div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label class="form-label small text-muted">Data Devolução</label>
             <input type="date" id="dataDevolucao" class="form-control">
         </div>
@@ -37,15 +37,14 @@
 </div>
 
 <script>
-    function carregarDevolucoes() {
-        const busca = document.getElementById('buscaDevolucao').value;
-        const data = document.getElementById('dataDevolucao').value;
-        
-        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(busca)}&data=${encodeURIComponent(data)}`;
+    function carregarDevolucoes(termo = '', data = '') {
+        console.log(`Buscando: termo='${termo}', data='${data}'`);
+        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(termo)}&data=${encodeURIComponent(data)}`;
         
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                console.log("Dados recebidos da API:", data);
                 const tbody = document.getElementById('tabelaDevolucoesBody');
                 tbody.innerHTML = '';
                 
@@ -60,16 +59,20 @@
                     if (dev.status === 'ATIVO') badgeClass = 'bg-success';
                     if (dev.status === 'SOLICITADO') badgeClass = 'bg-primary text-white';
                     
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${dev.titulo}</td>
-                            <td>${dev.usuario}</td>
-                            <td><span class="badge ${badgeClass}">${dev.status}</span></td>
-                            <td>${dev.data_solicitacao || '-'}</td>
-                            <td><span class="text-success">${dev.data_devolucao || '-'}</span></td>
-                        </tr>
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${dev.titulo}</td>
+                        <td>${dev.usuario}</td>
+                        <td><span class="badge ${badgeClass}">${dev.status}</span></td>
+                        <td>${dev.data_solicitacao || '-'}</td>
+                        <td><span class="text-success">${dev.data_devolucao || '-'}</span></td>
                     `;
+                    tbody.appendChild(row);
                 });
+            })
+            .catch(error => {
+                console.error("Erro no AJAX:", error);
+                document.getElementById('tabelaDevolucoesBody').innerHTML = '<tr><td colspan="5" class="text-center text-danger">Erro ao carregar dados.</td></tr>';
             });
     }
 
@@ -98,7 +101,9 @@
         carregarDevolucoes(item, document.getElementById('dataDevolucao').value);
     }
 
-    document.getElementById('dataDevolucao').addEventListener('change', carregarDevolucoes);
+    document.getElementById('dataDevolucao').addEventListener('change', () => {
+        carregarDevolucoes(document.getElementById('buscaDevolucao').value, document.getElementById('dataDevolucao').value);
+    });
     
     // Carregar inicial
     carregarDevolucoes();
