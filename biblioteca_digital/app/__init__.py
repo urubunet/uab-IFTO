@@ -12,7 +12,11 @@ import os
 
 cache = Cache()
 csrf = CSRFProtect()
-limiter = Limiter(key_func=get_remote_address, default_limits=["2000 per day", "500 per hour"])
+limiter = Limiter(
+    key_func=get_remote_address, 
+    storage_uri=f"sqlite:///{os.path.join(os.getcwd(), 'app/db/biblioteca.db')}",
+    default_limits=["2000 per day", "500 per hour"]
+)
 
 def criar_app():
     app = Flask(__name__)

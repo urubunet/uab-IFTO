@@ -18,8 +18,11 @@ class LibraryService:
             if livro and livro['status'] == 'DISPONIVEL':
                 novo_emprestimo = EmprestimoModel(livro_id=livro_id, usuario_id=usuario_id)
                 novo_emprestimo.registrar_emprestimo()
-                cursor.execute('UPDATE Livros SET status = "REQUISITADO" WHERE id = ?', (livro_id,))
-                conn.commit()
+                
+                # Usar model para atualizar status de forma consistente
+                livro_obj = LivroModel(id=livro_id)
+                livro_obj.atualizar_status("REQUISITADO")
+                
                 security_logger.info(f"SOLICITACAO: Usuario {usuario_id} solicitou livro {livro_id}")
                 return True, "Solicitação enviada com sucesso!"
             return False, "Livro não disponível"

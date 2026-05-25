@@ -43,6 +43,20 @@ def cadastrar_view():
         return redirect(url_for('livro.listar_livros'))
     return render_template('cadastrar_livro.html')
 
+@livro_bp.route('/livro/cadastrar', methods=['POST'])
+def cadastrar_livro():
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    data = request.form if not request.is_json else request.get_json()
+    novo_livro = LivroModel(titulo=data.get('titulo'), autor=data.get('autor'), categoria=data.get('categoria'))
+    novo_livro.salvar()
+    
+    cache.clear() # Limpar cache ao adicionar novo livro
+    flash('Livro cadastrado com sucesso!', 'success')
+    return redirect(url_for('livro.admin_dashboard'))
+
 @livro_bp.route('/livro/excluir/<int:livro_id>', methods=['POST'])
 def excluir_livro(livro_id):
     if not LibraryService.verificar_permissao(['ADMIN', 'ADMIN_INICIAL']):

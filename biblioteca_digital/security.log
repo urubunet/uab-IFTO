@@ -1,0 +1,70 @@
+2026-05-24 19:18:55,001 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.26.71.42:5000
+2026-05-24 19:18:55,001 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2026-05-24 19:18:55,002 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-24 19:18:55,181 WARNING werkzeug MainThread :  * Debugger is active!
+2026-05-24 19:18:55,189 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
+2026-05-24 19:19:27,945 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.26.71.42:5000
+2026-05-24 19:19:27,945 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2026-05-24 19:19:27,945 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-24 19:19:28,128 WARNING werkzeug MainThread :  * Debugger is active!
+2026-05-24 19:19:28,130 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
+2026-05-24 19:19:41,350 INFO werkzeug Thread-3 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:19:41] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:19:42,315 INFO flask_caching Thread-5 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:19:42,315 INFO werkzeug Thread-5 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:19:42] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:19:45,358 INFO werkzeug Thread-6 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:19:45] "[33mGET / HTTP/1.1[0m" 404 -
+2026-05-24 19:19:49,587 INFO werkzeug Thread-8 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:19:49] "GET /login HTTP/1.1" 200 -
+2026-05-24 19:20:00,418 INFO werkzeug Thread-10 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:00] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-05-24 19:20:00,657 INFO flask_caching Thread-12 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:00,657 INFO werkzeug Thread-12 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:00] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:02,631 INFO flask_caching Thread-14 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:02,632 INFO werkzeug Thread-14 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:02] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:03,354 INFO flask_caching Thread-16 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:03,355 INFO werkzeug Thread-16 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:03] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:04,508 INFO werkzeug Thread-17 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:04] "GET /login HTTP/1.1" 200 -
+2026-05-24 19:20:06,327 INFO werkzeug Thread-20 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:06] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-05-24 19:20:06,658 INFO werkzeug Thread-22 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:06] "GET /login HTTP/1.1" 200 -
+2026-05-24 19:20:08,671 INFO werkzeug Thread-24 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:08] "GET /login HTTP/1.1" 200 -
+2026-05-24 19:20:11,715 INFO werkzeug Thread-26 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:11] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-05-24 19:20:11,728 INFO flask_caching Thread-27 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:11,728 INFO werkzeug Thread-27 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:11] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:13,925 INFO flask_caching Thread-30 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:13,926 INFO werkzeug Thread-30 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:13] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:14,014 INFO werkzeug Thread-32 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-24 19:20:15,079 INFO flask_caching Thread-33 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:15,080 INFO werkzeug Thread-33 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:15] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:15,399 INFO werkzeug Thread-35 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-24 19:20:16,309 INFO flask_caching Thread-36 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:16,310 INFO werkzeug Thread-36 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:16] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:16,357 INFO werkzeug Thread-37 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-24 19:20:16,824 INFO flask_caching Thread-39 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:16,825 INFO werkzeug Thread-39 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:16] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:17,153 INFO werkzeug Thread-41 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-24 19:20:17,759 INFO flask_caching Thread-42 (process_request_thread) : Cache used for key: /catalogobcd8b0c2eb1fce714eab6cef0d771acc
+2026-05-24 19:20:17,760 INFO werkzeug Thread-42 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:17] "GET /catalogo HTTP/1.1" 200 -
+2026-05-24 19:20:17,808 INFO werkzeug Thread-44 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-24 19:20:22,720 INFO werkzeug Thread-45 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:22] "GET /relatorios HTTP/1.1" 200 -
+2026-05-24 19:20:26,703 INFO werkzeug Thread-47 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:26] "GET /admin/listar-usuarios HTTP/1.1" 200 -
+2026-05-24 19:20:34,309 INFO flask_caching Thread-49 (process_request_thread) : Cache used for key: view//relatorios
+2026-05-24 19:20:34,310 INFO werkzeug Thread-49 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:34] "GET /relatorios HTTP/1.1" 200 -
+2026-05-24 19:20:35,210 INFO werkzeug Thread-51 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:35] "GET /admin/cadastrar-admin HTTP/1.1" 200 -
+2026-05-24 19:20:36,532 INFO werkzeug Thread-53 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:36] "GET /admin/cadastrar-bibliotecario HTTP/1.1" 200 -
+2026-05-24 19:20:37,840 INFO werkzeug Thread-55 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:37] "GET /livro/cadastrar HTTP/1.1" 200 -
+2026-05-24 19:20:40,854 INFO werkzeug Thread-57 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:40] "GET /emprestimo/devolucoes HTTP/1.1" 200 -
+2026-05-24 19:20:46,343 INFO werkzeug Thread-59 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:46] "GET /emprestimo/gerenciar HTTP/1.1" 200 -
+2026-05-24 19:20:50,013 INFO werkzeug Thread-61 (process_request_thread) : 127.0.0.1 - - [24/May/2026 19:20:50] "GET /emprestimo/devolucoes HTTP/1.1" 200 -
+2026-05-25 08:25:12,210 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.26.71.42:5000
+2026-05-25 08:25:12,211 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2026-05-25 08:25:12,212 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-25 08:25:12,405 WARNING werkzeug MainThread :  * Debugger is active!
+2026-05-25 08:25:12,415 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
+2026-05-25 08:26:26,394 INFO werkzeug MainThread :  * Detected change in '/home/uab/sistema/biblioteca_digital/app/__init__.py', reloading
+2026-05-25 08:26:26,425 INFO werkzeug MainThread :  * Restarting with stat
