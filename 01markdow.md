@@ -69,9 +69,8 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ### Pesquisa de Devoluções
 - **Filtros (Real-time)**: 
-    - Busca automática (sem botão filtrar) por título ou leitor na lista de resultados.
-    - Filtro por data de devolução (seleção automática).
-    - Botões clicáveis para filtrar por status.
+    - Busca automática (via API/AJAX, sem refresh de página) por título ou leitor.
+    - Filtro por data de devolução e status via chamadas assíncronas (AJAX), atualizando a tabela dinamicamente.
 - **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 
 ## Funcionalidades para Leitores

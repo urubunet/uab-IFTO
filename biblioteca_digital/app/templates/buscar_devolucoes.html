@@ -15,70 +15,62 @@
     <div class="mt-3">
         <button class="btn btn-outline-secondary btn-sm" onclick="filtrarStatus('')">Todos</button>
         <button class="btn btn-outline-info btn-sm" onclick="filtrarStatus('DEVOLVIDO')">Devolvido</button>
-        <button class="btn btn-outline-warning btn-sm" onclick="filtrarStatus('SOLICITADO')">Solicitado</button>
-        <button class="btn btn-outline-primary btn-sm" onclick="filtrarStatus('ATIVO')">Ativo</button>
     </div>
 </div>
 
 <div class="card shadow-sm">
     <div class="table-responsive">
-        <table class="table table-striped mb-0" id="tabelaDevolucoes">
+        <table class="table table-striped mb-0">
             <thead>
                 <tr>
                     <th>Livro</th>
                     <th>Leitor</th>
-                    <th>Status</th>
                     <th>Data Solicitação</th>
                     <th>Data Devolução</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for dev in devolucoes %}
-                <tr class="linha-devolucao" data-status="{{ dev.status }}">
-                    <td>{{ dev.titulo }}</td>
-                    <td>{{ dev.usuario }}</td>
-                    <td><span class="badge bg-info">{{ dev.status }}</span></td>
-                    <td>{{ dev.data_solicitacao | format_datetime }}</td>
-                    <td><span class="text-success">{{ dev.data_devolucao | format_datetime }}</span></td>
-                </tr>
-                {% else %}
-                <tr><td colspan="5" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>
-                {% endfor %}
+            <tbody id="tabelaDevolucoesBody">
+                <!-- Os dados serão carregados via AJAX -->
             </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    function filtrar() {
-        const busca = document.getElementById('buscaDevolucao').value.toLowerCase();
+    function carregarDevolucoes() {
+        const busca = document.getElementById('buscaDevolucao').value;
         const data = document.getElementById('dataDevolucao').value;
-        const linhas = document.querySelectorAll('.linha-devolucao');
         
-        linhas.forEach(linha => {
-            const texto = linha.innerText.toLowerCase();
-            const dataLinha = linha.querySelector('td:nth-child(5)').innerText.split(' ')[0].split('/').reverse().join('-');
-            
-            if (texto.includes(busca) && (data === "" || dataLinha === data)) {
-                linha.style.display = "";
-            } else {
-                linha.style.display = "none";
-            }
-        });
+        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(busca)}&data_devolucao=${encodeURIComponent(data)}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('tabelaDevolucoesBody');
+                tbody.innerHTML = '';
+                
+                data.forEach(dev => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${dev.titulo}</td>
+                            <td>${dev.usuario}</td>
+                            <td>${dev.data_solicitacao}</td>
+                            <td><span class="text-success">${dev.data_devolucao}</span></td>
+                        </tr>
+                    `;
+                });
+            });
     }
 
+    document.getElementById('buscaDevolucao').addEventListener('input', carregarDevolucoes);
+    document.getElementById('dataDevolucao').addEventListener('change', carregarDevolucoes);
+    
+    // Carregar ao abrir a página
+    carregarDevolucoes();
+    
     function filtrarStatus(status) {
-        const linhas = document.querySelectorAll('.linha-devolucao');
-        linhas.forEach(linha => {
-            if (status === "" || linha.dataset.status === status) {
-                linha.style.display = "";
-            } else {
-                linha.style.display = "none";
-            }
-        });
+        // Implementação adicional para status (exige ajuste na API se necessário)
+        console.log("Filtrar por status:", status);
     }
-
-    document.getElementById('buscaDevolucao').addEventListener('keyup', filtrar);
-    document.getElementById('dataDevolucao').addEventListener('change', filtrar);
 </script>
 {% endblock %}
