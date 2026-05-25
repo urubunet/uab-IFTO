@@ -70,10 +70,10 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
 
 ### Pesquisa de Devoluções
-- **Filtros (Real-time)**: 
-    - **Autocomplete**: Busca ao digitar 3+ letras (nome do leitor ou título do livro), sugerindo 5 opções. Ao selecionar, a tabela é atualizada dinamicamente.
-    - **Data**: Filtro por data de devolução (seleção no componente de data), atualizando a lista automaticamente.
-- **Tabela**: Colunas (Livro, Leitor, Data Solicitação, Data Devolução, Status) com badges de cores padronizadas.
+- **Filtros**: 
+    - Busca por Nome do Livro ou Nome do Leitor.
+    - Filtro por Data de Devolução.
+- **Regras**: Filtros podem ser usados de forma isolada ou combinada. A listagem deve atualizar mostrando apenas os resultados correspondentes.
 - **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 
 ## Funcionalidades para Leitores
