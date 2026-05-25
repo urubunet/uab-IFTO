@@ -1,5 +1,13 @@
 let currentStatus = 'Todos';
 
+function formatarData(dateString) {
+    if (!dateString) return '-';
+    // Espera formato YYYY-MM-DD HH:MM:SS.ffffff
+    const parts = dateString.split(/[- :.]/);
+    if (parts.length < 5) return dateString;
+    return `${parts[2]}/${parts[1]}/${parts[0]} ${parts[3]}:${parts[4]}`;
+}
+
 function carregarDevolucoes(termo = '', data = '') {
     let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(termo)}&data=${encodeURIComponent(data)}`;
     
@@ -25,8 +33,8 @@ function carregarDevolucoes(termo = '', data = '') {
                     <td>${dev.titulo}</td>
                     <td>${dev.usuario}</td>
                     <td><span class="badge ${badgeClass}">${dev.status}</span></td>
-                    <td>${dev.data_solicitacao || '-'}</td>
-                    <td><span class="text-success">${dev.data_devolucao || '-'}</span></td>
+                    <td>${formatarData(dev.data_solicitacao)}</td>
+                    <td><span class="text-success">${formatarData(dev.data_devolucao)}</span></td>
                 `;
                 tbody.appendChild(row);
             });
