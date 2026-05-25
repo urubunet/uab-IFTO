@@ -2,10 +2,26 @@ let currentStatus = 'Todos';
 
 function formatarData(dateString) {
     if (!dateString) return '-';
-    // Espera formato YYYY-MM-DD HH:MM:SS.ffffff
-    const parts = dateString.split(/[- :.]/);
-    if (parts.length < 5) return dateString;
-    return `${parts[2]}/${parts[1]}/${parts[0]} ${parts[3]}:${parts[4]}`;
+    
+    console.log("Debug Formatando data:", dateString);
+    
+    try {
+        // Formato esperado: YYYY-MM-DD HH:MM:SS ou YYYY-MM-DD
+        const parts = dateString.split(/[- :.]/);
+        
+        // Caso YYYY-MM-DD
+        if (parts.length === 3) {
+            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+        // Caso YYYY-MM-DD HH:MM:SS
+        else if (parts.length >= 5) {
+            return `${parts[2]}/${parts[1]}/${parts[0]} ${parts[3]}:${parts[4]}`;
+        }
+        return dateString;
+    } catch (e) {
+        console.error("Erro formatando data:", e);
+        return dateString;
+    }
 }
 
 function carregarDevolucoes(termo = '', data = '') {
