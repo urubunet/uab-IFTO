@@ -1,27 +1,18 @@
 let currentStatus = 'Todos';
 
 function formatarData(dateString) {
-    if (!dateString) return '-';
+    if (!dateString || dateString === 'None' || dateString === '-') return '-';
     
-    console.log("Debug Formatando data:", dateString);
+    // Tenta capturar YYYY, MM, DD, HH, MM de strings como '2026-05-24 17:03:03.030899'
+    // Regex para extrair os componentes de forma robusta
+    const match = dateString.match(/(\d{4})-(\d{2})-(\d{2})[\sT](\d{2}):(\d{2})/);
     
-    try {
-        // Formato esperado: YYYY-MM-DD HH:MM:SS ou YYYY-MM-DD
-        const parts = dateString.split(/[- :.]/);
-        
-        // Caso YYYY-MM-DD
-        if (parts.length === 3) {
-            return `${parts[2]}/${parts[1]}/${parts[0]}`;
-        }
-        // Caso YYYY-MM-DD HH:MM:SS
-        else if (parts.length >= 5) {
-            return `${parts[2]}/${parts[1]}/${parts[0]} ${parts[3]}:${parts[4]}`;
-        }
-        return dateString;
-    } catch (e) {
-        console.error("Erro formatando data:", e);
-        return dateString;
+    if (match) {
+        // match[1]: YYYY, [2]: MM, [3]: DD, [4]: HH, [5]: MM
+        return `${match[3]}/${match[2]}/${match[1].slice(2)} ${match[4]}:${match[5]}`;
     }
+    
+    return dateString;
 }
 
 function carregarDevolucoes(termo = '', data = '') {
