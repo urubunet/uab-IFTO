@@ -31,11 +31,11 @@ def criar_app():
         app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
 
     # Configuração de Log de Segurança
-    logging.basicConfig(
-        filename='security.log',
-        level=logging.INFO,
-        format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
-    )
+    security_logger = logging.getLogger('security')
+    security_logger.setLevel(logging.INFO)
+    file_handler = logging.FileHandler('security.log')
+    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'))
+    security_logger.addHandler(file_handler)
     
     # Sessão e Segurança
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
