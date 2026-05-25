@@ -56,6 +56,15 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
     - "Cadastrar Admins" e "Usuários": Visível apenas para `ADMIN` ou `ADMIN_INICIAL`.
     - "Usuários": Visível também para `BIBLIOTECARIO`.
 
+### Requisitos de Interface (Menu):
+- **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
+- **Renomeação de Menu**:
+    - "Cadastrar Bibliotecário" -> "Novo Bibliotecário"
+    - "Gerenciar Empréstimos" -> "Empréstimos"
+    - "Cadastrar Livro" -> "Novo Livro"
+    - "Buscar Devoluções" -> "Devoluções"
+- **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
+
 ## Gerenciamento de Acervo
 - **Exclusão de Livros**: Permitir exclusão de livros, desde que o livro não esteja com status 'EMPRESTADO'.
 

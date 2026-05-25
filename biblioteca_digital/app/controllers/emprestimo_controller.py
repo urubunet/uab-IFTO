@@ -45,6 +45,8 @@ def buscar_devolucoes_view():
         return redirect(url_for('livro.listar_livros'))
     
     busca = request.args.get('busca', '')
+    data_devolucao = request.args.get('data_devolucao', '')
+    
     conn = conectar_db()
     cursor = conn.cursor()
     
@@ -58,7 +60,10 @@ def buscar_devolucoes_view():
     params = []
     if busca:
         query += " AND (L.titulo LIKE ? OR U.nome LIKE ?)"
-        params = [f"%{busca}%", f"%{busca}%"]
+        params.extend([f"%{busca}%", f"%{busca}%"])
+    if data_devolucao:
+        query += " AND DATE(E.data_devolucao) = ?"
+        params.append(data_devolucao)
         
     query += " ORDER BY E.data_devolucao DESC"
     

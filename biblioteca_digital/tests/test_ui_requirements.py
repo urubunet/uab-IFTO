@@ -25,14 +25,13 @@ def test_admin_menu_options(client, app):
     
     assert resp.status_code == 200
     html = resp.get_data(as_text=True)
-    with open("debug_admin.html", "w") as f:
-        f.write(html)
     
     assert "Admin Inicial" in html
-    assert "Gerenciar Empréstimos" in html
-    assert "Cadastrar Livro" in html
+    assert "Empréstimos" in html
+    assert "Novo Livro" in html
 
 def test_reader_menu_options(client, app):
+    # Setup: Criar um leitor
     with app.app_context():
         email = "leitor@teste.com"
         senha = "Senha123!"
@@ -44,5 +43,5 @@ def test_reader_menu_options(client, app):
     html = resp.get_data(as_text=True)
     
     assert "Leitor Teste" in html
-    assert "Gerenciar Empréstimos" not in html
-    assert "Cadastrar Livro" not in html
+    assert ">Empréstimos</a>" not in html
+    assert "Novo Livro" not in html

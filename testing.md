@@ -57,8 +57,9 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | T-UI-02 | Mensagens Flash | Garantir que alertas de erro/sucesso aparecem após ações. | Manual |
 | T-UI-03 | Visibilidade Contextual| Verificar se o botão de aprovação aparece apenas para ADM. | Manual |
 | T-UI-04 | Nome do Usuário no Menu| Validar se o nome do usuário logado aparece na Navbar. | Integração |
-| T-UI-05 | Cadastro no Menu (ADM)| Garantir que 'Cadastrar Livro' aparece para ADMIN/BIBLIO no menu. | Integração |
-| T-UI-06 | Cadastro no Menu (LEIT)| Garantir que 'Cadastrar Livro' NÃO aparece para LEITOR no menu. | Integração |
+| T-UI-05 | Cadastro no Menu (ADM)| Garantir que 'Novo Livro' aparece para ADMIN/BIBLIO no menu. | Integração |
+| T-UI-06 | Cadastro no Menu (LEIT)| Garantir que 'Novo Livro' NÃO aparece para LEITOR no menu. | Integração |
+| T-ADM-07 | Filtros Devoluções | Verificar se a busca por data e status funciona no histórico de devoluções. | Integração |
 
 ### 2.8 Gestão Administrativa (Prioridade: ALTA)
 

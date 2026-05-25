@@ -1,15 +1,24 @@
 {% extends "layout.html" %}
-{% block title %}Buscar Devoluções - Biblioteca Digital{% endblock %}
+{% block title %}Devoluções - Biblioteca Digital{% endblock %}
 {% block content %}
 <h2 class="mb-4">Histórico de Devoluções</h2>
 
-<div class="card p-3 mb-4 bg-light">
+<div class="card p-3 mb-4 bg-light shadow-sm">
     <form action="{{ url_for('emprestimo.buscar_devolucoes_view') }}" method="GET" class="row g-3">
-        <div class="col-md-8">
-            <input type="text" name="busca" class="form-control" placeholder="Buscar por título do livro ou nome do leitor..." value="{{ request.args.get('busca', '') }}">
-        </div>
         <div class="col-md-4">
-            <button type="submit" class="btn btn-dark w-100">Filtrar Histórico</button>
+            <input type="text" name="busca" class="form-control" placeholder="Título ou Nome do Leitor" value="{{ request.args.get('busca', '') }}">
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="data_devolucao" class="form-control" value="{{ request.args.get('data_devolucao', '') }}">
+        </div>
+        <div class="col-md-3">
+            <select name="status" class="form-select">
+                <option value="">Todos os Status</option>
+                <option value="DEVOLVIDO" {% if request.args.get('status') == 'DEVOLVIDO' %}selected{% endif %}>Devolvido</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-dark w-100">Filtrar</button>
         </div>
     </form>
 </div>
@@ -34,7 +43,7 @@
                     <td><span class="text-success">{{ dev.data_devolucao }}</span></td>
                 </tr>
                 {% else %}
-                <tr><td colspan="4" class="text-center py-4 text-muted">Nenhum registro de devolução encontrado.</td></tr>
+                <tr><td colspan="4" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>
                 {% endfor %}
             </tbody>
         </table>

@@ -76,3 +76,23 @@
 2026-05-25 08:29:28,222 INFO werkzeug MainThread :  * Restarting with stat
 2026-05-25 08:29:28,439 WARNING werkzeug MainThread :  * Debugger is active!
 2026-05-25 08:29:28,449 INFO werkzeug MainThread :  * Debugger PIN: 378-871-102
+2026-05-25 08:30:21,194 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.26.71.42:5000
+2026-05-25 08:30:21,194 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2026-05-25 08:30:21,195 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-25 08:30:21,409 WARNING werkzeug MainThread :  * Debugger is active!
+2026-05-25 08:30:21,411 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
+2026-05-25 08:30:39,668 INFO werkzeug Thread-4 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:30:39] "[33mGET / HTTP/1.1[0m" 404 -
+2026-05-25 08:30:43,295 INFO werkzeug Thread-3 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:30:43] "GET /login HTTP/1.1" 200 -
+2026-05-25 08:30:49,239 INFO werkzeug Thread-5 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:30:49] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-05-25 08:30:49,476 INFO werkzeug Thread-8 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:30:49] "GET /catalogo HTTP/1.1" 200 -
+2026-05-25 08:30:51,427 INFO werkzeug Thread-10 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:30:51] "GET /emprestimo/gerenciar HTTP/1.1" 200 -
+2026-05-25 08:31:00,123 INFO werkzeug Thread-12 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:31:00] "GET /emprestimo/devolucoes HTTP/1.1" 200 -
+2026-05-25 08:31:02,282 INFO werkzeug Thread-13 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:31:02] "GET /livro/cadastrar HTTP/1.1" 200 -
+2026-05-25 08:31:13,159 INFO werkzeug Thread-16 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:31:13] "GET /admin/cadastrar-admin HTTP/1.1" 200 -
+2026-05-25 08:31:15,730 INFO werkzeug Thread-18 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:31:15] "GET /admin/cadastrar-bibliotecario HTTP/1.1" 200 -
+2026-05-25 08:31:19,872 INFO werkzeug Thread-20 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:31:19] "GET /emprestimo/gerenciar HTTP/1.1" 200 -
+2026-05-25 08:31:22,115 INFO werkzeug Thread-22 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:31:22] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-05-25 08:31:20,705 INFO werkzeug Thread-24 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:31:20] "GET /login HTTP/1.1" 200 -
