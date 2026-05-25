@@ -179,3 +179,19 @@
 2026-05-25 08:46:36,030 INFO werkzeug Thread-17 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:46:36] "GET /catalogo HTTP/1.1" 200 -
 2026-05-25 08:46:38,840 INFO werkzeug Thread-19 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:46:38] "[32mGET /logout HTTP/1.1[0m" 302 -
 2026-05-25 08:46:38,955 INFO werkzeug Thread-21 (process_request_thread) : 127.0.0.1 - - [25/May/2026 08:46:38] "GET /login HTTP/1.1" 200 -
+2026-05-25 08:49:18,701 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.26.71.42:5000
+2026-05-25 08:49:18,702 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2026-05-25 08:49:18,702 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-25 08:49:18,898 WARNING werkzeug MainThread :  * Debugger is active!
+2026-05-25 08:49:18,900 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
+2026-05-25 08:50:52,876 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.26.71.42:5000
+2026-05-25 08:50:52,876 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2026-05-25 08:50:52,877 INFO werkzeug MainThread :  * Restarting with stat
+2026-05-25 08:50:53,064 WARNING werkzeug MainThread :  * Debugger is active!
+2026-05-25 08:50:53,073 INFO werkzeug MainThread :  * Debugger PIN: 814-411-047
