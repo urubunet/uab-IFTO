@@ -245,3 +245,10 @@
 2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 09:04:58,396 WARNING security Thread-36 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 09:05:00,175 WARNING security Thread-40 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 09:05:06,328 WARNING security Thread-45 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 09:05:11,014 WARNING security Thread-53 (process_request_thread) : ACESSO_NEGADO: Usuario 2 tentou acessar recurso restrito a ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']
+2026-05-25 09:05:22,011 INFO security Thread-67 (process_request_thread) : SOLICITACAO: Usuario 2 solicitou livro 3
+2026-05-25 09:05:43,311 INFO security Thread-84 (process_request_thread) : APROVACAO: Emprestimo 6 aprovado por 1
+2026-05-25 09:05:45,280 INFO security Thread-88 (process_request_thread) : APROVACAO: Emprestimo 7 aprovado por 1
