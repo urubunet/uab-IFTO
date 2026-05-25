@@ -218,3 +218,30 @@
 2026-05-25 08:57:40,871 WARNING security Thread-40 (process_request_thread) : ACESSO_NEGADO: Usuario 1 tentou acessar recurso restrito a ['LEITOR']
 2026-05-25 08:57:41,193 WARNING security Thread-44 (process_request_thread) : ACESSO_NEGADO: Usuario 1 tentou acessar recurso restrito a ['LEITOR']
 2026-05-25 08:57:42,008 WARNING security Thread-48 (process_request_thread) : ACESSO_NEGADO: Usuario 1 tentou acessar recurso restrito a ['LEITOR']
+2026-05-25 09:03:28,186 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:28,186 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:28,186 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:28,186 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:28,186 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:56,989 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:56,989 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:56,989 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:56,989 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:57,013 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 09:03:57,013 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 09:03:57,013 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 09:03:57,013 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-05-25 09:03:57,035 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 09:03:57,035 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 09:03:57,035 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 09:03:57,035 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-05-25 09:03:57,353 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:57,353 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:57,353 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:57,353 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:57,353 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31
+2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 09:03:57,359 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1

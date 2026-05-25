@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session
 from config import Config
 from app.database import inicializar_db
 from flask_caching import Cache
