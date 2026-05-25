@@ -78,7 +78,39 @@
                 </table>
             </div>
         </div>
-        <!-- ... resto do template Acervo Atual ... -->
+
+        <div class="card p-4">
+            <h4>Acervo Atual</h4>
+            <hr>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for livro in livros %}
+                        <tr>
+                            <td>{{ livro.titulo }}</td>
+                            <td>{{ livro.autor }}</td>
+                            <td>{{ livro.status }}</td>
+                            <td>
+                                <a href="{{ url_for('livro.editar_view', livro_id=livro.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                                <form action="{{ url_for('livro.excluir_livro', livro_id=livro.id) }}" method="POST" class="d-inline">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

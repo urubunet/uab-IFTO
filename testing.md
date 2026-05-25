@@ -60,18 +60,23 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | T-UI-08 | Filtro Real-time (Dev) | Validar se busca em tempo real filtra a tabela sem recarregar a página. | Integração/Manual |
 | T-UI-09 | Badge de Status | Verificar se Meus Empréstimos usa o formato badge de status. | Visual |
 | T-UI-10 | Formato de Data | Validar formato DD/MM/AAAA HH:MM nas listagens. | Unidade |
-
 ### 2.8 Gestão Administrativa (Prioridade: ALTA)
 
 | ID | Cenário | Descrição do Teste | Técnica |
 |:---|:---|:---|:---|
 | T-ADM-01 | Gerenciar Empréstimos | Validar separação de solicitações (SOLICITADO) e ativos (ATIVO). | Integração |
-| T-ADM-07 | Devoluções: Filtros | Validar busca(autocomplete), data e status combinados via AJAX (atualização transparente). | Integração |
-| T-ADM-03 | Cadastrar Bibliotecário | Garantir que apenas ADMIN pode acessar o form de registro de Biblio. | Integração/RBAC |
-| T-ADM-04 | Cadastrar Livro UI | Validar se o formulário dedicado de cadastro de livro salva no banco. | Integração |
-| T-ADM-05 | Excluir Solicitação | Validar se admin/biblio pode excluir uma solicitação pendente e liberar o livro. | Integração |
-| T-ADM-06 | Cadastrar Bibliotecário (Permissão)| Garantir que 'Cadastrar Bibliotecário' aparece e funciona apenas para ADMIN/ADMIN_INICIAL. | Integração |
+| T-ADM-02 | Devoluções: Filtros | Validar busca(autocomplete), data e status combinados via AJAX (atualização transparente). | Integração |
+| T-ADM-03 | Gestão de Usuários | Garantir que submenus de usuários aparecem e funcionam apenas para ADMIN/ADMIN_INICIAL/BIBLIO. | Integração/RBAC |
+| T-ADM-04 | Cadastrar Livro UI | Validar formulário de cadastro de livro. | Integração |
+| T-ADM-05 | Excluir Solicitação | Validar se admin/biblio pode excluir uma solicitação pendente. | Integração |
+| T-ADM-06 | Cadastrar Bibliotecário | Garantir acesso restrito ao cadastro de bibliotecário. | Integração |
+| T-ADM-07 | Editar Livro | Validar funcionalidade de edição de livros para ADMIN/BIBLIO. | Integração |
 | T-USR-01 | Cadastro Admin | Validar criação de ADMIN por ADMIN existente. | Integração |
+| T-USR-02 | Listar Usuários | Verificar se a tabela de usuários lista corretamente. | Integração |
+| T-BOOK-03 | Excluir Livro | Validar exclusão de livro disponível, impedir exclusão de emprestado. | Integração |
+| T-READ-01 | Meus Empréstimos | Validar se o leitor vê apenas seus próprios empréstimos. | Integração |
+| T-DB-01 | Seeding Automático | Verificar se o sistema carrega 30 livros automaticamente. | Integração |
+
 | T-USR-02 | Listar Usuários | Verificar se a tabela de usuários lista corretamente nomes e papéis. | Integração |
 | T-BOOK-03 | Excluir Livro | Validar exclusão de livro disponível, impedir exclusão de emprestado. | Integração |
 | T-READ-01 | Meus Empréstimos | Validar se o leitor vê apenas seus próprios empréstimos. | Integração |

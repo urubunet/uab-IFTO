@@ -48,11 +48,9 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
     - **Regras**: Filtros podem ser isolados ou combinados. A atualização é via AJAX (transparente ao usuário).
 - **Menu**: Opção "Devoluções" visível apenas para `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
 
-
 ## 4. Controladores (Controllers)
 
-### Gerenciamento Administrativo (AdminController)
-## Gerenciamento de Usuários
+### Gerenciamento de Usuários
 - **Cadastro de Administrador**: Permitir cadastro de novos administradores apenas por usuários com papel `ADMIN_INICIAL` ou `ADMIN`.
 - **Listagem de Usuários**: Exibir nome, data de cadastro e papel, com opções para editar e excluir.
 - **Acesso ao Menu**: 
@@ -60,15 +58,19 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ### Requisitos de Interface (Menu):
 - **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
-- **Gestão de Usuários (Menu Aninhado)**:
-    - "Gestão de Usuários": Novo Admin, Novo Bibliotecário, Listar Usuários.
-    - Acesso restrito conforme papel (ADMIN/ADMIN_INICIAL/BIBLIOTECARIO).
-- **Renomeação de Menu**:
-    - "Empréstimos"
-    - "Novo Livro"
-    - "Devoluções"
-    - "Gestão de Usuários" (contendo "Novo Admin", "Novo Bibliotecário", "Listar Usuários")
+- **Gestão de Acervo**:
+    - "Gestão de Livros" (submenus: "Catálogo", "Novo Livro")
+    - "Locações" (submenus: "Empréstimos", "Devoluções")
+    - Acesso restrito a `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
+- **Gestão de Usuários**:
+    - "Gestão de Usuários" (submenus: "Novo Admin", "Novo Bibliotecário", "Listar Usuários")
+    - Acesso restrito a `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
+- **Relatórios**: Acesso restrito a `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
 - **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
+
+## Gerenciamento de Acervo
+- **Edição de Livros**: Opção "Editar" disponível na listagem para papéis `ADMIN` ou `BIBLIOTECARIO`.
+- **Exclusão de Livros**: Permitir exclusão de livros, desde que o livro não esteja com status 'EMPRESTADO'.
 
 ## Funcionalidades para Leitores
 - **Meus Empréstimos**: Listar todos os empréstimos realizados pelo leitor logado.
@@ -76,7 +78,6 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
         - 'ATIVO': `badge bg-success`
         - 'SOLICITADO': `badge bg-primary text-white`
         - 'DEVOLVIDO': `badge bg-danger text-white`
-
 
 ## 5. Variáveis de Ambiente (.env)
 - `SECRET_KEY`: Chave mestre para criptografia de sessão.

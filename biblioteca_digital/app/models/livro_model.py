@@ -70,3 +70,15 @@ class LivroModel:
             self.status = novo_status
         finally:
             conn.close()
+
+    def atualizar_detalhes(self, titulo, autor, categoria):
+        conn = conectar_db()
+        try:
+            cursor = conn.cursor()
+            cursor.execute('UPDATE Livros SET titulo = ?, autor = ?, categoria = ? WHERE id = ?', (titulo, autor, categoria, self.id))
+            conn.commit()
+            self.titulo = titulo
+            self.autor = autor
+            self.categoria = categoria
+        finally:
+            conn.close()

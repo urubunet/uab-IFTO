@@ -2,6 +2,7 @@ from flask import Blueprint, request, session, render_template, redirect, url_fo
 from app.models.livro_model import LivroModel
 from app.services.library_service import LibraryService
 from app import cache
+from app.database import conectar_db
 
 livro_bp = Blueprint('livro', __name__)
 
@@ -19,7 +20,7 @@ def admin_dashboard():
     
     livros = LivroModel.buscar_todos()
     
-    from app.database import conectar_db
+    # Buscar empréstimos pendentes e ativos para o painel
     conn = conectar_db()
     cursor = conn.cursor()
     
@@ -54,6 +55,35 @@ def cadastrar_livro():
     
     cache.clear() # Limpar cache ao adicionar novo livro
     flash('Livro cadastrado com sucesso!', 'success')
+    return redirect(url_for('livro.admin_dashboard'))
+
+@livro_bp.route('/livro/editar/<int:livro_id>', methods=['GET'])
+def editar_view(livro_id):
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    livro = LivroModel.buscar_por_id(livro_id)
+    if not livro:
+        flash('Livro não encontrado.', 'danger')
+        return redirect(url_for('livro.admin_dashboard'))
+    return render_template('editar_livro.html', livro=livro)
+
+@livro_bp.route('/livro/editar/<int:livro_id>', methods=['POST'])
+def editar_livro(livro_id):
+    if not LibraryService.verificar_permissao(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+    
+    livro = LivroModel.buscar_por_id(livro_id)
+    if not livro:
+        flash('Livro não encontrado.', 'danger')
+        return redirect(url_for('livro.admin_dashboard'))
+        
+    data = request.form if not request.is_json else request.get_json()
+    livro.atualizar_detalhes(data.get('titulo'), data.get('autor'), data.get('categoria'))
+    
+    cache.clear()
+    flash('Livro atualizado com sucesso!', 'success')
     return redirect(url_for('livro.admin_dashboard'))
 
 @livro_bp.route('/livro/excluir/<int:livro_id>', methods=['POST'])

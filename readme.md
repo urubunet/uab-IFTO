@@ -31,7 +31,7 @@ cd biblioteca_digital
 python3 run.py
 ```
 
-### 4. Iniciar o Processador de Jobs (Opcional)
+### 4. Iniciar o Processador de Jobs (Opcional, para logs assíncronos)
 ```bash
 huey_consumer app.jobs.huey
 ```
@@ -47,3 +47,10 @@ PYTHONPATH=. pytest tests/
 ## 🔒 Acesso Padrão
 - **URL**: `http://localhost:5000`
 - **Admin Inicial**: `admin@empresa.com` / `senha_segura` (configurável no `.env`)
+
+## Funcionalidades Principais
+- Autenticação com Hashing (Scrypt).
+- Gestão de Usuários (Admins, Bibliotecários).
+- Gestão de Acervo (CRUD de Livros).
+- Gestão de Empréstimos e Devoluções.
+- Relatórios Gerenciais.

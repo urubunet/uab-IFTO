@@ -35,7 +35,10 @@
                     {% if livro.status == 'DISPONIVEL' %}
                         <span class="badge bg-success">Disponível</span>
                     {% else %}
-                        <span class="badge bg-warning text-dark">Emprestado</span>
+                        <span class="badge bg-warning text-dark">{{ livro.status }}</span>
+                    {% endif %}
+                    {% if session.get('papel') in ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL'] %}
+                    <a href="{{ url_for('livro.editar_view', livro_id=livro.id) }}" class="badge bg-primary text-white text-decoration-none">Editar</a>
                     {% endif %}
                 </p>
             </div>
