@@ -66,9 +66,7 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | ID | Cenário | Descrição do Teste | Técnica |
 |:---|:---|:---|:---|
 | T-ADM-01 | Gerenciar Empréstimos | Validar separação de solicitações (SOLICITADO) e ativos (ATIVO). | Integração |
-| T-ADM-07 | Devoluções: Autocomplete | Validar busca por nome/título com sugestões (3+ letras). | Integração |
-| T-ADM-08 | Devoluções: Filtro Data | Validar filtragem da tabela pela data selecionada via componente. | Integração |
-| T-ADM-09 | Devoluções: Filtro Status | Validar botões de status (ATIVO/SOLICITADO/DEVOLVIDO) para atualização dinâmica. | Integração |
+| T-ADM-07 | Devoluções: Filtros Isolados/Combinados | Validar se filtros de busca, data e status funcionam isoladamente e combinados. | Integração |
 | T-ADM-03 | Cadastrar Bibliotecário | Garantir que apenas ADMIN pode acessar o form de registro de Biblio. | Integração/RBAC |
 | T-ADM-04 | Cadastrar Livro UI | Validar se o formulário dedicado de cadastro de livro salva no banco. | Integração |
 | T-ADM-05 | Excluir Solicitação | Validar se admin/biblio pode excluir uma solicitação pendente e liberar o livro. | Integração |

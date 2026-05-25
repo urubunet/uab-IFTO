@@ -37,13 +37,15 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Inicialização**: Ao iniciar o sistema, o banco de dados é criado automaticamente.
 - **Seeding**: Caso a tabela de livros esteja vazia, o sistema deve inserir automaticamente 30 registros fictícios de livros (título, autor, categoria) para facilitar testes e demonstração.
 
-### Gerenciamento de Empréstimos
-- **Filtros**: Na tela de gerenciamento, deve haver separação visual entre solicitações (status 'SOLICITADO') e empréstimos ativos (status 'ATIVO').
-- **Ações**:
-    - **Aprovar**: Atualiza empréstimo para 'ATIVO' e livro para 'EMPRESTADO'.
-    - **Excluir**: Exclui empréstimo com status 'SOLICITADO' e reverte livro para 'DISPONIVEL'.
-- **Pesquisa de Devoluções**: Deve haver um formulário específico para busca no histórico de empréstimos finalizados (status 'DEVOLVIDO') filtrando por data de devolução.
-- **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
+## Gerenciamento de Devoluções
+- **Página de Devoluções**: Acessível apenas para papéis `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
+- **Exibição**: Tabela contendo: Livro, Leitor, Data Solicitação, Data Devolução, Status (com badges de cor padronizadas).
+- **Filtros**: 
+    - Busca por Nome do Livro ou Nome do Leitor.
+    - Filtro por Data de Devolução.
+    - Filtro por Status.
+- **Regras**: Filtros podem ser usados de forma isolada ou combinada. A listagem deve atualizar conforme os filtros aplicados.
+- **Menu**: Opção "Devoluções" visível apenas para `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
 
 
 ## 4. Controladores (Controllers)

@@ -46,11 +46,10 @@
 <script>
     let currentStatus = 'Todos';
 
-    function carregarDevolucoes() {
-        const busca = document.getElementById('buscaDevolucao').value;
-        const data = document.getElementById('dataDevolucao').value;
-        
-        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(busca)}&data=${encodeURIComponent(data)}&status=${encodeURIComponent(currentStatus)}`;
+    function carregarDevolucoes(termo = '', data = '', status = '') {
+        let url = "{{ url_for('emprestimo.api_listar_devolucoes') }}?busca=" + encodeURIComponent(termo) + 
+                  "&data=" + encodeURIComponent(data) + 
+                  "&status=" + encodeURIComponent(status);
         
         fetch(url)
             .then(response => response.json())
@@ -86,7 +85,7 @@
     document.getElementById('buscaDevolucao').addEventListener('input', function() {
         const termo = this.value;
         if (termo.length >= 3) {
-            fetch(`/emprestimo/api/autocomplete?q=${encodeURIComponent(termo)}`)
+            fetch("{{ url_for('emprestimo.buscar_autocomplete_api') }}?q=" + encodeURIComponent(termo))
                 .then(r => r.json())
                 .then(data => {
                     const list = document.getElementById('autocompleteList');
@@ -107,13 +106,16 @@
         carregarDevolucoes(item, document.getElementById('dataDevolucao').value, currentStatus);
     }
 
-    document.getElementById('dataDevolucao').addEventListener('change', carregarDevolucoes);
-    
+    document.getElementById('dataDevolucao').addEventListener('change', () => {
+        carregarDevolucoes(document.getElementById('buscaDevolucao').value, document.getElementById('dataDevolucao').value, currentStatus);
+    });
+
     function filtrarStatus(status) {
         currentStatus = status;
         carregarDevolucoes(document.getElementById('buscaDevolucao').value, document.getElementById('dataDevolucao').value, currentStatus);
     }
     
+    // Carregar inicial
     carregarDevolucoes();
 </script>
 {% endblock %}

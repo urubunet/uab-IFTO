@@ -318,3 +318,4 @@
 2026-05-25 10:18:02,101 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 10:18:02,101 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 10:18:02,101 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 10:59:23,975 INFO security Thread-11 (process_request_thread) : DEVOLUCAO: Livro 3 devolvido (Emprestimo 7) processado por 1
