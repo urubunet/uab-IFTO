@@ -43,6 +43,9 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('relatorio.gerar_relatorios') }}">Relatórios</a></li>
                     {% endif %}
+                    {% if session.get('papel') == 'LEITOR' %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('emprestimo.meus_emprestimos') }}">Meus Empréstimos</a></li>
+                    {% endif %}
                 </ul>
                 <ul class="navbar-nav">
                     {% if session.get('usuario_id') %}
