@@ -341,3 +341,4 @@
 2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-05-25 15:16:19,114 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-05-25 16:44:42,355 INFO security Thread-16 (process_request_thread) : APROVACAO: Emprestimo 8 aprovado por 1
