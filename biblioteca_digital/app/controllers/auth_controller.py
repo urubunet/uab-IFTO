@@ -31,10 +31,12 @@ def login():
     
     usuario = UsuarioModel.buscar_por_email(email)
     if usuario and check_password_hash(usuario.senha_hash, senha):
+        session.clear() 
         session['usuario_id'] = usuario.id
         session['nome'] = usuario.nome
         session['papel'] = usuario.papel
         session.permanent = True
+        session.modified = True
         flash('Login realizado com sucesso!', 'success')
         return redirect(url_for('livro.listar_livros'))
     
@@ -72,5 +74,6 @@ def cadastrar_leitor():
 @auth_bp.route('/logout', methods=['GET'])
 def logout():
     session.clear()
+    session.modified = True
     flash('Você saiu do sistema.', 'info')
     return redirect(url_for('auth.login_view'))
