@@ -5,25 +5,27 @@
 
 <div class="card p-3 mb-4 bg-light shadow-sm border-0">
     <div class="row g-3 align-items-end">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <label class="form-label small text-muted">Buscar Livro ou Leitor</label>
             <input type="text" id="buscaDevolucao" class="form-control" placeholder="Digite para filtrar...">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label class="form-label small text-muted">Data Devolução</label>
             <input type="date" id="dataDevolucao" class="form-control">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-5">
             <label class="form-label small text-muted d-block">Status</label>
             <button class="btn btn-outline-secondary btn-sm" onclick="filtrarStatus('Todos')">Todos</button>
             <button class="btn btn-outline-danger btn-sm" onclick="filtrarStatus('DEVOLVIDO')">Devolvido</button>
+            <button class="btn btn-outline-success btn-sm" onclick="filtrarStatus('ATIVO')">Ativo</button>
+            <button class="btn btn-outline-primary btn-sm" onclick="filtrarStatus('SOLICITADO')">Solicitado</button>
         </div>
     </div>
 </div>
 
 <div class="card shadow-sm border-0">
     <div class="table-responsive">
-        <table class="table table-hover mb-0" id="tabelaDevolucoes">
+        <table class="table table-hover mb-0">
             <thead class="table-light">
                 <tr>
                     <th>Livro</th>
@@ -35,10 +37,13 @@
             </thead>
             <tbody id="tabelaDevolucoesBody">
                 {% for dev in devolucoes %}
-                <tr class="linha-devolucao" data-status="{{ dev.status }}" data-data="{{ dev.data_devolucao.split(' ')[0] }}">
+                <!-- Força ISO format YYYY-MM-DD para comparação -->
+                <tr class="linha-devolucao" 
+                    data-status="{{ dev.status }}" 
+                    data-data="{{ dev.data_devolucao.split(' ')[0] if dev.data_devolucao else '' }}">
                     <td>{{ dev.titulo }}</td>
                     <td>{{ dev.usuario }}</td>
-                    <td><span class="badge bg-danger text-white">{{ dev.status }}</span></td>
+                    <td><span class="badge {% if dev.status == 'DEVOLVIDO' %}bg-danger text-white{% elif dev.status == 'ATIVO' %}bg-success{% else %}bg-primary text-white{% endif %}">{{ dev.status }}</span></td>
                     <td>{{ dev.data_solicitacao | format_datetime }}</td>
                     <td><span class="text-success">{{ dev.data_devolucao | format_datetime }}</span></td>
                 </tr>
@@ -51,20 +56,23 @@
 </div>
 
 <script>
+    let currentStatus = 'Todos';
+
     function filtrar() {
         const busca = document.getElementById('buscaDevolucao').value.toLowerCase();
-        const data = document.getElementById('dataDevolucao').value;
+        const data = document.getElementById('dataDevolucao').value; // YYYY-MM-DD
         const linhas = document.querySelectorAll('.linha-devolucao');
         
         linhas.forEach(linha => {
             const texto = linha.innerText.toLowerCase();
-            const dataLinha = linha.getAttribute('data-data');
-            const status = linha.getAttribute('data-status');
+            const dataLinha = linha.getAttribute('data-data'); // YYYY-MM-DD
+            const statusLinha = linha.getAttribute('data-status');
             
             const matchBusca = texto.includes(busca);
             const matchData = (data === "" || dataLinha === data);
+            const matchStatus = (currentStatus === 'Todos' || statusLinha === currentStatus);
             
-            if (matchBusca && matchData) {
+            if (matchBusca && matchData && matchStatus) {
                 linha.style.display = "";
             } else {
                 linha.style.display = "none";
@@ -72,18 +80,12 @@
         });
     }
 
-    document.getElementById('buscaDevolucao').addEventListener('keyup', filtrar);
+    document.getElementById('buscaDevolucao').addEventListener('input', filtrar);
     document.getElementById('dataDevolucao').addEventListener('change', filtrar);
     
     function filtrarStatus(status) {
-        const linhas = document.querySelectorAll('.linha-devolucao');
-        linhas.forEach(linha => {
-            if (status === 'Todos' || linha.getAttribute('data-status') === status) {
-                linha.style.display = "";
-            } else {
-                linha.style.display = "none";
-            }
-        });
+        currentStatus = status;
+        filtrar();
     }
 </script>
 {% endblock %}
