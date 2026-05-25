@@ -58,14 +58,13 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ### Requisitos de Interface (Menu):
 - **Exibição de Usuário**: Ao realizar login, o nome do usuário (`session['nome']`) deve ser exibido na barra de menu superior.
-- **Gestão de Acervo**:
+- **Estrutura de Menu**:
     - "Gestão de Livros" (submenus: "Catálogo", "Novo Livro")
     - "Locações" (submenus: "Empréstimos", "Devoluções")
-    - Acesso restrito a `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
-- **Gestão de Usuários**:
     - "Gestão de Usuários" (submenus: "Novo Admin", "Novo Bibliotecário", "Listar Usuários")
-    - Acesso restrito a `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
-- **Relatórios**: Acesso restrito a `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
+    - "Relatórios"
+- **Acesso ao Menu**:
+    - "Novo Livro", "Locações", "Gestão de Usuários", "Relatórios" restritos a `ADMIN`, `ADMIN_INICIAL` ou `BIBLIOTECARIO`.
 - **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
 
 ## Gerenciamento de Acervo

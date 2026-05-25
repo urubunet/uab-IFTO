@@ -56,7 +56,7 @@ Este documento descreve a estratégia de testes automatizados para o Sistema de 
 | T-UI-01 | Renderização Base | Validar se o layout base carrega Bootstrap e Navbar. | Visual/Manual |
 | T-UI-02 | Mensagens Flash | Garantir que alertas de erro/sucesso aparecem após ações. | Manual |
 | T-UI-03 | Visibilidade Contextual| Verificar se o botão de aprovação aparece apenas para ADM. | Manual |
-| T-UI-07 | Menu Gestão de Usuários | Validar o submenu aninhado de usuários e suas permissões. | Integração |
+| T-UI-07 | Menu Estrutura Aninhada | Validar se submenus (Gestão de Livros, Locações, Usuários) aparecem e funcionam. | Integração |
 | T-UI-08 | Filtro Real-time (Dev) | Validar se busca em tempo real filtra a tabela sem recarregar a página. | Integração/Manual |
 | T-UI-09 | Badge de Status | Verificar se Meus Empréstimos usa o formato badge de status. | Visual |
 | T-UI-11 | Catálogo: Filtro Real-time | Validar se a busca por título/autor/categoria atualiza a listagem via AJAX. | Integração |
