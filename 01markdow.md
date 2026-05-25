@@ -71,9 +71,10 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 
 ### Pesquisa de Devoluções
 - **Filtros**: 
-    - Busca por Nome do Livro ou Nome do Leitor.
-    - Filtro por Data de Devolução.
-- **Regras**: Filtros podem ser usados de forma isolada ou combinada. A listagem deve atualizar mostrando apenas os resultados correspondentes.
+    - Busca por Nome do Livro ou Nome do Leitor (atualização automática na listagem).
+    - Filtro por Data de Devolução (atualização automática na listagem).
+    - Filtro por Status (atualização automática na listagem).
+- **Regras**: Filtros podem ser usados de forma isolada ou combinada. A listagem deve atualizar mostrando apenas os resultados correspondentes de forma transparente ao usuário.
 - **Acesso**: Disponível exclusivamente para usuários com o papel 'ADMIN' ou 'BIBLIOTECARIO'.
 
 ## Funcionalidades para Leitores

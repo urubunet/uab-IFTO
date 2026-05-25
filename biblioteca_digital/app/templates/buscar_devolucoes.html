@@ -4,28 +4,25 @@
 <h2 class="mb-4">Histórico de Devoluções</h2>
 
 <div class="card p-3 mb-4 bg-light shadow-sm border-0">
-    <form action="{{ url_for('emprestimo.buscar_devolucoes_view') }}" method="GET" class="row g-3 align-items-end">
+    <div class="row g-3 align-items-end">
         <div class="col-md-4">
             <label class="form-label small text-muted">Buscar Livro ou Leitor</label>
-            <input type="text" name="busca" class="form-control" placeholder="Título ou Nome..." value="{{ busca }}">
+            <input type="text" id="buscaDevolucao" class="form-control" placeholder="Digite para filtrar...">
         </div>
         <div class="col-md-3">
             <label class="form-label small text-muted">Data Devolução</label>
-            <input type="date" name="data_devolucao" class="form-control" value="{{ data_devolucao }}">
+            <input type="date" id="dataDevolucao" class="form-control">
         </div>
         <div class="col-md-3">
             <label class="form-label small text-muted">Status</label>
-            <select name="status" class="form-select">
-                <option value="" {% if not status %}selected{% endif %}>Todos</option>
-                <option value="DEVOLVIDO" {% if status == 'DEVOLVIDO' %}selected{% endif %}>Devolvido</option>
-                <option value="ATIVO" {% if status == 'ATIVO' %}selected{% endif %}>Ativo</option>
-                <option value="SOLICITADO" {% if status == 'SOLICITADO' %}selected{% endif %}>Solicitado</option>
+            <select id="statusDevolucao" class="form-select">
+                <option value="">Todos</option>
+                <option value="DEVOLVIDO">Devolvido</option>
+                <option value="ATIVO">Ativo</option>
+                <option value="SOLICITADO">Solicitado</option>
             </select>
         </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 <div class="card shadow-sm border-0">
@@ -40,22 +37,56 @@
                     <th>Data Devolução</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for dev in devolucoes %}
-                <tr>
-                    <td>{{ dev.titulo }}</td>
-                    <td>{{ dev.usuario }}</td>
-                    <td>
-                        <span class="badge {% if dev.status == 'DEVOLVIDO' %}bg-danger text-white{% elif dev.status == 'ATIVO' %}bg-success{% else %}bg-primary text-white{% endif %}">{{ dev.status }}</span>
-                    </td>
-                    <td>{{ dev.data_solicitacao | format_datetime }}</td>
-                    <td><span class="text-success">{{ dev.data_devolucao | format_datetime }}</span></td>
-                </tr>
-                {% else %}
-                <tr><td colspan="5" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>
-                {% endfor %}
+            <tbody id="tabelaDevolucoesBody">
+                <!-- Conteúdo carregado via AJAX -->
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+    function carregarDevolucoes() {
+        const busca = document.getElementById('buscaDevolucao').value;
+        const data = document.getElementById('dataDevolucao').value;
+        const status = document.getElementById('statusDevolucao').value;
+        
+        let url = `/emprestimo/api/devolucoes?busca=${encodeURIComponent(busca)}&data=${encodeURIComponent(data)}&status=${encodeURIComponent(status)}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('tabelaDevolucoesBody');
+                tbody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Nenhum registro encontrado.</td></tr>';
+                    return;
+                }
+                
+                data.forEach(dev => {
+                    let badgeClass = 'bg-info';
+                    if (dev.status === 'DEVOLVIDO') badgeClass = 'bg-danger text-white';
+                    if (dev.status === 'ATIVO') badgeClass = 'bg-success';
+                    if (dev.status === 'SOLICITADO') badgeClass = 'bg-primary text-white';
+                    
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${dev.titulo}</td>
+                            <td>${dev.usuario}</td>
+                            <td><span class="badge ${badgeClass}">${dev.status}</span></td>
+                            <td>${dev.data_solicitacao || '-'}</td>
+                            <td><span class="text-success">${dev.data_devolucao || '-'}</span></td>
+                        </tr>
+                    `;
+                });
+            });
+    }
+
+    document.getElementById('buscaDevolucao').addEventListener('input', carregarDevolucoes);
+    document.getElementById('dataDevolucao').addEventListener('change', carregarDevolucoes);
+    document.getElementById('statusDevolucao').addEventListener('change', carregarDevolucoes);
+    
+    // Carregar inicial
+    carregarDevolucoes();
+</script>
 {% endblock %}

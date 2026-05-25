@@ -83,7 +83,7 @@ def api_listar_devolucoes():
     if data:
         query += " AND DATE(E.data_devolucao) = ?"
         params.append(data)
-    if status != 'Todos':
+    if status:
         query += " AND E.status = ?"
         params.append(status)
         
