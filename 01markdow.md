@@ -69,6 +69,10 @@ O sistema segue o padrão **MVC (Model-View-Controller)** com uma camada adicion
 - **Estilo**: O menu deve ser compacto (fonte menor) para caber em uma única linha.
 
 ## Gerenciamento de Acervo
+- **Catálogo**: Listagem de livros com opção de busca rápida.
+- **Filtros (Real-time)**: 
+    - Busca automática (via AJAX) por título, autor ou categoria.
+    - A listagem deve ser atualizada de forma transparente (sem refresh) ao digitar.
 - **Edição de Livros**: Opção "Editar" disponível na listagem para papéis `ADMIN` ou `BIBLIOTECARIO`.
 - **Exclusão de Livros**: Permitir exclusão de livros, desde que o livro não esteja com status 'EMPRESTADO'.
 
