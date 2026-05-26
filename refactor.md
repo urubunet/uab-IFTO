@@ -1,19 +1,22 @@
 # Relatório de Refatoração e Otimização Final
 
-Este relatório detalha as otimizações arquiteturais e de desempenho aplicadas ao Sistema de Biblioteca Digital para atingir a estabilidade e eficiência.
+Este relatório detalha as otimizações arquiteturais, de segurança e de desempenho aplicadas ao Sistema de Biblioteca Digital.
 
 ## 1. Refatoração Arquitetural
-- **Service Layer**: Toda a lógica de negócio foi centralizada em `app/services/library_service.py`, garantindo que os controladores sejam leves e responsáveis apenas pela orquestração de rotas (HTTP).
-- **Modularidade**: O código foi simplificado, eliminando duplicações de lógica de validação e acesso a dados.
+- **Service Layer**: Toda a lógica de negócio foi centralizada em `app/services/library_service.py`, desacoplando os controladores do acesso direto aos dados.
+- **Navegação Dinâmica**: Reorganização do menu superior em submenus lógicos ("Gestão de Livros", "Locações", "Gestão de Usuários") com visibilidade condicional baseada em papéis.
+- **Padronização de Interface**: Uso consistente de badges coloridos para status e formatação de datas `DD/MM/AAAA HH:MM` em todo o sistema.
 
 ## 2. Otimizações de Desempenho
-- **Caching**: Implementado `Flask-Caching` para reduzir chamadas ao SQLite em consultas frequentes (Catálogo e Relatórios).
-- **Banco de Dados**: Índices em colunas de busca (`titulo`, `autor`, `categoria`, `email`) foram criados em `app/database.py`.
-- **Background Jobs**: Uso de `Huey` para processamento assíncrono, desonerando o tempo de resposta do usuário em operações críticas.
+- **Caching**: Implementado `Flask-Caching` para reduzir chamadas ao SQLite em consultas de relatórios.
+- **Banco de Dados**: Índices em colunas de busca (`titulo`, `autor`, `categoria`, `email`) criados para acelerar pesquisas.
+- **Background Jobs**: Uso de `Huey` para processamento assíncrono de logs de segurança e eventos.
+- **Filtragem Real-time**: Implementação de AJAX (Fetch API) para busca instantânea no catálogo e no histórico de devoluções.
 
-## 3. Segurança (Hardening)
-- **Criptografia**: Migração para `werkzeug.security` (Scrypt).
-- **Proteção CSRF**: Tokens obrigatórios em todas as rotas de alteração de estado.
-- **Headers**: Talisman configurado para proteção contra XSS e outros ataques via cabeçalhos HTTP.
-- **Sessões**: Tempo de expiração definido (30 min) e cookies seguros (`HttpOnly`, `SameSite=Lax`).
-- **Limiter**: Proteção contra força bruta no endpoint de login, configurado para limitar requisições para maior confiabilidade.
+## 3. Segurança (Hardening OWASP)
+- **Criptografia**: Armazenamento de senhas via Scrypt com sal (Werkzeug Security).
+- **Proteção CSRF**: Proteção em 100% dos formulários (`Flask-WTF`).
+- **Segurança de Transporte**: Cabeçalhos CSP, HSTS e X-Frame-Options configurados via `Flask-Talisman`.
+- **Sessões Seguras**: Expiração automática (30 min) e proteção contra sequestro de sessão via cookies `HttpOnly` e `SameSite`.
+- **Anti-Brute Force**: Limitação de taxa (Rate Limiting) no endpoint de login.
+- **Auditoria**: Registro persistente de ações críticas em `security.log`.
