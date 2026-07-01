@@ -47,21 +47,21 @@ def criar_app():
     # Limiter desativado em testes
     if not is_testing:
         limiter.init_app(app)
-    
-    # Talisman desativado em testes
-    if not is_testing:
         csp = {
             'default-src': ['\'self\''],
             'script-src': ['\'self\'', 'https://cdn.jsdelivr.net', '\'unsafe-inline\''],
             'style-src': ['\'self\'', 'https://cdn.jsdelivr.net', '\'unsafe-inline\''],
-            'img-src': ['\'self\'', 'data:'],
+            'img-src': ['\'self\'', 'data:', 'https:'],
             'connect-src': ['\'self\'', 'https://cdn.jsdelivr.net']
         }
-        Talisman(app, content_security_policy=csp)
+        # Desativar redirecionamento automático de HTTP para HTTPS em modo debug/desenvolvimento
+        # para que o aplicativo possa se conectar via Docker localmente em HTTP.
+        force_https = not app.config.get('DEBUG_MODE', False)
+        Talisman(app, content_security_policy=csp, force_https=force_https)
     
     app.config.update(
         SESSION_COOKIE_HTTPONLY=True,
-        SESSION_COOKIE_SECURE=not is_testing, 
+        SESSION_COOKIE_SECURE=not is_testing and not app.config.get('DEBUG_MODE', False), 
         SESSION_COOKIE_SAMESITE='Lax',
     )
     
@@ -94,12 +94,14 @@ def criar_app():
     from app.controllers.livro_controller import livro_bp
     from app.controllers.emprestimo_controller import emprestimo_bp
     from app.controllers.relatorio_controller import relatorio_bp
+    from app.controllers.api_controller import api_bp
     
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(livro_bp)
     app.register_blueprint(emprestimo_bp)
     app.register_blueprint(relatorio_bp)
+    app.register_blueprint(api_bp)
     
     # Filtro para formatar datas
     @app.template_filter('format_datetime')

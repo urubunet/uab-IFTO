@@ -1,8 +1,28 @@
-*.pyc
-__pycache__/
-.env
-.env.local
-.env.*.local
-*.db
-.pytest_cache/
+# Ignore all dotfiles at the root
+/.*
+!/.gitignore
 
+# Python compile files
+*.py[cod]
+__pycache__/
+biblioteca_digital/__pycache__/
+
+# Environments and databases
+.env
+venv/
+biblioteca_digital/venv/
+*.db
+biblioteca_digital/app/db/*.db
+
+# Caches and logs
+.pytest_cache/
+biblioteca_digital/.pytest_cache/
+flask_session/
+biblioteca_digital/flask_session/
+app/cache/
+biblioteca_digital/app/cache/
+*.log
+biblioteca_digital/*.log
+
+# Exclude mobile project
+mobile/

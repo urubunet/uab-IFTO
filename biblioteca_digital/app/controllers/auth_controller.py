@@ -6,6 +6,12 @@ from app import limiter
 
 auth_bp = Blueprint('auth', __name__)
 
+@auth_bp.route('/')
+def index():
+    if 'usuario_id' in session:
+        return redirect(url_for('livro.listar_livros'))
+    return redirect(url_for('auth.login_view'))
+
 def validar_senha(senha):
     """Garante mínimo 8 caracteres, uma letra e um número."""
     if len(senha) < 8:

@@ -1,6 +1,80 @@
 {% extends "layout.html" %}
 {% block title %}Catálogo - Biblioteca Digital{% endblock %}
 {% block content %}
+
+<style>
+    /* Estilos Premium para os Cards de Livros */
+    .livro-card .card {
+        transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.2s ease;
+        border-radius: 8px;
+    }
+    .livro-card .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+    }
+    .book-cover {
+        width: 105px;
+        min-width: 105px;
+        font-family: 'Outfit', 'Georgia', serif;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        transition: filter 0.2s ease;
+    }
+    .livro-card .card:hover .book-cover {
+        filter: brightness(1.08);
+    }
+    .book-spine-line {
+        position: absolute;
+        left: 8px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 1px 0 3px rgba(0, 0, 0, 0.1);
+    }
+    .book-text {
+        text-align: center;
+        padding: 8px;
+        font-size: 0.7rem;
+        line-height: 1.2;
+        z-index: 1;
+        text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.6);
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+    
+    /* Degradês de Cores por Categoria */
+    .cover-classico { background: linear-gradient(135deg, #3f51b5 0%, #1a237e 100%); }
+    .cover-ficcao { background: linear-gradient(135deg, #e91e63 0%, #880e4f 100%); }
+    .cover-infantil { background: linear-gradient(135deg, #4caf50 0%, #1b5e20 100%); }
+    .cover-fantasia { background: linear-gradient(135deg, #9c27b0 0%, #4a148c 100%); }
+    .cover-sci-fi { background: linear-gradient(135deg, #00bcd4 0%, #006064 100%); }
+    .cover-filosofia { background: linear-gradient(135deg, #ff9800 0%, #e65100 100%); }
+    .cover-drama { background: linear-gradient(135deg, #f44336 0%, #b71c1c 100%); }
+    .cover-realismo-magico { background: linear-gradient(135deg, #009688 0%, #004d40 100%); }
+    .cover-aventura { background: linear-gradient(135deg, #795548 0%, #3e2723 100%); }
+    .cover-romance { background: linear-gradient(135deg, #ff4081 0%, #c2185b 100%); }
+    .cover-modernismo { background: linear-gradient(135deg, #607d8b 0%, #263238 100%); }
+    .cover-poesia { background: linear-gradient(135deg, #ab47bc 0%, #4a148c 100%); }
+    .cover-teatro { background: linear-gradient(135deg, #e53935 0%, #b71c1c 100%); }
+    .cover-epico { background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%); }
+    .cover-satira { background: linear-gradient(135deg, #8d6e63 0%, #4e342e 100%); }
+    .cover-gotico { background: linear-gradient(135deg, #424242 0%, #121212 100%); }
+    .cover-realismo { background: linear-gradient(135deg, #558b2f 0%, #33691e 100%); }
+    .cover-surrealismo { background: linear-gradient(135deg, #b388ff 0%, #6200ea 100%); }
+    .cover-distopia { background: linear-gradient(135deg, #37474f 0%, #212727 100%); }
+    .cover-regionalismo { background: linear-gradient(135deg, #827717 0%, #554f02 100%); }
+    .cover-existencialismo { background: linear-gradient(135deg, #5d4037 0%, #270f0a 100%); }
+    .cover-terror { background: linear-gradient(135deg, #b71c1c 0%, #2d0000 100%); }
+    .cover-default { background: linear-gradient(135deg, #78909c 0%, #37474f 100%); }
+</style>
+
 <div class="row mb-4">
     <div class="col-md-12">
         <div class="card p-3 shadow-sm border-0 bg-light">
@@ -19,36 +93,57 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4" id="catalogoGrid">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="catalogoGrid">
     {% for livro in livros %}
+    {% set slug = livro.categoria.lower()
+        .replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u')
+        .replace('ã', 'a').replace('õ', 'o').replace('ç', 'c')
+        .replace(' ', '-') %}
     <div class="col livro-card">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">{{ livro.titulo }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ livro.autor }}</h6>
-                <p class="card-text">
-                    <span class="badge bg-secondary">{{ livro.categoria }}</span>
-                    {% if session.get('papel') in ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL'] %}
-                    <a href="{{ url_for('livro.editar_view', livro_id=livro.id) }}" class="badge bg-primary text-white text-decoration-none">Editar</a>
-                    {% endif %}
-                </p>
-                <p class="card-text">
-                    Status: 
-                    {% if livro.status == 'DISPONIVEL' %}
-                        <span class="badge bg-success">Disponível</span>
-                    {% else %}
-                        <span class="badge bg-warning text-dark">{{ livro.status }}</span>
-                    {% endif %}
-                </p>
+        <div class="card h-100 flex-row overflow-hidden shadow-sm border-0">
+            <!-- Capa do Livro (Esquerda) -->
+            {% if livro.capa_url %}
+            <div class="book-cover" style="background-image: url('{{ livro.capa_url }}'); background-size: cover; background-position: center;">
+                <div class="book-spine-line"></div>
             </div>
-            <div class="card-footer bg-transparent border-top-0">
-                {% if session.get('papel') == 'LEITOR' and livro.status == 'DISPONIVEL' %}
-                    <form action="{{ url_for('emprestimo.solicitar_emprestimo') }}" method="POST">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="livro_id" value="{{ livro.id }}">
-                        <button type="submit" class="btn btn-outline-primary btn-sm w-100">Solicitar Empréstimo</button>
-                    </form>
-                {% endif %}
+            {% else %}
+            <div class="book-cover cover-{{ slug if slug in ['classico', 'ficcao', 'infantil', 'fantasia', 'sci-fi', 'filosofia', 'drama', 'realismo-magico', 'aventura', 'romance', 'modernismo', 'poesia', 'teatro', 'epico', 'satira', 'gotico', 'realismo', 'surrealismo', 'distopia', 'regionalismo', 'existencialismo', 'terror'] else 'default' }}">
+                <div class="book-spine-line"></div>
+                <div class="book-text">
+                    <div style="font-weight: 700; margin-bottom: 6px;">{{ livro.titulo }}</div>
+                    <div style="font-size: 0.58rem; color: #cfd8dc;">{{ livro.autor }}</div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Detalhes do Livro (Direita) -->
+            <div class="d-flex flex-column justify-content-between p-3 flex-grow-1">
+                <div>
+                    <h5 class="card-title fs-6 mb-1 text-dark" style="font-weight: bold;">{{ livro.titulo }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">{{ livro.autor }}</h6>
+                    <p class="card-text mb-2">
+                        <span class="badge bg-secondary" style="font-weight: 500;">{{ livro.categoria }}</span>
+                        {% if session.get('papel') in ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL'] %}
+                        <a href="{{ url_for('livro.editar_view', livro_id=livro.id) }}" class="badge bg-primary text-white text-decoration-none ms-1">Editar</a>
+                        {% endif %}
+                    </p>
+                    <p class="card-text mb-1" style="font-size: 0.85rem;">
+                        Status: 
+                        {% if livro.status == 'DISPONIVEL' %}
+                            <span class="badge bg-success" style="font-weight: 500;">Disponível</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark" style="font-weight: 500;">{{ livro.status }}</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="pt-2">
+                    {% if session.get('papel') == 'LEITOR' and livro.status == 'DISPONIVEL' %}
+                        <form action="{{ url_for('emprestimo.solicitar_emprestimo') }}" method="POST" class="m-0">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="livro_id" value="{{ livro.id }}">
+                            <button type="submit" class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem; font-weight: 500;">Solicitar Empréstimo</button>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -56,36 +151,102 @@
 </div>
 
 <script>
+    // Variáveis globais para sincronização com o AJAX
+    const userPapel = "{{ session.get('papel', '') }}";
+    const csrfToken = "{{ csrf_token() }}";
+    const urlSolicitar = "{{ url_for('emprestimo.solicitar_emprestimo') }}";
+
+    // Função para gerar slugs seguros para as classes CSS das capas
+    function slugify(text) {
+        if (!text) return 'default';
+        return text.toString().toLowerCase()
+            .replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')
+            .replace(/ã/g, 'a').replace(/õ/g, 'o').replace(/ç/g, 'c')
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '');
+    }
+
+    const categoriasValidas = [
+        'classico', 'ficcao', 'infantil', 'fantasia', 'sci-fi', 'filosofia', 
+        'drama', 'realismo-magico', 'aventura', 'romance', 'modernismo', 
+        'poesia', 'teatro', 'epico', 'satira', 'gotico', 'realismo', 
+        'surrealismo', 'distopia', 'regionalismo', 'existencialismo', 'terror'
+    ];
+
     function filtrar() {
         const titulo = document.getElementById('buscaTitulo').value;
         const autor = document.getElementById('buscaAutor').value;
         const categoria = document.getElementById('buscaCategoria').value;
-        
-        console.log(`Filtrando: t='${titulo}', a='${autor}', c='${categoria}'`);
         
         let url = `/livro/api/catalogo?titulo=${encodeURIComponent(titulo)}&autor=${encodeURIComponent(autor)}&categoria=${encodeURIComponent(categoria)}`;
         
         fetch(url)
             .then(r => r.json())
             .then(data => {
-                console.log("Dados recebidos:", data);
                 const grid = document.getElementById('catalogoGrid');
                 grid.innerHTML = '';
                 if (data.length === 0) {
-                    grid.innerHTML = '<div class="col-12 text-center">Nenhum livro encontrado.</div>';
+                    grid.innerHTML = '<div class="col-12 text-center my-4 text-muted">Nenhum livro encontrado.</div>';
                     return;
                 }
                 data.forEach(l => {
+                    const tempSlug = slugify(l.categoria);
+                    const coverClass = categoriasValidas.includes(tempSlug) ? tempSlug : 'default';
+                    
+                    // Condicionais de Permissões no AJAX
+                    const editBadge = ['ADMIN', 'BIBLIOTECARIO', 'ADMIN_INICIAL'].includes(userPapel) 
+                        ? `<a href="/livro/editar/${l.id}" class="badge bg-primary text-white text-decoration-none ms-1">Editar</a>` 
+                        : '';
+                    
+                    const formSolicitacao = (userPapel === 'LEITOR' && l.status === 'DISPONIVEL')
+                        ? `
+                            <div class="pt-2">
+                                <form action="${urlSolicitar}" method="POST" class="m-0">
+                                    <input type="hidden" name="csrf_token" value="${csrfToken}">
+                                    <input type="hidden" name="livro_id" value="${l.id}">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm w-100" style="font-size: 0.75rem; font-weight: 500;">Solicitar Empréstimo</button>
+                                </form>
+                            </div>
+                        `
+                        : '';
+
                     grid.innerHTML += `
                         <div class="col livro-card">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">${l.titulo}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">${l.autor}</h6>
-                                    <p class="card-text">
-                                        <span class="badge bg-secondary">${l.categoria}</span>
-                                    </p>
-                                    <p class="card-text">Status: <span class="badge ${l.status === 'DISPONIVEL' ? 'bg-success' : 'bg-warning text-dark'}">${l.status}</span></p>
+                            <div class="card h-100 flex-row overflow-hidden shadow-sm border-0">
+                                <!-- Capa -->
+                                ${l.capa_url 
+                                    ? `
+                                        <div class="book-cover" style="background-image: url('${l.capa_url}'); background-size: cover; background-position: center;">
+                                            <div class="book-spine-line"></div>
+                                        </div>
+                                      `
+                                    : `
+                                        <div class="book-cover cover-${coverClass}">
+                                            <div class="book-spine-line"></div>
+                                            <div class="book-text">
+                                                <div style="font-weight: 700; margin-bottom: 6px;">${l.titulo}</div>
+                                                <div style="font-size: 0.58rem; color: #cfd8dc;">${l.autor}</div>
+                                            </div>
+                                        </div>
+                                      `
+                                }
+                                <!-- Detalhes -->
+                                <div class="d-flex flex-column justify-content-between p-3 flex-grow-1">
+                                    <div>
+                                        <h5 class="card-title fs-6 mb-1 text-dark" style="font-weight: bold;">${l.titulo}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">${l.autor}</h6>
+                                        <p class="card-text mb-2">
+                                            <span class="badge bg-secondary" style="font-weight: 500;">${l.categoria}</span>
+                                            ${editBadge}
+                                        </p>
+                                        <p class="card-text mb-1" style="font-size: 0.85rem;">
+                                            Status: 
+                                            <span class="badge ${l.status === 'DISPONIVEL' ? 'bg-success' : 'bg-warning text-dark'}" style="font-weight: 500;">
+                                                ${l.status === 'DISPONIVEL' ? 'Disponível' : l.status}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    ${formSolicitacao}
                                 </div>
                             </div>
                         </div>

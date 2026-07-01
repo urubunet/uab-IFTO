@@ -49,3 +49,31 @@ def test_cadastrar_livro_permissao(client, app):
         'categoria': 'Cat 2'
     }, follow_redirects=True)
     assert 'cadastrado com sucesso' in response.get_data(as_text=True).lower()
+
+def test_livro_capa(client, app):
+    with client.session_transaction() as sess:
+        sess['user_id'] = 1
+        sess['papel'] = 'ADMIN'
+        
+    # Testar cadastrar livro com capa e isbn
+    client.post('/livro/cadastrar', data={
+        'titulo': 'Livro com Capa',
+        'autor': 'Autor Capa',
+        'categoria': 'Cat Capa',
+        'capa_url': 'https://exemplo.com/capa.jpg',
+        'isbn': '1234567890123'
+    }, follow_redirects=True)
+    
+    with app.app_context():
+        livros = LivroModel.buscar_todos({'titulo': 'Livro com Capa'})
+        assert len(livros) == 1
+        livro = livros[0]
+        assert livro.capa_url == 'https://exemplo.com/capa.jpg'
+        assert livro.isbn == '1234567890123'
+        
+        # Testar editar livro com capa e isbn
+        livro.atualizar_detalhes('Livro com Capa Editado', 'Autor Capa', 'Cat Capa', 'https://exemplo.com/nova-capa.jpg', '9876543210987')
+        livro_editado = LivroModel.buscar_por_id(livro.id)
+        assert livro_editado.titulo == 'Livro com Capa Editado'
+        assert livro_editado.capa_url == 'https://exemplo.com/nova-capa.jpg'
+        assert livro_editado.isbn == '9876543210987'

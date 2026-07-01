@@ -19,6 +19,16 @@
                     <label class="form-label">Categoria</label>
                     <input type="text" name="categoria" class="form-control" required placeholder="Ex: Ficção, Ciência, História">
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">ISBN (Opcional)</label>
+                    <input type="text" name="isbn" class="form-control" placeholder="Ex: 9788508045334">
+                    <div class="form-text text-muted">Se informado, a capa correspondente será associada automaticamente.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">URL da Capa (Opcional)</label>
+                    <input type="url" name="capa_url" class="form-control" placeholder="Ex: https://link-da-imagem.com/capa.jpg">
+                    <div class="form-text text-muted">Deixe em branco para buscar automaticamente nas APIs públicas.</div>
+                </div>
                 <button type="submit" class="btn btn-primary w-100">Cadastrar no Acervo</button>
             </form>
         </div>

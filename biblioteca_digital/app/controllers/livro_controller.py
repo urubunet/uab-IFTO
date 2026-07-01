@@ -16,7 +16,7 @@ def listar_livros():
 def api_listar_livros():
     filtros = {k: v for k, v in request.args.to_dict().items() if v}
     livros = LivroModel.buscar_todos(filtros)
-    return jsonify([{'id': l.id, 'titulo': l.titulo, 'autor': l.autor, 'categoria': l.categoria, 'status': l.status} for l in livros])
+    return jsonify([{'id': l.id, 'titulo': l.titulo, 'autor': l.autor, 'categoria': l.categoria, 'status': l.status, 'capa_url': l.capa_url, 'isbn': l.isbn} for l in livros])
 
 @livro_bp.route('/admin/dashboard', methods=['GET'])
 def admin_dashboard():
@@ -56,7 +56,13 @@ def cadastrar_livro():
         return redirect(url_for('livro.listar_livros'))
     
     data = request.form if not request.is_json else request.get_json()
-    novo_livro = LivroModel(titulo=data.get('titulo'), autor=data.get('autor'), categoria=data.get('categoria'))
+    novo_livro = LivroModel(
+        titulo=data.get('titulo'),
+        autor=data.get('autor'),
+        categoria=data.get('categoria'),
+        capa_url=data.get('capa_url'),
+        isbn=data.get('isbn')
+    )
     novo_livro.salvar()
     
     cache.clear() # Limpar cache ao adicionar novo livro
@@ -86,7 +92,13 @@ def editar_livro(livro_id):
         return redirect(url_for('livro.admin_dashboard'))
         
     data = request.form if not request.is_json else request.get_json()
-    livro.atualizar_detalhes(data.get('titulo'), data.get('autor'), data.get('categoria'))
+    livro.atualizar_detalhes(
+        data.get('titulo'),
+        data.get('autor'),
+        data.get('categoria'),
+        capa_url=data.get('capa_url'),
+        isbn=data.get('isbn')
+    )
     
     cache.clear()
     flash('Livro atualizado com sucesso!', 'success')
