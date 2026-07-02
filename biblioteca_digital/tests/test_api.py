@@ -110,6 +110,8 @@ def test_api_solicitar_emprestimo(client, app):
     assert len(meus_dados) == 1
     assert meus_dados[0]['titulo'] == "Livro Solicitacao"
     assert meus_dados[0]['status'] == "SOLICITADO"
+    assert 'data_devolucao_prevista' in meus_dados[0]
+    assert 'renovacoes' in meus_dados[0]
 
 def test_api_listar_usuarios(client, app):
     # Cadastrar um bibliotecário e um leitor

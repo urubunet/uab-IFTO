@@ -103,7 +103,7 @@ def meus_emprestimos():
     try:
         cursor = conn.cursor()
         cursor.execute('''
-            SELECT E.id, L.titulo, E.status, E.data_solicitacao, E.data_devolucao
+            SELECT E.id, L.titulo, E.status, E.data_solicitacao, E.data_devolucao_prevista, E.data_devolucao, E.renovacoes
             FROM Emprestimos E
             JOIN Livros L ON E.livro_id = L.id
             WHERE E.usuario_id = ?
@@ -220,7 +220,7 @@ def gerenciar_emprestimos():
         cursor = conn.cursor()
         
         cursor.execute('''
-            SELECT E.id, L.titulo, U.nome as usuario, E.data_solicitacao 
+            SELECT E.id, L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao_prevista, E.renovacoes 
             FROM Emprestimos E
             JOIN Livros L ON E.livro_id = L.id
             JOIN Usuarios U ON E.usuario_id = U.id
@@ -229,7 +229,7 @@ def gerenciar_emprestimos():
         solicitacoes = [dict(row) for row in cursor.fetchall()]
         
         cursor.execute('''
-            SELECT E.id, L.titulo, U.nome as usuario, E.data_solicitacao 
+            SELECT E.id, L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao_prevista, E.renovacoes 
             FROM Emprestimos E
             JOIN Livros L ON E.livro_id = L.id
             JOIN Usuarios U ON E.usuario_id = U.id
@@ -240,8 +240,10 @@ def gerenciar_emprestimos():
         from app.controllers.emprestimo_controller import format_date_for_api
         for s in solicitacoes:
             s['data_solicitacao'] = format_date_for_api(s['data_solicitacao'])
+            s['data_devolucao_prevista'] = format_date_for_api(s['data_devolucao_prevista'])
         for a in ativos:
             a['data_solicitacao'] = format_date_for_api(a['data_solicitacao'])
+            a['data_devolucao_prevista'] = format_date_for_api(a['data_devolucao_prevista'])
             
         return jsonify({
             'solicitacoes': solicitacoes,
@@ -263,7 +265,7 @@ def listar_devolucoes():
         cursor = conn.cursor()
 
         query = '''
-            SELECT L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao, E.status
+            SELECT L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao_prevista, E.data_devolucao, E.status, E.renovacoes
             FROM Emprestimos E
             JOIN Livros L ON E.livro_id = L.id
             JOIN Usuarios U ON E.usuario_id = U.id
@@ -286,6 +288,7 @@ def listar_devolucoes():
         from app.controllers.emprestimo_controller import format_date_for_api
         for dev in devolucoes:
             dev['data_solicitacao'] = format_date_for_api(dev['data_solicitacao'])
+            dev['data_devolucao_prevista'] = format_date_for_api(dev['data_devolucao_prevista'])
             dev['data_devolucao'] = format_date_for_api(dev['data_devolucao'])
 
         return jsonify(devolucoes)

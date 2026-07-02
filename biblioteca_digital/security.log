@@ -1274,3 +1274,183 @@
 2026-07-02 08:55:58,248 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-07-02 08:55:58,248 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
 2026-07-02 08:55:58,248 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:01:41,535 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:01:41,535 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:01:41,535 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:01:41,535 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:01:58,136 INFO security MainThread : SOLICITACAO: Usuario 3 solicitou livro 31 por 14 dias
+2026-07-02 09:01:58,136 INFO security MainThread : SOLICITACAO: Usuario 3 solicitou livro 31 por 14 dias
+2026-07-02 09:01:58,136 INFO security MainThread : SOLICITACAO: Usuario 3 solicitou livro 31 por 14 dias
+2026-07-02 09:01:58,136 INFO security MainThread : SOLICITACAO: Usuario 3 solicitou livro 31 por 14 dias
+2026-07-02 09:01:58,136 INFO security MainThread : SOLICITACAO: Usuario 3 solicitou livro 31 por 14 dias
+2026-07-02 09:01:58,136 INFO security MainThread : SOLICITACAO: Usuario 3 solicitou livro 31 por 14 dias
+2026-07-02 09:01:58,136 INFO security MainThread : SOLICITACAO: Usuario 3 solicitou livro 31 por 14 dias
+2026-07-02 09:02:00,242 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:00,242 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:00,242 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:00,242 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:00,242 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:00,242 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:00,242 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:02,268 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 2
+2026-07-02 09:02:02,268 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 2
+2026-07-02 09:02:02,268 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 2
+2026-07-02 09:02:02,268 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 2
+2026-07-02 09:02:02,268 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 2
+2026-07-02 09:02:02,268 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 2
+2026-07-02 09:02:02,268 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 2
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:15,737 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:17,767 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:19,793 INFO security MainThread : DEVOLUCAO: Livro 31 devolvido (Emprestimo 1) processado por 1
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:33,372 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 10 dias
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:35,407 INFO security MainThread : APROVACAO: Emprestimo 1 aprovado por 2
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:37,424 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-19 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:39,445 INFO security MainThread : RENOVACAO: Emprestimo 1 renovado por 2. Nova data prevista: 2026-07-26 09:02:33.364645
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:49,172 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 32 por 14 dias
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:51,186 INFO security MainThread : APROVACAO: Emprestimo 2 aprovado por 2
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:53,198 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-23 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:02:55,211 INFO security MainThread : RENOVACAO: Emprestimo 2 renovado por 2. Nova data prevista: 2026-07-30 09:02:49.163184
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,472 INFO security MainThread : SOLICITACAO: Usuario 2 solicitou livro 31 por 14 dias
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
+2026-07-02 09:03:07,477 INFO security MainThread : EXCLUSAO: Solicitação 1 excluída por 1
