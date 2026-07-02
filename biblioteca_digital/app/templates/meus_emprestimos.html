@@ -3,37 +3,62 @@
 {% block content %}
 <h2 class="mb-4">Meu Histórico de Empréstimos</h2>
 <div class="card p-4 shadow-sm">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Livro</th>
-                <th>Status</th>
-                <th>Data Pedido</th>
-                <th>Data Devolução</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for emp in emprestimos %}
-            <tr>
-                <td>{{ emp.titulo }}</td>
-                <td>
-                    {% if emp.status == 'ATIVO' %}
-                        <span class="badge bg-success">Ativo</span>
-                    {% elif emp.status == 'SOLICITADO' %}
-                        <span class="badge bg-primary text-white">Solicitado</span>
-                    {% elif emp.status == 'DEVOLVIDO' %}
-                        <span class="badge bg-danger text-white">Devolvido</span>
-                    {% else %}
-                        <span class="badge bg-info">{{ emp.status }}</span>
-                    {% endif %}
-                </td>
-                <td>{{ emp.data_solicitacao | format_datetime }}</td>
-                <td>{{ emp.data_devolucao | format_datetime }}</td>
-            </tr>
-            {% else %}
-            <tr><td colspan="4" class="text-center text-muted">Nenhum empréstimo registrado.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Livro</th>
+                    <th>Status</th>
+                    <th>Data Pedido</th>
+                    <th>Devolução Prevista</th>
+                    <th>Devolução Efetiva</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in emprestimos %}
+                <tr>
+                    <td><strong>{{ emp.titulo }}</strong></td>
+                    <td>
+                        {% if emp.status == 'ATIVO' %}
+                            <span class="badge bg-success">Ativo</span>
+                        {% elif emp.status == 'SOLICITADO' %}
+                            <span class="badge bg-primary text-white">Solicitado</span>
+                        {% elif emp.status == 'DEVOLVIDO' %}
+                            <span class="badge bg-danger text-white">Devolvido</span>
+                        {% else %}
+                            <span class="badge bg-info">{{ emp.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ emp.data_solicitacao | format_datetime }}</td>
+                    <td>{{ emp.data_devolucao_prevista | format_datetime }}</td>
+                    <td>{{ emp.data_devolucao | format_datetime }}</td>
+                    <td>
+                        {% if emp.status == 'ATIVO' and (emp.renovacoes | default(0) | int) < 2 %}
+                            <form action="{{ url_for('emprestimo.renovar_emprestimo') }}" method="POST" class="d-inline" onsubmit="return confirmarRenovacao(this, '{{ emp.titulo }}', '{{ emp.data_devolucao_prevista | format_datetime }}')">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">
+                                <button type="submit" class="btn btn-primary btn-sm">Renovar (+7 dias)</button>
+                            </form>
+                        {% elif emp.status == 'ATIVO' %}
+                            <span class="text-muted" style="font-size: 0.85rem;">Limite de renovações atingido</span>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6" class="text-center text-muted">Nenhum empréstimo registrado.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<script>
+function confirmarRenovacao(form, tituloLivro, dataPrevista) {
+    const mensagem = `AVISO PRÉVIO OBRIGATÓRIO\n\nVocê está solicitando a renovação do livro "${tituloLivro}".\n\nEsta ação acrescentará +7 DIAS ao prazo vigente.\nPrazo de devolução atual: ${dataPrevista}.\n\nAo confirmar, você se compromete com o novo prazo estabelecido.\nDeseja prosseguir com o acréscimo de 7 dias?`;
+    return confirm(mensagem);
+}
+</script>
 {% endblock %}

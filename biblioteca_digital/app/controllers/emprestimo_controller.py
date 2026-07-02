@@ -35,7 +35,7 @@ def gerenciar_view():
     solicitacoes = [dict(row) for row in cursor.fetchall()]
     
     cursor.execute('''
-        SELECT E.id, L.titulo, U.nome as usuario 
+        SELECT E.id, L.titulo, U.nome as usuario, E.data_solicitacao, E.data_devolucao_prevista, E.renovacoes
         FROM Emprestimos E
         JOIN Livros L ON E.livro_id = L.id
         JOIN Usuarios U ON E.usuario_id = U.id
@@ -141,7 +141,7 @@ def solicitar_emprestimo():
         flash('Sua sessão expirou. Por favor, faça login novamente.', 'danger')
         return redirect(url_for('auth.login_view'))
     
-    sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id)
+    sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id, int(data.get('dias_emprestimo', 14)))
     flash(mensagem, 'success' if sucesso else 'warning')
     
     if sucesso:
@@ -149,6 +149,29 @@ def solicitar_emprestimo():
         cache.clear()
         
     return redirect(url_for('livro.listar_livros'))
+
+@emprestimo_bp.route('/emprestimo/renovar', methods=['POST'])
+def renovar_emprestimo():
+    if not LibraryService.verificar_permissao(['LEITOR']):
+        flash('Acesso negado', 'danger')
+        return redirect(url_for('livro.listar_livros'))
+        
+    data = request.form if not request.is_json else request.get_json()
+    emprestimo_id = data.get('emprestimo_id')
+    usuario_id = session.get('usuario_id')
+    
+    if not usuario_id:
+        flash('Sua sessão expirou. Por favor, faça login novamente.', 'danger')
+        return redirect(url_for('auth.login_view'))
+        
+    sucesso, mensagem = LibraryService.renovar_emprestimo(emprestimo_id, usuario_id)
+    flash(mensagem, 'success' if sucesso else 'warning')
+    
+    if sucesso:
+        log_evento_emprestimo(emprestimo_id, "RENOVACAO")
+        cache.clear()
+        
+    return redirect(url_for('emprestimo.meus_emprestimos'))
 
 @emprestimo_bp.route('/emprestimo/aprovar', methods=['POST'])
 def aprovar_emprestimo():
@@ -211,7 +234,7 @@ def meus_emprestimos():
     cursor = conn.cursor()
     
     cursor.execute('''
-        SELECT L.titulo, E.status, E.data_solicitacao, E.data_devolucao
+        SELECT E.id, L.titulo, E.status, E.data_solicitacao, E.data_devolucao_prevista, E.data_devolucao, E.renovacoes
         FROM Emprestimos E
         JOIN Livros L ON E.livro_id = L.id
         WHERE E.usuario_id = ?

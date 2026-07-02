@@ -52,6 +52,9 @@
                 <tr>
                     <th>Livro</th>
                     <th>Leitor</th>
+                    <th>Data Empréstimo</th>
+                    <th>Devolução Prevista</th>
+                    <th>Renovações</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -60,8 +63,11 @@
                 <tr>
                     <td><strong>{{ emp.titulo }}</strong></td>
                     <td>{{ emp.usuario }}</td>
+                    <td>{{ emp.data_solicitacao | format_datetime }}</td>
+                    <td>{{ emp.data_devolucao_prevista | format_datetime }}</td>
+                    <td><span class="badge bg-secondary">{{ emp.renovacoes }} / 2</span></td>
                     <td>
-                        <form action="{{ url_for('emprestimo.devolver_emprestimo') }}" method="POST">
+                        <form action="{{ url_for('emprestimo.devolver_emprestimo') }}" method="POST" class="m-0">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">
                             <button type="submit" class="btn btn-primary btn-sm">Confirmar Devolução</button>
@@ -69,7 +75,7 @@
                     </td>
                 </tr>
                 {% else %}
-                <tr><td colspan="3" class="text-center text-muted">Nenhum empréstimo ativo no momento.</td></tr>
+                <tr><td colspan="6" class="text-center text-muted">Nenhum empréstimo ativo no momento.</td></tr>
                 {% endfor %}
             </tbody>
         </table>

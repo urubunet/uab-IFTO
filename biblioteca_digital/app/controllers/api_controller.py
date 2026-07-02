@@ -122,16 +122,40 @@ def solicitar_emprestimo():
         
     data = request.get_json() or {}
     livro_id = data.get('livro_id')
+    dias_emprestimo = int(data.get('dias_emprestimo', 14))
     usuario_id = session.get('usuario_id')
     
     if not livro_id:
         return jsonify({'error': 'O ID do livro é obrigatório.'}), 400
         
-    sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id)
+    sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id, dias_emprestimo)
     if sucesso:
         from app.jobs import log_evento_emprestimo
         from app import cache
         log_evento_emprestimo(livro_id, "SOLICITACAO")
+        cache.clear()
+        return jsonify({'message': mensagem}), 200
+    else:
+        return jsonify({'error': mensagem}), 400
+
+@api_bp.route('/emprestimos/renovar', methods=['POST'])
+def renovar_emprestimo():
+    """Permite ao usuário autenticado renovar o prazo de devolução de um empréstimo ativo."""
+    if 'usuario_id' not in session:
+        return jsonify({'error': 'Usuário não autenticado.'}), 401
+        
+    data = request.get_json() or {}
+    emprestimo_id = data.get('emprestimo_id')
+    usuario_id = session.get('usuario_id')
+    
+    if not emprestimo_id:
+        return jsonify({'error': 'O ID do empréstimo é obrigatório.'}), 400
+        
+    sucesso, mensagem = LibraryService.renovar_emprestimo(emprestimo_id, usuario_id)
+    if sucesso:
+        from app.jobs import log_evento_emprestimo
+        from app import cache
+        log_evento_emprestimo(emprestimo_id, "RENOVACAO")
         cache.clear()
         return jsonify({'message': mensagem}), 200
     else:

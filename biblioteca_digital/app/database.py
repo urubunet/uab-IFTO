@@ -55,8 +55,10 @@ def inicializar_db():
             livro_id INTEGER NOT NULL,
             usuario_id INTEGER NOT NULL,
             data_solicitacao DATETIME,
+            data_devolucao_prevista DATETIME,
             data_devolucao DATETIME,
             status TEXT NOT NULL,
+            renovacoes INTEGER DEFAULT 0,
             FOREIGN KEY (livro_id) REFERENCES Livros (id),
             FOREIGN KEY (usuario_id) REFERENCES Usuarios (id)
         )
@@ -129,6 +131,27 @@ def inicializar_db():
         except sqlite3.OperationalError:
             # A coluna já existe, ignorar
             pass
+        # Garantir que a coluna data_devolucao_prevista exista em Emprestimos
+        try:
+            cursor.execute('ALTER TABLE Emprestimos ADD COLUMN data_devolucao_prevista DATETIME')
+        except sqlite3.OperationalError:
+            pass
+
+        # Garantir que a coluna renovacoes exista em Emprestimos
+        try:
+            cursor.execute('ALTER TABLE Emprestimos ADD COLUMN renovacoes INTEGER DEFAULT 0')
+        except sqlite3.OperationalError:
+            pass
+
+        # Preencher data_devolucao_prevista para registros legados (default de 14 dias)
+        try:
+            cursor.execute('''
+                UPDATE Emprestimos 
+                SET data_devolucao_prevista = datetime(data_solicitacao, "+14 days") 
+                WHERE data_devolucao_prevista IS NULL AND data_solicitacao IS NOT NULL
+            ''')
+        except Exception as e:
+            print(f"Erro ao preencher data_devolucao_prevista antiga: {e}")
 
         try:
             cursor.execute('CREATE INDEX IF NOT EXISTS idx_livros_isbn ON Livros(isbn)')
