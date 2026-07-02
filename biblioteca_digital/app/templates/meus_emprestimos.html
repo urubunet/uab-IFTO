@@ -34,7 +34,7 @@
                     <td>{{ emp.data_devolucao_prevista | format_datetime }}</td>
                     <td>{{ emp.data_devolucao | format_datetime }}</td>
                     <td>
-                        {% if emp.status == 'ATIVO' and (emp.renovacoes | default(0) | int) < 2 %}
+                        {% if emp.status == 'ATIVO' and (emp.renovacoes | default(0) | int) < 3 %}
                             <form action="{{ url_for('emprestimo.renovar_emprestimo') }}" method="POST" class="d-inline" onsubmit="return confirmarRenovacao(this, '{{ emp.titulo }}', '{{ emp.data_devolucao_prevista | format_datetime }}')">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="emprestimo_id" value="{{ emp.id }}">

@@ -122,7 +122,7 @@ def solicitar_emprestimo():
         
     data = request.get_json() or {}
     livro_id = data.get('livro_id')
-    dias_emprestimo = int(data.get('dias_emprestimo', 14))
+    dias_emprestimo = int(data.get('dias_emprestimo', 7))
     usuario_id = session.get('usuario_id')
     
     if not livro_id:

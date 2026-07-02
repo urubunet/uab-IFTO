@@ -141,7 +141,7 @@ def solicitar_emprestimo():
         flash('Sua sessão expirou. Por favor, faça login novamente.', 'danger')
         return redirect(url_for('auth.login_view'))
     
-    sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id, int(data.get('dias_emprestimo', 14)))
+    sucesso, mensagem = LibraryService.solicitar_emprestimo(livro_id, usuario_id, int(data.get('dias_emprestimo', 7)))
     flash(mensagem, 'success' if sucesso else 'warning')
     
     if sucesso:

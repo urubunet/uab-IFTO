@@ -8,9 +8,9 @@ security_logger = logging.getLogger('security')
 
 class LibraryService:
     @staticmethod
-    def solicitar_emprestimo(livro_id, usuario_id, dias_emprestimo=14):
-        if dias_emprestimo < 7 or dias_emprestimo > 14:
-            return False, "O prazo inicial de empréstimo deve ser entre 7 e 14 dias."
+    def solicitar_emprestimo(livro_id, usuario_id, dias_emprestimo=7):
+        if dias_emprestimo != 7:
+            return False, "O prazo inicial de empréstimo deve ser de 7 dias."
 
         conn = conectar_db()
         try:
@@ -109,8 +109,8 @@ class LibraryService:
                 return False, "Apenas empréstimos ativos podem ser renovados."
                 
             renovacoes = row['renovacoes'] or 0
-            if renovacoes >= 2:
-                return False, "Limite de renovações (2 vezes) atingido."
+            if renovacoes >= 3:
+                return False, "Limite de renovações (3 vezes) atingido."
                 
             from datetime import datetime, timedelta
             data_sol_str = row['data_solicitacao']

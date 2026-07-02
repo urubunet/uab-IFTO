@@ -65,7 +65,7 @@
                     <td>{{ emp.usuario }}</td>
                     <td>{{ emp.data_solicitacao | format_datetime }}</td>
                     <td>{{ emp.data_devolucao_prevista | format_datetime }}</td>
-                    <td><span class="badge bg-secondary">{{ emp.renovacoes }} / 2</span></td>
+                    <td><span class="badge bg-secondary">{{ emp.renovacoes }} / 3</span></td>
                     <td>
                         <form action="{{ url_for('emprestimo.devolver_emprestimo') }}" method="POST" class="m-0">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
