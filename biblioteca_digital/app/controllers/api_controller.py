@@ -1,4 +1,7 @@
-from flask import Blueprint, request, session, jsonify
+from flask import Blueprint, request, session, jsonify, current_app
+import jwt
+from functools import wraps
+from datetime import datetime, timedelta, timezone
 from app.models.livro_model import LivroModel
 from app.models.usuario_model import UsuarioModel
 from app.services.library_service import LibraryService
@@ -10,6 +13,66 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 # Isentar todo o blueprint da API da verificação de CSRF (necessário para chamadas de app externo)
 csrf.exempt(api_bp)
+
+def obter_usuario_autenticado():
+    """Recupera o usuário autenticado a partir do token JWT no cabeçalho Authorization ou, em fallback, da Session."""
+    # 1. Tentar obter pelo token JWT (Cabeçalho: Authorization: Bearer <token>)
+    token = None
+    if 'Authorization' in request.headers:
+        auth_header = request.headers['Authorization']
+        if auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+            
+    if token:
+        try:
+            payload = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
+            return {
+                'id': payload.get('usuario_id'),
+                'nome': payload.get('nome'),
+                'papel': payload.get('papel')
+            }
+        except jwt.ExpiredSignatureError:
+            return {'error': 'Token expirado.', 'status_code': 401}
+        except jwt.InvalidTokenError:
+            return {'error': 'Token inválido.', 'status_code': 401}
+            
+    # 2. Fallback: verificar session (para compatibilidade com testes e web antigos)
+    if 'usuario_id' in session:
+        return {
+            'id': session.get('usuario_id'),
+            'nome': session.get('nome'),
+            'papel': session.get('papel')
+        }
+        
+    return None
+
+def login_requerido(papéis_permitidos=None):
+    """Decorator para exigir autenticação por JWT ou Session, com validação opcional de papéis (roles)."""
+    def decorator(f):
+        @wraps(f)
+        def decorated(*args, **kwargs):
+            user_info = obter_usuario_autenticado()
+            
+            # Caso geral de não autenticado
+            if not user_info:
+                if papéis_permitidos:
+                    # Para manter compatibilidade com testes que esperam 403 em endpoints restritos
+                    return jsonify({'error': 'Acesso negado. Nível de permissão insuficiente.'}), 403
+                return jsonify({'logged_in': False, 'error': 'Usuário não autenticado.'}), 401
+                
+            if isinstance(user_info, dict) and 'error' in user_info:
+                if papéis_permitidos:
+                    return jsonify({'error': 'Acesso negado. Nível de permissão insuficiente.'}), 403
+                return jsonify({'logged_in': False, 'error': user_info['error']}), user_info['status_code']
+                
+            if papéis_permitidos and user_info.get('papel') not in papéis_permitidos:
+                return jsonify({'error': 'Acesso negado. Nível de permissão insuficiente.'}), 403
+                
+            request.user = user_info
+            return f(*args, **kwargs)
+        return decorated
+    return decorator
+
 
 @api_bp.route('/livros', methods=['GET'])
 def listar_livros():
@@ -59,8 +122,18 @@ def login():
         session.permanent = True
         session.modified = True
         
+        # Gerar o token JWT para o aplicativo móvel
+        payload = {
+            'usuario_id': usuario.id,
+            'nome': usuario.nome,
+            'papel': usuario.papel,
+            'exp': datetime.now(timezone.utc) + timedelta(days=1)  # Token expira em 1 dia
+        }
+        token = jwt.encode(payload, current_app.config['SECRET_KEY'], algorithm='HS256')
+        
         return jsonify({
             'message': 'Autenticação realizada com sucesso!',
+            'token': token,
             'usuario': {
                 'id': usuario.id,
                 'nome': usuario.nome,
@@ -72,17 +145,15 @@ def login():
     return jsonify({'error': 'Credenciais inválidas.'}), 401
 
 @api_bp.route('/auth/status', methods=['GET'])
+@login_requerido()
 def status():
     """Retorna os dados do usuário autenticado na sessão atual."""
-    if 'usuario_id' not in session:
-        return jsonify({'logged_in': False, 'error': 'Usuário não autenticado.'}), 401
-        
     return jsonify({
         'logged_in': True,
         'usuario': {
-            'id': session.get('usuario_id'),
-            'nome': session.get('nome'),
-            'papel': session.get('papel')
+            'id': request.user.get('id'),
+            'nome': request.user.get('nome'),
+            'papel': request.user.get('papel')
         }
     }), 200
 
@@ -93,12 +164,10 @@ def logout():
     return jsonify({'message': 'Logout realizado com sucesso!'}), 200
 
 @api_bp.route('/emprestimos/meus', methods=['GET'])
+@login_requerido()
 def meus_emprestimos():
     """Retorna os empréstimos do usuário autenticado."""
-    if 'usuario_id' not in session:
-        return jsonify({'error': 'Usuário não autenticado.'}), 401
-        
-    usuario_id = session.get('usuario_id')
+    usuario_id = request.user.get('id')
     conn = conectar_db()
     try:
         cursor = conn.cursor()
@@ -115,15 +184,13 @@ def meus_emprestimos():
         conn.close()
 
 @api_bp.route('/emprestimos/solicitar', methods=['POST'])
+@login_requerido()
 def solicitar_emprestimo():
     """Permite ao usuário autenticado solicitar o empréstimo de um livro."""
-    if 'usuario_id' not in session:
-        return jsonify({'error': 'Usuário não autenticado.'}), 401
-        
     data = request.get_json() or {}
     livro_id = data.get('livro_id')
     dias_emprestimo = int(data.get('dias_emprestimo', 7))
-    usuario_id = session.get('usuario_id')
+    usuario_id = request.user.get('id')
     
     if not livro_id:
         return jsonify({'error': 'O ID do livro é obrigatório.'}), 400
@@ -139,14 +206,12 @@ def solicitar_emprestimo():
         return jsonify({'error': mensagem}), 400
 
 @api_bp.route('/emprestimos/renovar', methods=['POST'])
+@login_requerido()
 def renovar_emprestimo():
     """Permite ao usuário autenticado renovar o prazo de devolução de um empréstimo ativo."""
-    if 'usuario_id' not in session:
-        return jsonify({'error': 'Usuário não autenticado.'}), 401
-        
     data = request.get_json() or {}
     emprestimo_id = data.get('emprestimo_id')
-    usuario_id = session.get('usuario_id')
+    usuario_id = request.user.get('id')
     
     if not emprestimo_id:
         return jsonify({'error': 'O ID do empréstimo é obrigatório.'}), 400
@@ -162,11 +227,9 @@ def renovar_emprestimo():
         return jsonify({'error': mensagem}), 400
 
 @api_bp.route('/usuarios', methods=['GET'])
+@login_requerido(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL'])
 def listar_usuarios():
     """Retorna a lista de usuários cadastrados (apenas para bibliotecários ou administradores)."""
-    if 'usuario_id' not in session or session.get('papel') not in ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']:
-        return jsonify({'error': 'Acesso negado. Apenas administradores ou bibliotecários podem listar os usuários.'}), 403
-    
     conn = conectar_db()
     try:
         cursor = conn.cursor()
@@ -211,10 +274,8 @@ def cadastro():
     }), 201
 
 @api_bp.route('/emprestimos/gerenciar', methods=['GET'])
+@login_requerido(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL'])
 def gerenciar_emprestimos():
-    if 'usuario_id' not in session or session.get('papel') not in ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']:
-        return jsonify({'error': 'Acesso negado. Apenas administradores ou bibliotecários podem gerenciar os empréstimos.'}), 403
-        
     conn = conectar_db()
     try:
         cursor = conn.cursor()
@@ -253,10 +314,8 @@ def gerenciar_emprestimos():
         conn.close()
 
 @api_bp.route('/emprestimos/devolucoes', methods=['GET'])
+@login_requerido(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL'])
 def listar_devolucoes():
-    if 'usuario_id' not in session or session.get('papel') not in ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']:
-        return jsonify({'error': 'Acesso negado. Apenas administradores ou bibliotecários podem visualizar o histórico.'}), 403
-
     busca = request.args.get('busca', '')
     data = request.args.get('data', '')
 
@@ -296,10 +355,8 @@ def listar_devolucoes():
         conn.close()
 
 @api_bp.route('/emprestimos/aprovar', methods=['POST'])
+@login_requerido(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL'])
 def aprovar_emprestimo():
-    if 'usuario_id' not in session or session.get('papel') not in ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']:
-        return jsonify({'error': 'Acesso negado.'}), 403
-        
     data = request.get_json() or {}
     emprestimo_id = data.get('emprestimo_id')
     if not emprestimo_id:
@@ -316,10 +373,8 @@ def aprovar_emprestimo():
         return jsonify({'error': mensagem}), 400
 
 @api_bp.route('/emprestimos/devolver', methods=['POST'])
+@login_requerido(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL'])
 def devolver_emprestimo():
-    if 'usuario_id' not in session or session.get('papel') not in ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']:
-        return jsonify({'error': 'Acesso negado.'}), 403
-        
     data = request.get_json() or {}
     emprestimo_id = data.get('emprestimo_id')
     if not emprestimo_id:
@@ -336,10 +391,8 @@ def devolver_emprestimo():
         return jsonify({'error': mensagem}), 400
 
 @api_bp.route('/emprestimos/excluir', methods=['POST'])
+@login_requerido(['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL'])
 def excluir_solicitacao():
-    if 'usuario_id' not in session or session.get('papel') not in ['BIBLIOTECARIO', 'ADMIN', 'ADMIN_INICIAL']:
-        return jsonify({'error': 'Acesso negado.'}), 403
-        
     data = request.get_json() or {}
     emprestimo_id = data.get('emprestimo_id')
     if not emprestimo_id:

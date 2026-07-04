@@ -217,3 +217,40 @@ def test_api_gestao_emprestimos(client, app):
     data_devolucoes = res_devolucoes.get_json()
     assert len(data_devolucoes) >= 1
     assert any(d['titulo'] == "Livro Gestao API" and d['status'] == "DEVOLVIDO" for d in data_devolucoes)
+
+def test_api_jwt_authentication(client, app):
+    email = "jwt_user@teste.com"
+    senha = "jwt_password123"
+    
+    with app.app_context():
+        senha_hash = generate_password_hash(senha)
+        UsuarioModel(nome="User JWT", email=email, senha_hash=senha_hash, papel="LEITOR").salvar()
+        
+    # 1. Login e obtenção do token
+    res_login = client.post('/api/auth/login', json={'email': email, 'senha': senha})
+    assert res_login.status_code == 200
+    login_data = res_login.get_json()
+    assert 'token' in login_data
+    token = login_data['token']
+    
+    # Limpar cookies do client para garantir que não usaremos a Session
+    client.delete_cookie('session')
+    
+    # 2. Tentar acessar sem token (deve falhar pois limpamos a session)
+    res_status_anon = client.get('/api/auth/status')
+    assert res_status_anon.status_code == 401
+    
+    # 3. Acessar com token válido no cabeçalho Authorization
+    headers = {'Authorization': f'Bearer {token}'}
+    res_status_auth = client.get('/api/auth/status', headers=headers)
+    assert res_status_auth.status_code == 200
+    status_data = res_status_auth.get_json()
+    assert status_data['logged_in'] is True
+    assert status_data['usuario']['nome'] == "User JWT"
+    
+    # 4. Acessar com token inválido
+    headers_invalid = {'Authorization': 'Bearer token_invalido_qualquer'}
+    res_status_invalid = client.get('/api/auth/status', headers=headers_invalid)
+    assert res_status_invalid.status_code == 401
+    assert 'Token inválido' in res_status_invalid.get_json()['error']
+
